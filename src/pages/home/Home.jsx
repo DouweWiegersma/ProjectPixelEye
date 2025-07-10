@@ -5,6 +5,11 @@ import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 import { AiFillFire } from "react-icons/ai";
+import { VscAccount } from "react-icons/vsc";
+import { MdFormatListBulletedAdd } from "react-icons/md";
+import { HiViewfinderCircle } from "react-icons/hi2";
+
+
 
 function Home() {
 
@@ -12,6 +17,7 @@ function Home() {
 
     const [trending, setTrending] = useState([])
     const [count, setCount] = useState(0)
+
 
 
     useEffect(() => {
@@ -28,6 +34,7 @@ function Home() {
                 })
                 console.log(response.data.results)
                 setTrending(response.data.results)
+
 
             } catch (e) {
                 console.error('Geen data beschikbaar!', e)
@@ -56,6 +63,11 @@ function Home() {
         setCount(count - 1)
     }
 
+
+
+
+
+
     return (
         
         <>
@@ -63,6 +75,7 @@ function Home() {
                 <div className={styles.innerContainer}>
 
                     <div className={styles.layoutWrapper}>
+
                         <div className={styles.backdropContainer}>
                             <img src={`https://image.tmdb.org/t/p/original${backdropPaths[count]}`} alt={title[count]}
                                  className={styles.backdropImg}/>
@@ -80,14 +93,18 @@ function Home() {
 
                             <div className={styles.contentWrapper}>
                                 <div>
-                                <h2 className={`${styles.trending} ${styles.flickerText}`}><AiFillFire />Trending!! </h2>
+                                    <h2 className={`${styles.trending} ${styles.flickerText}`}><AiFillFire/>Trending!!
+                                    </h2>
                                 </div>
                                 <h2 className={styles.movieTitle}>{title[count]}</h2>
-                                <p className={styles.movieRating}>Rating: {rating[count]}</p>
+                                <p className={styles.movieRating}>Rating: {rating[count]} </p>
+
+                                <p className={styles.movieDescription}>  {overview[count]} </p>
+
                                 <button type='button' className={styles.iconBtn}>
-                                    <p className={styles.movieDescription}>{overview[count]}</p>
                                     <IoIosArrowDown/>
                                 </button>
+
 
                             </div>
 
@@ -109,14 +126,16 @@ function Home() {
 
 
                         <div className={styles.layoutContentDescription}>
-                            <div>
-                                <h1 className={styles.pageTitle}> Welkom bij Pixel eye!</h1>
-                                <h2> "klik, filter en laat de filmmagie beginnen!"</h2>
-                            </div>
-                            <p> Zin in een film, maar geen idee wat? Kies je favoriete gerne,
-                                stel je filters in en klik op zoeken. Voilá -- een verrassende selectie films verschijnt
-                                alsof door tovenarij. Jouw volgende movie night start hier!</p>
+                            <p> <h3> <HiViewfinderCircle style={ { color: 'blue', marginRight: '15'}} /> Ontdek:</h3>
+                            Krijg dagelijks aanbevelingen op maat, of laat je verassen door onze random film picker</p>
+                            <p> <h3> <MdFormatListBulletedAdd style={{ color: 'blue', marginRight: '15'}}/>Watchlist: </h3>
+                                Sla films op die je later wilt kijken. Geen notities meer op je telefoon - al je favorieten op één plek.
+                            </p>
+                            <p> <h3><VscAccount style={ { color: 'blue', marginRight: '15'}} /> Account nodig?</h3>
+                            Ja, je hebt een gratis account nodig om je watchlist op te slaan, je voorkeuren bij te houden
+                            en films te waarderen. Zo zorgen we ervoor dat jouw filmwereld helemaal van jou is</p>
                         </div>
+
 
                     </main>
 
