@@ -1,0 +1,44 @@
+@import '../../styles/Variables';
+
+
+
+.outerContainer{
+  min-width: 100%;
+}
+
+.innerContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.searchBar{
+  padding: 10px;
+  font-size: 1rem;
+  border: 3px solid $color-primary;
+  -moz-border-radius-bottomleft: 5px;
+  -moz-border-radius-topleft: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+  position: relative
+}
+
+.labelSearchBar{
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: $color-secondary;
+}
+
+.searchBarContainer{
+  display: flex;
+}
+.searchButton{
+  z-index: 1;
+  outline: none;
+  width: 60px;
+}
+
+.iconSearch {
+  z-index: 100;
+}
