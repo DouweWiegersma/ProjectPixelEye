@@ -1,0 +1,61 @@
+@import '../../styles/Variables';
+
+.button{
+  border: none;
+  color: $color-text;
+  border-radius: 15px;
+}
+
+
+.large{
+  width: 150px;
+  height: 50px;
+
+}
+.small{
+  width: 40px;
+  height: 44px;
+
+}
+
+
+.primaryBtn{
+  background-color: $color-primary;
+
+}
+.primaryBtn:hover{
+  background-color: $color-secondary;
+}
+
+.secondaryBtn{
+    background-color: $color-accent;
+}
+
+.circle{
+  border-radius: 50%;
+  padding: 0;
+  margin: 0;
+}
+.square{
+  border-radius: 0;
+}
+
+.addBtn{
+  background-color: $color-success;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.removeBtn{
+  background-color: $color-error;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+
+

@@ -3,12 +3,15 @@ import axios from "axios";
 import styles from './Home.module.scss';
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
-import { IoIosArrowDown } from "react-icons/io";
 import { AiFillFire } from "react-icons/ai";
 import { VscAccount } from "react-icons/vsc";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 import { HiViewfinderCircle } from "react-icons/hi2";
+import Button from "../../components/Button/Button.jsx";
+import { FaStar } from "react-icons/fa6";
+import { IoMdArrowDropdown } from "react-icons/io";
 
+import { TiArrowSortedUp } from "react-icons/ti";
 
 
 function Home() {
@@ -17,6 +20,7 @@ function Home() {
 
     const [trending, setTrending] = useState([])
     const [count, setCount] = useState(0)
+    const [showMore, toggleShowMore] = useState(false)
 
 
 
@@ -63,6 +67,15 @@ function Home() {
         setCount(count - 1)
     }
 
+    function show(){
+        if(showMore === false) {
+            toggleShowMore(true)
+        }
+        else{
+            toggleShowMore(false)
+        }
+    }
+
 
 
 
@@ -83,28 +96,36 @@ function Home() {
 
 
                         <div className={styles.wrapper}>
-                            <button type='button' onClick={back} disabled={count === 0} className={styles.iconBtn}>
-                                <IoIosArrowBack/></button>
-                            <img src={`https://image.tmdb.org/t/p/w200${poster[count]}`} alt={title[count]}
-                                 className={styles.poster}/>
-                            <button type='button' onClick={next} disabled={count === 10} className={styles.iconBtn}>
-                                <IoIosArrowForward/></button>
+
+                            <div className={styles.posterLayout}>
+
+                                <div className={styles.layoutTrending}>
+                                    <h2 className={`${styles.trending} ${styles.flickerText}`}><AiFillFire/>Trending!!</h2>
+
+                                <div className={styles.row}>
+                                <button type='button' onClick={back} disabled={count === 0} className={styles.iconBtn}>
+                                    <IoIosArrowBack/></button>
+
+                                <img src={`https://image.tmdb.org/t/p/w200${poster[count]}`} alt={title[count]}
+                                     className={styles.poster}/>
+
+                                <button type='button' onClick={next} disabled={count === 10} className={styles.iconBtn}>
+                                    <IoIosArrowForward/></button>
+                                </div>
+
+                            </div>
+                            </div>
 
 
                             <div className={styles.contentWrapper}>
-                                <div>
-                                    <h2 className={`${styles.trending} ${styles.flickerText}`}><AiFillFire/>Trending!!
-                                    </h2>
-                                </div>
+
+                                <div className={styles.layoutRow}>
                                 <h2 className={styles.movieTitle}>{title[count]}</h2>
-                                <p className={styles.movieRating}>Rating: {rating[count]} </p>
-
-                                <p className={styles.movieDescription}>  {overview[count]} </p>
-
-                                <button type='button' className={styles.iconBtn}>
-                                    <IoIosArrowDown/>
-                                </button>
-
+                                    <p className={styles.movieRating}><FaStar/>{Math.round(rating[count] * 10)} </p>
+                                </div>
+                                <Button label={showMore === false ? <IoMdArrowDropdown style={{width: '50'}}/> : <TiArrowSortedUp/> } size='large' variant='primaryBtn' className='button'
+                                        onClick={show}/>
+                                <p className={styles.movieDescription}> {showMore === true ? overview[count] : ''}</p>
 
                             </div>
 
@@ -116,7 +137,7 @@ function Home() {
                     <main className={styles.siteDescription}>
                         <div className={styles.layoutContentDescription}>
                             <div>
-                                <h1 className={styles.pageTitle}> Welkom bij Pixel eye!</h1>
+                            <h1 className={styles.pageTitle}> Welkom bij Pixel eye!</h1>
                                 <h2> "klik, filter en laat de filmmagie beginnen!"</h2>
                             </div>
                             <p> Zin in een film, maar geen idee wat? Kies je favoriete gerne,
@@ -126,14 +147,21 @@ function Home() {
 
 
                         <div className={styles.layoutContentDescription}>
-                            <p> <h3> <HiViewfinderCircle style={ { color: 'blue', marginRight: '15'}} /> Ontdek:</h3>
-                            Krijg dagelijks aanbevelingen op maat, of laat je verassen door onze random film picker</p>
-                            <p> <h3> <MdFormatListBulletedAdd style={{ color: 'blue', marginRight: '15'}}/>Watchlist: </h3>
+                             <h3> <HiViewfinderCircle style={ { color: 'blue', marginRight: '15'}} /> Ontdek:</h3>
+                            <p>
+                            Krijg dagelijks aanbevelingen op maat, of laat je verassen door onze random film picker
+                            </p>
+
+                             <h3> <MdFormatListBulletedAdd style={{ color: 'blue', marginRight: '15'}}/>Watchlist: </h3>
+                            <p>
                                 Sla films op die je later wilt kijken. Geen notities meer op je telefoon - al je favorieten op één plek.
                             </p>
-                            <p> <h3><VscAccount style={ { color: 'blue', marginRight: '15'}} /> Account nodig?</h3>
+
+                            <h3><VscAccount style={ { color: 'blue', marginRight: '15'}} /> Account nodig?</h3>
+                            <p>
                             Ja, je hebt een gratis account nodig om je watchlist op te slaan, je voorkeuren bij te houden
-                            en films te waarderen. Zo zorgen we ervoor dat jouw filmwereld helemaal van jou is</p>
+                            en films te waarderen. Zo zorgen we ervoor dat jouw filmwereld helemaal van jou is
+                            </p>
                         </div>
 
 

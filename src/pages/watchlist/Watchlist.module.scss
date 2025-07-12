@@ -1,0 +1,57 @@
+@import '../../styles/Variables';
+
+.check{
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.outerContainer{
+  min-width: 100%;
+  background-color: $color-bg;
+}
+
+.innerContainer{
+  margin: 15px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+header{
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+  max-width: 400px;
+  gap: 50px;
+  padding: 50px;
+  color: $color-secondary;
+  background-color: #1a1a1a;
+  border-radius: 15px;
+}
+
+.headerLayout{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
+  padding-top: 150px;
+  padding-bottom: 150px;
+
+}
+
+.cardLayout{
+  background-color: $color-bg;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 50px;
+  margin: 15px;
+}
+
+
+.backgroundImgContainer{
+  height: 100%;
+  width: 100%;
+  background-image: url('../../assets/Background watchlist header.jpg');
+  border-radius: 15px;
+}
