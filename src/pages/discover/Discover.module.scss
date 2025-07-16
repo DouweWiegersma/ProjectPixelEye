@@ -4,16 +4,19 @@
 
 .outerContainer{
   min-width: 100%;
+  min-height: 100vh;
+  padding: 10px;
 }
 
 .innerContainer{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-evenly;
 }
 
 
 .searchBar{
+  display: flex;
   padding: 10px;
   font-size: 1rem;
   border: 3px solid $color-primary;
@@ -21,7 +24,6 @@
   -moz-border-radius-topleft: 5px;
   outline: none;
   transition: border-color 0.3s;
-  position: relative
 }
 
 .labelSearchBar{
@@ -32,13 +34,79 @@
 
 .searchBarContainer{
   display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  flex-basis: 200px;
+  min-width: 400px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 375px;
 }
+
 .searchButton{
   z-index: 1;
   outline: none;
   width: 60px;
+  margin-top: 25px;
 }
 
 .iconSearch {
   z-index: 100;
 }
+
+.resultLayout{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  margin-top: 50px;
+  justify-content: space-evenly;
+}
+
+
+.iconSquare{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 26px;
+  width: 60px;
+  height: 43px;
+  background-color: $color-primary;
+}
+.backgroundPic{
+  opacity: 0.3;
+  //height: auto;
+  //max-width: 100%;
+  border-radius: 15px;
+  width: 100%;
+  height: 100%;
+}
+.fallback{
+  opacity: 0.3;
+}
+.backgroundPicContainer{
+  position: relative;
+
+}
+
+
+
+
+
+@media (max-width:1500px){
+  .resultLayout{
+    margin-top: 550px;
+    margin-bottom: 150px;
+  }}
+.searchBarContainer{
+  margin-top: 100px;
+}
+
+
+
+
+
+

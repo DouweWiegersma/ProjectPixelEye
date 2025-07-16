@@ -62,9 +62,11 @@ function Home() {
 
     function next(){
         setCount(count + 1)
+        toggleShowMore(false)
     }
     function back(){
         setCount(count - 1)
+        toggleShowMore(false)
     }
 
     function show(){
@@ -123,8 +125,9 @@ function Home() {
                                 <h2 className={styles.movieTitle}>{title[count]}</h2>
                                     <p className={styles.movieRating}><FaStar/>{Math.round(rating[count] * 10)} </p>
                                 </div>
-                                <Button label={showMore === false ? <IoMdArrowDropdown style={{width: '50'}}/> : <TiArrowSortedUp/> } size='large' variant='primaryBtn' className='button'
-                                        onClick={show}/>
+
+                                <Button label={showMore === false ? <p>Overview</p> : <p>Hide Overview</p> } size='large' variant='primaryBtn'
+                                        onClick={show} />
                                 <p className={styles.movieDescription}> {showMore === true ? overview[count] : ''}</p>
 
                             </div>
