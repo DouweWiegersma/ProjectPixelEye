@@ -9,9 +9,7 @@ import { MdFormatListBulletedAdd } from "react-icons/md";
 import { HiViewfinderCircle } from "react-icons/hi2";
 import Button from "../../components/Button/Button.jsx";
 import { FaStar } from "react-icons/fa6";
-import { IoMdArrowDropdown } from "react-icons/io";
 
-import { TiArrowSortedUp } from "react-icons/ti";
 
 
 function Home() {
@@ -62,9 +60,11 @@ function Home() {
 
     function next(){
         setCount(count + 1)
+        toggleShowMore(false)
     }
     function back(){
         setCount(count - 1)
+        toggleShowMore(false)
     }
 
     function show(){
@@ -120,12 +120,15 @@ function Home() {
                             <div className={styles.contentWrapper}>
 
                                 <div className={styles.layoutRow}>
-                                <h2 className={styles.movieTitle}>{title[count]}</h2>
+                                    <h2 className={styles.movieTitle}>{title[count]}</h2>
+
                                     <p className={styles.movieRating}><FaStar/>{Math.round(rating[count] * 10)} </p>
                                 </div>
-                                <Button label={showMore === false ? <IoMdArrowDropdown style={{width: '50'}}/> : <TiArrowSortedUp/> } size='large' variant='primaryBtn' className='button'
-                                        onClick={show}/>
-                                <p className={styles.movieDescription}> {showMore === true ? overview[count] : ''}</p>
+
+                                    <Button label={showMore === false ? <h3>Overview</h3> : <h3>Hide Overview</h3>}
+                                            size='large' variant='secondaryBtn'
+                                            onClick={show}/>
+                                    <p className={styles.movieDescription}> {showMore === true ? overview[count] : ''}</p>
 
                             </div>
 
