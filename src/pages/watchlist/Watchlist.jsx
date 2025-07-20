@@ -1,96 +1,77 @@
-import styles from "./Watchlist.module.scss"
-
-import { useState } from "react";
+import styles from "./Watchlist.module.scss";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Card from "../../components/Card/Card.jsx";
+import { AuthContext } from "../../context/AuthContext.jsx";
 
+function Watchlist() {
+    const { user } = useContext(AuthContext);
+    const [watchlist, setWatchlist] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const token = localStorage.getItem("token");
 
-
-
-function Watchlist(){
-        const [watchlist, setWatchlist] = useState([]);
-
-        const handleAddToWatchlist = async (item) => {
+    useEffect(() => {
+        async function fetchWatchlist() {
             try {
-                const response = await axios.put("/api/watchlist", {
-                    itemId: item.id,
-                    title: item.title || item.original_name,
-                    media_type: item.media_type,
-                    poster_path: item.poster_path,
-                });
+                const response = await axios.get(
+                    `https://api.datavortex.nl/pixeleye/users/${user.username}`,
+                    {
+                        headers: {
+                            "X-API-KEY": "pixeleye:aO8LUAeun6zuzTqZllxY",
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    }
+                );
 
-                setWatchlist((prev) => [...prev, item]); // lokaal toevoegen
-                console.log("Toegevoegd aan watchlist:", response.data);
-            } catch (err) {
-                console.error("Fout bij toevoegen aan watchlist:", err);
+                if (response.data.info) {
+                    const parsed = JSON.parse(response.data.info);
+                    setWatchlist(parsed);
+                } else {
+                    console.log("geen info gevonden")
+                    setWatchlist([]);
+                }
+
+            } catch (e) {
+                console.error("Fout bij ophalen van de watchlist:", e);
+                setError("Fout bij ophalen van je watchlist.");
+            } finally {
+                setLoading(false);
             }
-        };
+        }
+        fetchWatchlist();
+    }, [user?.username, token]);
 
-        // testdata (vervang dit door echte data / fetch)
-        // const items = [
-        //     {
-        //         id: 1,
-        //         title: "Breaking Bad",
-        //         media_type: "tv",
-        //         vote_average: 9.5,
-        //         release_date: null,
-        //         first_air_date: "2008-01-20",
-        //         backdrop_path: null,
-        //         poster_path: null,
-        //         original_name: "Breaking Bad",
-        //     },
-        // ];
+    if (loading) return <p>Laden...</p>;
+    if (error) return <p>{error}</p>;
 
-        return (
-
-            <div>
-                {items.map((item) => (
-                    <Card
-                        key={item.id}
-                        item={item}
-                        title={item.title}
-                        media_type={item.media_type}
-                        release_date={item.release_date}
-                        first_air_date={item.first_air_date}
-                        vote_average={item.vote_average}
-                        backdrop_path={item.backdrop_path}
-                        poster_path={item.poster_path}
-                        original_name={item.original_name}
-                        onAddToWatchlist={handleAddToWatchlist}
-                    />
-                ))}
+    return (
+        <div className={styles.outerContainer}>
+            <div className={styles.innerContainer}>
+            <h1 className={styles.title}>Mijn Watchlist</h1>
+            {watchlist.length > 0 ? (
+                <div className={styles.layoutCards}>
+                    {watchlist.map((item) => (
+                        <Card
+                            key={item.id}
+                            id={item.id}
+                            title={item.title}
+                            poster_path={`https://image.tmdb.org/t/p/original${item.poster_path}`}
+                            media_type={item.media_type}
+                            vote_average={item.vote_average}
+                            backdrop_path={item.backdrop_path}
+                            release_date={item.release_date}
+                            first_air_date={item.first_air_date}
+                            original_name={item.original_name}
+                        />
+                    ))}
+                </div>
+            ) : (
+                <p>Je watchlist is leeg.</p>
+            )}
             </div>
-
-//     );
-// }
-//     return(
-//         <>
-//             <div className={styles.outerContainer}>
-//                 <div className={styles.innerContainer}>
-//                     <div className={styles.backgroundImgContainer}>
-//
-//
-//                         <div className={styles.headerLayout}>
-//                             <header>
-//                                 <h1>Watchlist</h1>
-//                                 <h2> Welkom op je persoonlijke filmparkeerplaats.</h2>
-//                                 <p> Geen zin om nú een film te kijken? Zet 'm hier neer.
-//                                     Je Watchlist oordeelt niet. Die fluistert alleen zachtjes: "ik bewaar het wel voor
-//                                     je
-//                                     ..."</p>
-//                             </header>
-//                         </div>
-//                     </div>
-//                     <div className={styles.cardLayout}>
-//
-//
-//
-//                     </div>
-//                 </div>
-//             </div>
-//         </>
-
-    )
+        </div>
+    );
 }
 
 export default Watchlist;

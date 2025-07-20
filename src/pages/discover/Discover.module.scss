@@ -1,20 +1,36 @@
 @import '../../styles/Variables';
 
-
-
+// Global
 .outerContainer{
-  min-width: 100%;
-  min-height: 100vh;
-  padding: 10px;
+  max-width: 100vw;
+  width: 100%;
+  padding: 15px;
 }
 
 .innerContainer{
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  position: relative;
+  width: 100%;
 }
 
 
+// layout searchbar
+.searchBarContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  flex-basis: 200px;
+  width: 100%;
+  height: 80%;
+  position: absolute;
+  top: 10px;
+  margin-top: 200px;
+}
+
+// Searchbar
 .searchBar{
   display: flex;
   padding: 10px;
@@ -32,20 +48,6 @@
   color: $color-secondary;
 }
 
-.searchBarContainer{
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  gap: 20px;
-  align-items: center;
-  flex-basis: 200px;
-  min-width: 400px;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  top: 375px;
-}
-
 .searchButton{
   z-index: 1;
   outline: none;
@@ -53,10 +55,7 @@
   margin-top: 25px;
 }
 
-.iconSearch {
-  z-index: 100;
-}
-
+// layout Cards (search results)
 .resultLayout{
   display: flex;
   flex-wrap: wrap;
@@ -65,46 +64,29 @@
   justify-content: space-evenly;
 }
 
-
-.iconSquare{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 26px;
-  width: 60px;
-  height: 43px;
-  background-color: $color-primary;
-}
+// changing background picture
 .backgroundPic{
   opacity: 0.3;
-  //height: auto;
-  //max-width: 100%;
   border-radius: 15px;
   width: 100%;
   height: 100%;
 }
-.fallback{
-  opacity: 0.3;
-}
-.backgroundPicContainer{
-  position: relative;
-
-}
 
 
-
-
-
-@media (max-width:1500px){
-  .resultLayout{
+@media screen and (max-width: 1550px) {
+  .resultLayout {
     margin-top: 550px;
     margin-bottom: 150px;
-  }}
-.searchBarContainer{
-  margin-top: 100px;
-}
+  }
+  .searchBarContainer {
+    margin-top: 130px;
+    height: 660px;
 
+  }
+  .labelSearchBar {
+    margin-top: 0;
+  }
+}
 
 
 

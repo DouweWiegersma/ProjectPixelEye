@@ -3,21 +3,30 @@ import Home from "./pages/home/Home.jsx";
 import Discover from "./pages/discover/Discover.jsx";
 import Watchlist from "./pages/watchlist/Watchlist.jsx";
 import NavBar from "./components/navigation/NavBar.jsx";
-// import Card from "./components/Card/Card.jsx";
-import Register from "./pages/register/Register.jsx"
+import SignUp from "./pages/signup/SignUp.jsx";
+import SignIn from "./pages/signin/SignIn.jsx";
+import Profile from "./pages/profile/Profile.jsx";
 
 import { Routes, Route} from 'react-router-dom';
+import {useContext} from "react";
+import {AuthContext} from "./context/AuthContext.jsx";
 function App() {
     const API_KEY = import.meta.env.VITE_TMDB_API_KEY
+    const { isAuth} = useContext(AuthContext)
     return(
     <>
 
         <NavBar/>
         <Routes>
-        <Route path="/Register" element={<Register/>} />
+        <Route path="/SignUp" element={<SignUp/>} />
+        <Route path="/SignIn" element={<SignIn/>} />
         <Route path="/" element={<Home/>} />
+
+        {isAuth ? (<>
+        <Route path="/Profile" element={<Profile/>} />
         <Route path="/Discover" element={<Discover/>} />
         <Route path="/Watchlist" element={<Watchlist/>} />
+        </>)   : ( <></>)}
         </Routes>
     </>
   )

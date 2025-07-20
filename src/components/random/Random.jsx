@@ -30,7 +30,7 @@ function Random(){
         name: '',
         first_air_date: ''
     })
-    const [form, setForm] = useState({
+    const initialFormState = {
         mediaType : 'tv' ,
         rating: 0,
         genre: '',
@@ -39,7 +39,9 @@ function Random(){
         releaseYearTv: ''
 
 
-    })
+    }
+
+    const [form, setForm] = useState(initialFormState);
 
 
     const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -92,6 +94,7 @@ function Random(){
 
 
 
+
             }
             catch (e){
                 console.error('Geen data beschikbaar', e)
@@ -139,6 +142,8 @@ function Random(){
         toggleMovies(false)
         toggleRandom(false)
         toggleTvShows(false)
+        setForm(initialFormState);
+
 
     }
     const years = generateReleaseYears();
@@ -169,17 +174,17 @@ function Random(){
                 </label>
 
                 <label htmlFor='releaseYear' className={styles.gap}>Release Year:
-                    <select name='releaseYear' id='releaseYear' onChange={handleChange}>
-                        <option value={form.releaseYear}>-- Select Year --</option>
+                    <select name='releaseYear' id='releaseYear' onChange={handleChange} className={styles.optionBox} >
+                        <option value={form.releaseYear} >-- Selecteer een jaar --</option>
                         {years.map((year) => (
-                            <option key={year} value={year}>{year}</option>
+                            <option key={year} value={year} >{year}</option>
                         ))}
                     </select>
                 </label>
 
                 <label htmlFor='language' className={styles.gap}>Language:
-                    <select name='language' value={form.language} onChange={handleChange}>
-                        <option value="">Selecteer een taal</option>
+                    <select name='language' value={form.language} onChange={handleChange} className={styles.optionBox} required>
+                        <option value="">-- Selecteer een taal --</option>
                         <option value="en">Engels</option>
                         <option value="nl">Nederlands</option>
                         <option value="fr">Frans</option>
@@ -199,8 +204,8 @@ function Random(){
                 </label>
 
                     <label htmlFor='genre' className={styles.gap}>Categorie:
-                        <select name='genre' value={form.genre} onChange={handleChange}>
-                            <option value=''>-- Kies een genre --</option>
+                        <select name='genre' value={form.genre} onChange={handleChange} className={styles.optionBox} required>
+                            <option value=''>-- Categorie --</option>
                             {movieGenre.map((movieGenre) => (
                                 <option key={movieGenre.id} value={movieGenre.id}>
                                     {movieGenre.name}
@@ -219,7 +224,7 @@ function Random(){
             {random ? (
 
                 <Card
-                      media_type={form.mediaType}
+                    media_type={form?.mediaType}
                       title={data?.title}
                       release_date={data?.release_date}
                       first_air_date={data?.first_air_date}
@@ -227,7 +232,7 @@ function Random(){
                       backdrop_path={`https://image.tmdb.org/t/p/original${data?.backdrop_path}`}
                       poster_path={`https://image.tmdb.org/t/p/original${data?.poster_path}`}
                       original_name={data?.name}/>
-            ) : (<> </>)}
+            ) : (<></>)}
 
 
             {tvShows ? (
@@ -240,17 +245,17 @@ function Random(){
                     </label>
 
                     <label htmlFor='releaseYearTv' className={styles.gap}>Release Year:
-                        <select name='releaseYearTv' id='releaseYearTv' onChange={handleChange}>
-                            <option value={form.releaseYearTv}>-- Select Year --</option>
+                        <select name='releaseYearTv'  id='releaseYearTv' onChange={handleChange} className={styles.optionBox}>
+                            <option value={form.releaseYearTv}  >-- Selecteer een jaar --</option>
                             {years.map((year) => (
-                                <option key={year} value={year}>{year}</option>
+                                <option key={year} value={year} >{year}</option>
                             ))}
                         </select>
                     </label>
 
                     <label htmlFor='language' className={styles.gap}>Language:
-                        <select name='language' value={form.language} onChange={handleChange}>
-                            <option value="">Selecteer een taal</option>
+                        <select name='language' className={styles.optionBox} value={form.language} onChange={handleChange} required>
+                            <option value="">-- Selecteer een taal --</option>
                             <option value="en">Engels</option>
                             <option value="nl">Nederlands</option>
                             <option value="fr">Frans</option>
@@ -270,8 +275,8 @@ function Random(){
                     </label>
 
                         <label htmlFor='genre' className={styles.gap}>Categorie:
-                            <select name='genre' value={form.genre} onChange={handleChange}>
-                                <option value=''>-- Kies een genre --</option>
+                            <select name='genre' className={styles.optionBox} value={form.genre} onChange={handleChange} required>
+                                <option value=''>-- Categorie --</option>
                                 {genre.map((genre) => (
                                     <option key={genre.id} value={genre.id}>
                                         {genre.name}

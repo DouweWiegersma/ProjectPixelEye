@@ -1,57 +1,37 @@
 @import '../../styles/Variables';
 
-.check{
-  margin: 0;
-  padding: 0;
-  border-radius: 50%;
-}
-
+// Global
 .outerContainer{
-  min-width: 100%;
+  display: flex;
+  width: 100%;
+  max-width: 100vw;
+  padding: 15px;
+  overflow-x: hidden;
   background-color: $color-bg;
 }
 
 .innerContainer{
-  margin: 15px;
-  border-radius: 15px;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  margin-top: 150px;
 }
 
-header{
-  display: flex;
-  flex-direction: column;
-  min-width: 250px;
-  max-width: 400px;
-  gap: 50px;
-  padding: 50px;
-  color: $color-secondary;
-  background-color: #1a1a1a;
-  border-radius: 15px;
-}
 
-.headerLayout{
-  display: flex;
-  justify-content: center;
-  margin-bottom: 100px;
-  padding-top: 150px;
-  padding-bottom: 150px;
-
-}
-
-.cardLayout{
-  background-color: $color-bg;
+// Cards layout
+.layoutCards{
   display: flex;
   justify-content: space-evenly;
+  margin: 50px;
   flex-wrap: wrap;
   gap: 50px;
-  margin: 15px;
+
 }
 
-
-//.backgroundImgContainer{
-//  height: 100%;
-//  width: 100%;
-//  //background-image: url('../../assets/Background watchlist header.jpg');
-//  border-radius: 15px;
-//}
+// H1 title
+.title{
+  display: flex;
+  margin: 50px;
+  justify-content: center;
+  color: $color-accent;
+}

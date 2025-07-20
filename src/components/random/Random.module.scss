@@ -10,19 +10,30 @@
   flex-basis: 500px;
   gap: 30px;
   width: 100%;
-  border: 5px solid $color-primary;
   border-radius: 15px;
   flex-shrink: 1;
 }
 .gap{
   display: flex;
   gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.optionBox{
+  padding: 10px;
+  border-radius: 10px;
+  background-color: $color-accent;
+  color: $color-bg;
+  font-weight: bolder;
 }
 
-@media (max-width:1300px) {
+@media (max-width:1100px) {
   .formContainer{
-    margin-top: 70px;
+    width: 100%;
+
+
 
   }
+
 
 }

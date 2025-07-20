@@ -1,10 +1,8 @@
 import styles from './Discover.module.scss'
-// import { FaSearch } from "react-icons/fa";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Card from "../../components/Card/Card.jsx";
-
-import popCorn from "../../assets/PopCorn.jpg"
+import background from "../../assets/movie background.jpg"
 import Random from "../../components/random/Random.jsx";
 
 
@@ -13,7 +11,8 @@ function Discover(){
         const [data, setData] = useState({
             media_type: '',
             title: '',
-            id: '',
+            key: 0,
+            id: 0,
             backdrop_path: '',
             vote_average: 0,
             release_date: '',
@@ -50,7 +49,7 @@ function Discover(){
         keyword()
     }, [search])
 
-        const backDrop = data[0]?.backdrop_path ? `https://image.tmdb.org/t/p/original${data[0]?.backdrop_path}` : popCorn
+        const backDrop = data[0]?.backdrop_path ? `https://image.tmdb.org/t/p/original${data[0]?.backdrop_path}` : background
 
 
 
@@ -60,51 +59,46 @@ function Discover(){
     return(
         <>
             <div className={styles.outerContainer}>
-                <div className={styles.innerContainer}>
-                    <div className={styles.backgroundPicContainer}>
-                        <img src={backDrop} alt='background' className={styles.backgroundPic}/>
+                    <div className={styles.innerContainer}>
+                        <hearder>
+                            <img src={backDrop} alt='background' className={styles.backgroundPic}/>
+                            <div className={styles.searchBarContainer}>
+                                <label id='searchBar' className={styles.labelSearchBar}>Movie / Tv-Shows
+                                    <input value={search}
+                                           type='text'
+                                           onChange={(e) => {
+                                               setSearch(e.target.value)
+                                           }} className={styles.searchBar} placeholder='Search......'/>
+                                </label>
+                                <Random/>
+                            </div>
+                        </hearder>
 
 
-                        <div className={styles.searchBarContainer}>
-                            <label id='searchBar' className={styles.labelSearchBar}>Movie / Tv-Shows
-                                <input value={search}
-                                       type='text'
-                                       onChange={(e) => {
-                                           setSearch(e.target.value)
-                                       }} className={styles.searchBar} placeholder='Search......'/>
-                            </label>
-                            {/*<div className={styles.iconSquare}><FaSearch className={styles.iconSearch}/></div>*/}
-                            <Random />
+                        <div className={styles.resultLayout}>
+                            {data.length > 0 ? (
+                                data.map((data) => (
+                                    <Card
+                                        key={data?.id}
+                                        id={data?.id}
+                                        media_type={data?.media_type}
+                                        title={data?.title}
+                                        release_date={data?.release_date}
+                                        first_air_date={data?.first_air_date}
+                                        vote_average={data?.vote_average}
+                                        backdrop_path={`https://image.tmdb.org/t/p/original${data?.backdrop_path}`}
+                                        poster_path={`https://image.tmdb.org/t/p/original${data?.poster_path}`}
+                                        original_name={data?.name}
+                                    />
+                                ))
+                            ) : search && <p> Geen resultaten gevonden</p>}
                         </div>
+
+
                     </div>
-
-
-
-                    <div className={styles.resultLayout}>
-                        {data.length > 0 ? (
-                            data.map((data) => (
-                                <Card
-                                    media_type={data?.media_type}
-                                    title={data?.title}
-                                    release_date={data?.release_date}
-                                    first_air_date={data?.first_air_date}
-                                    vote_average={data?.vote_average}
-                                    backdrop_path={`https://image.tmdb.org/t/p/original${data?.backdrop_path}`}
-                                    poster_path={`https://image.tmdb.org/t/p/original${data?.poster_path}`}
-                                    original_name={data?.name}
-                                />
-                            ))
-                        ) : search && <p> Geen resultaten gevonden</p>}
-                    </div>
-
-
-
-
-
                 </div>
-            </div>
-        </>
-    )
-}
+            </>
+            )
+            }
 
-export default Discover;
+            export default Discover;
