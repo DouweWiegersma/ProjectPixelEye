@@ -23,7 +23,6 @@ function Watchlist() {
                         },
                     }
                 );
-
                 if (response.data.info) {
                     const parsed = JSON.parse(response.data.info);
                     setWatchlist(parsed);
@@ -31,46 +30,60 @@ function Watchlist() {
                     console.log("geen info gevonden")
                     setWatchlist([]);
                 }
-
             } catch (e) {
                 console.error("Fout bij ophalen van de watchlist:", e);
                 setError("Fout bij ophalen van je watchlist.");
-            } finally {
-                setLoading(false);
             }
+            setLoading(false);
+
+
         }
+
         fetchWatchlist();
-    }, [user?.username, token]);
+    }, [user?.username, token, watchlist]);
 
     if (loading) return <p>Laden...</p>;
     if (error) return <p>{error}</p>;
 
     return (
-        <div className={styles.outerContainer}>
-            <div className={styles.innerContainer}>
-            <h1 className={styles.title}>Mijn Watchlist</h1>
-            {watchlist.length > 0 ? (
-                <div className={styles.layoutCards}>
-                    {watchlist.map((item) => (
-                        <Card
-                            key={item.id}
-                            id={item.id}
-                            title={item.title}
-                            poster_path={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-                            media_type={item.media_type}
-                            vote_average={item.vote_average}
-                            backdrop_path={item.backdrop_path}
-                            release_date={item.release_date}
-                            first_air_date={item.first_air_date}
-                            original_name={item.original_name}
-                        />
-                    ))}
-                </div>
-            ) : (
-                <p>Je watchlist is leeg.</p>
-            )}
-            </div>
-        </div>
+        <section className={styles.outerContainer}>
+
+            <main className={styles.innerContainer}>
+                <header>
+                    <div className={styles.test1}>
+                        <div className={styles.test3}></div>
+                        <div className={styles.test}><h1 className={styles.title}>Mijn Watchlist</h1></div>
+                        <div className={styles.test2}></div>
+                    </div>
+                </header>
+
+
+                {/*<div className={styles.test1}>test1</div>*/}
+
+
+                {watchlist.length > 0 ? (
+                    <section className={styles.layoutCards}>
+                        {watchlist.map((item) => (
+                            <Card
+                                key={item.id}
+                                id={item.id}
+                                title={item.title}
+                                poster_path={`https://image.tmdb.org/t/p/original${item.poster_path}`}
+                                media_type={item.media_type}
+                                vote_average={item.vote_average}
+                                backdrop_path={item.backdrop_path}
+                                release_date={item.release_date}
+                                first_air_date={item.first_air_date}
+                                original_name={item.original_name}
+                                overview={item.overview}
+                            />
+                        ))}
+                    </section>
+                ) : (
+                    <p>Je watchlist is leeg.</p>
+                )}
+            </main>
+        </section>
     );
 }
 

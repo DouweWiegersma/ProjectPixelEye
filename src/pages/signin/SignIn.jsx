@@ -56,40 +56,43 @@ function SignIn() {
 
     return (
         <>
-            <div className={styles.outerContainer}>
-                <div className={styles.innerContainer}>
-            <h1 className={styles.title}>Inloggen</h1>
-                    <form onSubmit={handleSubmit} className={styles.formContainer}>
-                            <label>
-                                Gebruikersnaam:
-                            <input
-                                className={styles.inputStyle}
-                                type="text"
-                                name="username"
-                                value={formData.username}
-                                onChange={handleChange}
-                                required
-                            /></label>
+
+                <main className={styles.outerContainer}>
+                    <section className={styles.innerContainer}>
+                        <header>
+                            <h1 className={styles.title}>Inloggen</h1>
+                        </header>
+                            <form onSubmit={handleSubmit} className={styles.formContainer}>
+                                <label>
+                                    Gebruikersnaam:
+                                    <input
+                                        className={styles.inputStyle}
+                                        type="text"
+                                        name="username"
+                                        value={formData.username}
+                                        onChange={handleChange}
+                                        required
+                                    /></label>
 
 
-                            <label>
-                                Wachtwoord:
-                            <input
-                                className={styles.inputStyle}
-                                type="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                required
-                            />
-                            </label>
+                                <label>
+                                    Wachtwoord:
+                                    <input
+                                        className={styles.inputStyle}
+                                        type="password"
+                                        name="password"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </label>
 
 
-                            <Button label='Log In' variant='primaryBtn' size='large' type='submit'/>
-                    </form>
-                    {error && <p style={{ color: "red" }}>{error}</p>}
-                </div>
-            </div>
+                                <Button label='Log In' variant='primaryBtn' size='large' type='submit'/>
+                            </form>
+                            {error && <p style={{color: "red"}}>{error}</p>}
+                        </section>
+                </main>
         </>
     );
 }

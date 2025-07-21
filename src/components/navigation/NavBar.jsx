@@ -11,6 +11,7 @@ function NavBar(){
     const { isAuth, user, logout, login} = useContext(AuthContext)
     return (
         <>
+            <div className={styles.outerContainer}>
         <ul className={styles.navigationItems}>
             <li><NavLink to="/"
                          className={({isActive}) => isActive === true ? styles.active : styles.default}> Home </NavLink>
@@ -40,6 +41,7 @@ function NavBar(){
 }
 
             </ul>
+            </div>
 
         </>
     )

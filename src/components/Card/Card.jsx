@@ -1,16 +1,27 @@
-
 import styles from './Card.module.scss'
 import { IoAddCircleSharp } from "react-icons/io5";
 import Button from "../Button/Button.jsx";
 import { TiDelete } from "react-icons/ti";
 import { FaStar } from "react-icons/fa6";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import axios from "axios";
 import {AuthContext} from "../../context/AuthContext.jsx";
 
 
-function Card({ id, title, media_type, release_date, first_air_date, vote_average, backdrop_path, poster_path, original_name}){
+
+function Card({ id, title, overview, media_type, release_date, first_air_date, vote_average, backdrop_path, poster_path, original_name}){
     const { user } = useContext(AuthContext)
+    const [showMore, toggleShowMore] = useState(false)
+
+
+    function toggleMore(){
+        if(showMore === false){
+            toggleShowMore(true)
+        }
+        else{
+            toggleShowMore(false)
+        }
+    }
 
     async function handleAdd() {
         const token = localStorage.getItem("token");
@@ -41,6 +52,7 @@ function Card({ id, title, media_type, release_date, first_air_date, vote_averag
                 release_date,
                 first_air_date,
                 original_name,
+                overview,
             };
 
             const updatedInfo = [...currentInfo, newMovie];
@@ -107,33 +119,46 @@ function Card({ id, title, media_type, release_date, first_air_date, vote_averag
     }
 
 
+
+
     return(
         <>
         <div className={styles.outerContainer}>
             {backdrop_path ? <img src={backdrop_path} alt="backgroundImage" className={styles.backdropImg}/> : <p> geen poster beschikbaar</p>}
 
-            <div className={styles.innerContainer}>
+            <main className={styles.innerContainer}>
 
-                <div className={styles.titleContainer}>
+                <header className={styles.titleContainer}>
                     <h1 className={styles.title}>  {media_type} </h1>
                     <p className={styles.rating}><FaStar className={styles.star}/>{Math.round(vote_average * 10)}</p>
-                </div>
+                </header>
 
                 <h2> {title} {original_name}</h2>
-                <span>{poster_path ?  <img src={poster_path} alt='poster' className={styles.posterImg}/> : <p> geen poster beschikbaar</p>} </span>
+                <figure>{poster_path ?  <img src={poster_path} alt='poster' className={styles.posterImg}/> : <p> geen poster beschikbaar</p>} </figure>
                 <p>Release date: {release_date} {first_air_date}</p>
 
                 <div className={styles.buttonContainer}>
                     <Button label={<IoAddCircleSharp style={{width: '50px', height: '50px'}}/>} variant='addBtn'
                             shape='circle' onClick={handleAdd}/>
+                    <Button variant='secondaryBtn' size='large' label='More Info' onClick={toggleMore}/>
+                    {showMore ? (
+                        <div className={styles.details}>
+                            <div className={styles.detailsInner}>
+                                <div className={styles.rowLayout}>
+                                <h1> {original_name} {title} </h1>
+                                <Button label='X' onClick={toggleMore} shape='square' variant='primaryBtn' size='medium'/>
+                                </div>
+                                 <p className={styles.overview}> { overview } </p>
+                            </div>
+                            </div>
+                            ) : (<></>
+                            ) }
 
-                    <Button variant='secondaryBtn' size='large' label='More Info'/>
-
-                    <Button label={<TiDelete style={{width: '50px', height: '50px'}}/>} variant='removeBtn'
-                            shape='circle' onClick={handleDelete}/>
-                </div>
-            </div>
-        </div>
+                            <Button label={<TiDelete style={{width: '50px', height: '50px'}}/>} variant='removeBtn'
+                                    shape='circle' onClick={handleDelete}/>
+                        </div>
+                        </main>
+                        </div>
         </>
 
 

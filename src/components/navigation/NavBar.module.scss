@@ -1,9 +1,13 @@
 @import "../../styles/Variables";
 
-
+.outerContainer{
+  width: 100%;
+  max-width: 100vw;
+}
 
 .navigationItems{
-  min-width: 100%;
+  width: 100%;
+  max-width: 95vw;
   position: absolute;
   top: 0;
   display: flex;
@@ -14,12 +18,6 @@
   z-index: 9;
   flex-wrap: wrap;
   margin-top: 25px;
-}
-
-.loginBtn{
-  padding: 10px 30px;
-  z-index: 10;
-  background-color: red;
 }
 
 .active{

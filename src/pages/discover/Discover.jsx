@@ -6,8 +6,9 @@ import background from "../../assets/movie background.jpg"
 import Random from "../../components/random/Random.jsx";
 
 
-function Discover(){
 
+function Discover(){
+        const [loading, setLoading] = useState(true)
         const [data, setData] = useState({
             media_type: '',
             title: '',
@@ -31,7 +32,7 @@ function Discover(){
         {
             try {
                 const response = await axios.get('https://api.themoviedb.org/3/search/multi', {
-                    params: {page: '1',
+                    params: {page: 1,
                         query: search,
                         api_key: API_KEY},
                     headers: {
@@ -41,26 +42,26 @@ function Discover(){
                 })
                 console.log(response.data)
                 setData(response.data.results)
+                setLoading(false)
             }
+
             catch (e){
                 console.error('Geen data beschikbaar', e)
             }
+
         }
         keyword()
     }, [search])
+    if (loading) return <p>Laden...</p>;
 
-        const backDrop = data[0]?.backdrop_path ? `https://image.tmdb.org/t/p/original${data[0]?.backdrop_path}` : background
-
-
-
-
+    const backDrop = data[0]?.backdrop_path ? `https://image.tmdb.org/t/p/original${data[0]?.backdrop_path}` : background
 
 
     return(
         <>
             <div className={styles.outerContainer}>
                     <div className={styles.innerContainer}>
-                        <hearder>
+
                             <img src={backDrop} alt='background' className={styles.backgroundPic}/>
                             <div className={styles.searchBarContainer}>
                                 <label id='searchBar' className={styles.labelSearchBar}>Movie / Tv-Shows
@@ -72,13 +73,12 @@ function Discover(){
                                 </label>
                                 <Random/>
                             </div>
-                        </hearder>
 
-
-                        <div className={styles.resultLayout}>
+                        <main className={styles.resultLayout}>
                             {data.length > 0 ? (
                                 data.map((data) => (
                                     <Card
+                                        overview={data?.overview}
                                         key={data?.id}
                                         id={data?.id}
                                         media_type={data?.media_type}
@@ -92,7 +92,7 @@ function Discover(){
                                     />
                                 ))
                             ) : search && <p> Geen resultaten gevonden</p>}
-                        </div>
+                        </main>
 
 
                     </div>

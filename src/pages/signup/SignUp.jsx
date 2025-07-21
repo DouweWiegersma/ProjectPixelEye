@@ -16,6 +16,7 @@ function SignUp() {
             email: "",
             password: ""
         },
+
         validationSchema: Yup.object({
             username: Yup.string()
                 .min(3, "Minimaal 3 tekens")
@@ -29,6 +30,7 @@ function SignUp() {
                 .matches(/\d/, "Minstens 1 cijfer")
                 .required("Wachtwoord is verplicht")
         }),
+
         onSubmit: async (values) => {
             const userPayload = {
                 username: values.username,
@@ -50,13 +52,17 @@ function SignUp() {
             } catch (error) {
                 setMessage("Fout bij registreren: " + (error.response?.data || error.message));
             }
+
         },
     });
 
+
     return (
-        <div className={styles.outerContainer}>
-            <div className={styles.innerContainer}>
+        <main className={styles.outerContainer}>
+            <section className={styles.innerContainer}>
+                <header>
                 <h1 className={styles.title}>Registreren</h1>
+                </header>
 
                 <form onSubmit={formik.handleSubmit} className={styles.formContainer}>
                     <label>
@@ -108,8 +114,8 @@ function SignUp() {
                 </form>
 
                 {message && <p>{message}</p>}
-            </div>
-        </div>
+            </section>
+        </main>
     );
 }
 

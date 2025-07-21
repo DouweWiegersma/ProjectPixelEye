@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 150px;
+  //margin-top: 150px;
 }
 
 
@@ -34,4 +34,50 @@
   margin: 50px;
   justify-content: center;
   color: $color-accent;
+}
+.test1{
+  width: 100%;
+  height: 300px;
+  background-color: $color-bg;
+  display: flex;
+  //justify-content: space-around;
+  //margin-left: 70px;
+  padding-left: 40px;
+  padding-right: 40px;
+  overflow: hidden;
+
+
+  //background-image: url("../../assets/the day of the jackal.jpg");
+}
+
+.test{
+  background-image: url("../../assets/the day of the jackal.jpg");
+  background-size: cover;
+  transform: skew(-10deg, 0deg);
+  height: 300px;
+  width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid $color-secondary;
+  opacity: 0.7;
+}
+
+.test2{
+  background-image: url("../../assets/the swimmers.png");
+  background-size: cover;
+  transform: skew(-10deg, 0deg);
+  height: 300px;
+  width: 375px;
+  border: 5px solid $color-primary;
+  opacity: 0.7;
+}
+.test3{
+  background-image: url("../../assets/longest ride1.jpg");
+  background-size: cover;
+  border: 5px solid $color-primary;
+  opacity: 0.7;
+  transform: skew(-10deg, 0deg);
+  height: 300px;
+  width: 375px;
 }

@@ -58,7 +58,6 @@
 
 // text styling
 .title{
-  z-index: 999;
   color: $color-secondary;
 }
 
@@ -74,3 +73,39 @@
 }
 
 
+
+
+// More info (movies tv-shows)
+.details{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+
+.detailsInner {
+  color: $color-primary;
+  background: $color-accent;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.overview{
+  color: $color-bg;
+  font-weight: bolder;
+}
+.rowLayout{
+  display: flex;
+  justify-content: space-between;
+}

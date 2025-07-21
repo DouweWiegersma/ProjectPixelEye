@@ -19,7 +19,7 @@ function Home() {
     const [trending, setTrending] = useState([])
     const [count, setCount] = useState(0)
     const [showMore, toggleShowMore] = useState(false)
-
+    const [loading, setLoading] = useState(true)
 
 
     useEffect(() => {
@@ -42,6 +42,7 @@ function Home() {
                 console.error('Geen data beschikbaar!', e)
 
             }
+            setLoading(false)
         }
 
         Popular()
@@ -75,7 +76,7 @@ function Home() {
             toggleShowMore(false)
         }
     }
-
+    if(loading) return( <p>Laden...</p>)
 
 
 
@@ -86,38 +87,30 @@ function Home() {
         <>
             <div className={styles.outerContainer}>
                 <div className={styles.innerContainer}>
-
-                    <div className={styles.layoutWrapper}>
-
+                    <header className={styles.layoutWrapper}>
                         <div className={styles.backdropContainer}>
                             <img src={`https://image.tmdb.org/t/p/original${backdropPaths[count]}`} alt={title[count]}
                                  className={styles.backdropImg}/>
                         </div>
 
 
-                        <div className={styles.wrapper}>
-
-                            <div className={styles.posterLayout}>
-
+                        <section className={styles.wrapper}>
+                            <article className={styles.posterLayout}>
                                 <div className={styles.layoutTrending}>
                                     <h2 className={`${styles.trending} ${styles.flickerText}`}><AiFillFire/>Trending!!</h2>
-
                                 <div className={styles.row}>
                                 <button type='button' onClick={back} disabled={count === 0} className={styles.iconBtn}>
                                     <IoIosArrowBack/></button>
-
                                 <img src={`https://image.tmdb.org/t/p/w200${poster[count]}`} alt={title[count]}
                                      className={styles.poster}/>
-
                                 <button type='button' onClick={next} disabled={count === 10} className={styles.iconBtn}>
                                     <IoIosArrowForward/></button>
                                 </div>
-
                             </div>
-                            </div>
+                            </article>
 
 
-                            <div className={styles.contentWrapper}>
+                            <section className={styles.contentWrapper}>
 
                                 <div className={styles.layoutRow}>
                                     <h2 className={styles.movieTitle}>{title[count]}</h2>
@@ -130,15 +123,15 @@ function Home() {
                                             onClick={show}/>
                                     <p className={styles.movieDescription}> {showMore === true ? overview[count] : ''}</p>
 
-                            </div>
+                            </section>
 
 
-                        </div>
-                    </div>
+                        </section>
+                    </header>
 
 
                     <main className={styles.siteDescription}>
-                        <div className={styles.layoutContentDescription}>
+                        <section className={styles.layoutContentDescription}>
                             <div>
                             <h1 className={styles.pageTitle}> Welkom bij Pixel eye!</h1>
                                 <h2> "klik, filter en laat de filmmagie beginnen!"</h2>
@@ -146,10 +139,10 @@ function Home() {
                             <p> Zin in een film, maar geen idee wat? Kies je favoriete gerne,
                                 stel je filters in en klik op zoeken. Voilá -- een verrassende selectie films verschijnt
                                 alsof door tovenarij. Jouw volgende movie night start hier!</p>
-                        </div>
+                        </section>
 
 
-                        <div className={styles.layoutContentDescription}>
+                        <section className={styles.layoutContentDescription}>
                              <h3> <HiViewfinderCircle style={ { color: 'blue', marginRight: '15'}} /> Ontdek:</h3>
                             <p>
                             Krijg dagelijks aanbevelingen op maat, of laat je verassen door onze random film picker
@@ -165,7 +158,7 @@ function Home() {
                             Ja, je hebt een gratis account nodig om je watchlist op te slaan, je voorkeuren bij te houden
                             en films te waarderen. Zo zorgen we ervoor dat jouw filmwereld helemaal van jou is
                             </p>
-                        </div>
+                        </section>
 
 
                     </main>

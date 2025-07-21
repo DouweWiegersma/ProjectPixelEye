@@ -5,6 +5,7 @@ import axios from "axios";
 import Card from "../Card/Card.jsx";
 import {generateReleaseYears} from "../../helpers/GetYears.js";
 
+
 function Random(){
 
     const [mediaType, toggleMediaType] = useState(true)
@@ -36,7 +37,9 @@ function Random(){
         genre: '',
         releaseYear: 0,
         language: '',
-        releaseYearTv: ''
+        releaseYearTv: '',
+        overview: '',
+        id: 0,
 
 
     }
@@ -63,6 +66,7 @@ function Random(){
                         primary_release_year: form.mediaType === 'movie' ? form.releaseYear : undefined,
                         with_original_language: form.language,
                         first_air_date_year: form.mediaType === 'tv' ? form.releaseYearTv : undefined,
+                        overview: form.overview,
                     },
                 }),
                 axios.get(`https://api.themoviedb.org/3/genre/tv/list`, {
@@ -231,7 +235,8 @@ function Random(){
                       vote_average={data?.vote_average}
                       backdrop_path={`https://image.tmdb.org/t/p/original${data?.backdrop_path}`}
                       poster_path={`https://image.tmdb.org/t/p/original${data?.poster_path}`}
-                      original_name={data?.name}/>
+                      original_name={data?.name}
+                      overview={data?.overview}/>
             ) : (<></>)}
 
 
