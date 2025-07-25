@@ -10,19 +10,33 @@ function AuthContextProvider({children}) {
 
     const [auth, setAuth] = useState({
         isAuth: false,
+        token: null,
         user: {
             username: null,
             id: 0,
             role: null,
+            profileImageUrl: null,
         },
 
     })
+
+    const updateProfilePicture = (url) => {
+        setAuth((prev) => ({
+            ...prev,
+            user: {
+                ...prev.user,
+                profileImageUrl: url,
+            },
+        }));
+    };
+
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
             try {
                 const decodedToken = jwtDecode(token);
                 setAuth({
+                    token: token,
                     isAuth: true,
                     user: {
                         username: decodedToken.sub,
@@ -33,6 +47,7 @@ function AuthContextProvider({children}) {
             } catch (error) {
                 localStorage.removeItem("token");
                 setAuth({
+                    token: null,
                     isAuth: false,
                     user: {
                         username: null,
@@ -53,6 +68,7 @@ function AuthContextProvider({children}) {
 
         setAuth({
             isAuth: true,
+            token: token,
             user: {
                 username: decodedToken.sub,
                 id: decodedToken.userId,
@@ -69,6 +85,7 @@ function AuthContextProvider({children}) {
     function logout() {
         setAuth({
             isAuth: false,
+            token: null,
             user: {
                 username: null,
                 id: 0,
@@ -78,6 +95,13 @@ function AuthContextProvider({children}) {
         localStorage.removeItem('token');
         navigate('/');
     }
+    function updateUsername(newUsername) {
+        setUser((prev) => ({
+            ...prev,
+            username: newUsername,
+        }));
+    }
+
 
 
     const contextData = {
@@ -85,8 +109,12 @@ function AuthContextProvider({children}) {
         login: login,
         logout: logout,
         user: auth.user,
-        id: auth.id
+        id: auth.id,
+        token: auth.token,
+        updateUsername,
+        updateProfilePicture,
     }
+
 
     return (
         <AuthContext.Provider value={contextData}>

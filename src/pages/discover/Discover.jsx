@@ -4,11 +4,13 @@ import axios from "axios";
 import Card from "../../components/Card/Card.jsx";
 import background from "../../assets/movie background.jpg"
 import Random from "../../components/random/Random.jsx";
+import Button from "../../components/Button/Button.jsx";
 
 
 
 function Discover(){
         const [loading, setLoading] = useState(true)
+        const [pages, setPages] = useState(0)
         const [data, setData] = useState({
             media_type: '',
             title: '',
@@ -22,19 +24,19 @@ function Discover(){
             name: '',
             first_air_date: ''
     })
-
-
+    const [next, setNext] = useState(1)
     const [search, setSearch] = useState('')
     const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
     useEffect(() => {
-        async function keyword()
-        {
+        async function keyword() {
             try {
                 const response = await axios.get('https://api.themoviedb.org/3/search/multi', {
-                    params: {page: 1,
+                    params: {
+                        page: next,
                         query: search,
-                        api_key: API_KEY},
+                        api_key: API_KEY
+                    },
                     headers: {
                         accept: 'application/json',
                         Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjMmM3NThlMjI3MGJhZGRkOTk1ZDI3ZjA5ZTUzN2MxMCIsIm5iZiI6MTc1MDg0NTQxNC4yNDEsInN1YiI6IjY4NWJjN2U2MmFjNDgyNjdhMWVlNjc1YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.k20X1mNoNT_dDnc4dTeZ4lTkg8AzmShbQakV7NdIlr0'
@@ -42,63 +44,83 @@ function Discover(){
                 })
                 console.log(response.data)
                 setData(response.data.results)
+                setPages(response.data.total_pages)
                 setLoading(false)
             }
-
-            catch (e){
-                console.error('Geen data beschikbaar', e)
+            catch(e) {
+                console.error(e, 'cant find data')
             }
 
         }
         keyword()
-    }, [search])
+    }, [search, next])
     if (loading) return <p>Laden...</p>;
 
     const backDrop = data[0]?.backdrop_path ? `https://image.tmdb.org/t/p/original${data[0]?.backdrop_path}` : background
 
+    function nextPage(){
+        setNext(next + 1)
+    }
+
+    function prevPage(){
+        setNext(next - 1)
+    }
 
     return(
         <>
+
             <div className={styles.outerContainer}>
-                    <div className={styles.innerContainer}>
-
-                            <img src={backDrop} alt='background' className={styles.backgroundPic}/>
-                            <div className={styles.searchBarContainer}>
-                                <label id='searchBar' className={styles.labelSearchBar}>Movie / Tv-Shows
-                                    <input value={search}
-                                           type='text'
-                                           onChange={(e) => {
-                                               setSearch(e.target.value)
-                                           }} className={styles.searchBar} placeholder='Search......'/>
-                                </label>
-                                <Random/>
-                            </div>
-
-                        <main className={styles.resultLayout}>
-                            {data.length > 0 ? (
-                                data.map((data) => (
-                                    <Card
-                                        overview={data?.overview}
-                                        key={data?.id}
-                                        id={data?.id}
-                                        media_type={data?.media_type}
-                                        title={data?.title}
-                                        release_date={data?.release_date}
-                                        first_air_date={data?.first_air_date}
-                                        vote_average={data?.vote_average}
-                                        backdrop_path={`https://image.tmdb.org/t/p/original${data?.backdrop_path}`}
-                                        poster_path={`https://image.tmdb.org/t/p/original${data?.poster_path}`}
-                                        original_name={data?.name}
-                                    />
-                                ))
-                            ) : search && <p> Geen resultaten gevonden</p>}
-                        </main>
 
 
+                <div className={styles.innerContainer}>
+
+
+                    <img src={backDrop} alt='background' className={styles.backgroundPic}/>
+                    <div className={styles.searchBarContainer}>
+                        <label id='searchBar' className={styles.labelSearchBar}>Movie / Tv-Shows
+                            <input value={search}
+                                   type='text'
+                                   onChange={(e) => {
+                                       setNext(1)
+                                       setSearch(e.target.value)
+                                   }} className={styles.searchBar} placeholder='Search......'/>
+                        </label>
+                        <Random/>
                     </div>
-                </div>
-            </>
-            )
-            }
 
-            export default Discover;
+
+                    <main className={styles.resultLayout}>
+                        {data.length > 0 ? (
+                            data.map((data) => (
+                                <Card
+                                    overview={data?.overview}
+                                    key={data?.id}
+                                    id={data?.id}
+                                    media_type={data?.media_type}
+                                    title={data?.title}
+                                    release_date={data?.release_date}
+                                    first_air_date={data?.first_air_date}
+                                    vote_average={data?.vote_average}
+                                    backdrop_path={`https://image.tmdb.org/t/p/original${data?.backdrop_path}`}
+                                    poster_path={`https://image.tmdb.org/t/p/original${data?.poster_path}`}
+                                    original_name={data?.name}
+                                />
+                            ))
+                        ) : search && <p> Geen resultaten gevonden </p>}
+                    </main>
+                    <div className={styles.buttonLayout}>
+                        {next > 0 &&
+                        <Button onClick={prevPage} variant='primaryBtn' size='large' label='prev'/>}
+                        {next < pages &&
+                        <Button onClick={nextPage} variant='primaryBtn' size='large' label='next'/>}
+                    </div>
+
+
+                </div>
+
+            </div>
+        </>
+    )
+}
+
+export default Discover;

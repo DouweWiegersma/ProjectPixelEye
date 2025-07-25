@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Card from "../../components/Card/Card.jsx";
 import { AuthContext } from "../../context/AuthContext.jsx";
+import {Link} from "react-router-dom";
 
 function Watchlist() {
     const { user } = useContext(AuthContext);
@@ -47,18 +48,15 @@ function Watchlist() {
 
     return (
         <section className={styles.outerContainer}>
-
             <main className={styles.innerContainer}>
                 <header>
-                    <div className={styles.test1}>
-                        <div className={styles.test3}></div>
-                        <div className={styles.test}><h1 className={styles.title}>Mijn Watchlist</h1></div>
-                        <div className={styles.test2}></div>
+                    <div className={styles.imageContainer}>
+                        <div className={`${styles.image3} ${styles.imageStyle}`}></div>
+                        <div className={`${styles.image1} ${styles.imageStyle}`}><h1 className={styles.title}>Mijn
+                            Watchlist</h1></div>
+                        <div className={`${styles.image2} ${styles.imageStyle}`}></div>
                     </div>
                 </header>
-
-
-                {/*<div className={styles.test1}>test1</div>*/}
 
 
                 {watchlist.length > 0 ? (
@@ -80,7 +78,10 @@ function Watchlist() {
                         ))}
                     </section>
                 ) : (
-                    <p>Je watchlist is leeg.</p>
+                    <>
+                    <p className={styles.empty}>Je watchlist is leeg. </p>
+                    <p> <Link to="/Discover" className={styles.empty}>Ontdek films/series </Link> </p>
+                    </>
                 )}
             </main>
         </section>

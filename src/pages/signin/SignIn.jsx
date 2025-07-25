@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 
 
 function SignIn() {
-    const { login } = useContext(AuthContext);
+    const { login} = useContext(AuthContext);
     const navigate = useNavigate()
     const [formData, setFormData] = useState({
         username: "",
@@ -56,9 +56,9 @@ function SignIn() {
 
     return (
         <>
-
                 <main className={styles.outerContainer}>
                     <section className={styles.innerContainer}>
+
                         <header>
                             <h1 className={styles.title}>Inloggen</h1>
                         </header>

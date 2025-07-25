@@ -16,25 +16,31 @@ function NavBar(){
             <li><NavLink to="/"
                          className={({isActive}) => isActive === true ? styles.active : styles.default}> Home </NavLink>
             </li>
-            {isAuth ? (
+            {isAuth &&
                 <>
             <li> <NavLink to="/Discover"
                          className={({isActive}) => isActive === true ? styles.active : styles.default}> Discover </NavLink>
             </li>
             <li><NavLink to="/Watchlist"
                          className={({isActive}) => isActive === true ? styles.active : styles.default}> Watchlist </NavLink>
-            </li></>) : (<><li> Discover</li>  <li>Watchlist</li></>)}
+            </li></>}
 
             {isAuth ? (
                 <>
-                    <li><NavLink to="/Profile"
+                    <li className={styles.centerPicture}>
+                        <img
+                            src={user?.profileImageUrl}
+                            alt="Profiel"
+                            style={{width: 40, height: 40, borderRadius: "50%"}}
+                        />
+                        <NavLink to="/Profile"
                                  className={({isActive}) => isActive === true ? styles.active : styles.default}> {user.username} </NavLink>
                     </li>
                     <li><Button label="LogOut" size="large" onClick={logout} variant="primaryBtn"/></li>
                 </>
             ) : (
                 <>
-                <li><Button label="Login" variant="primaryBtn" size="large" onClick={() => navigate("/SignIn")}/></li>
+                    <li><Button label="Login" variant="primaryBtn" size="large" onClick={() => navigate("/SignIn")}/></li>
                 <li> <Button label="SignUp" variant="primaryBtn" size="large" onClick={() => navigate("/SignUp")}/> </li>
                 </>
     )

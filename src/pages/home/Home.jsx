@@ -111,13 +111,10 @@ function Home() {
 
 
                             <section className={styles.contentWrapper}>
-
                                 <div className={styles.layoutRow}>
                                     <h2 className={styles.movieTitle}>{title[count]}</h2>
-
                                     <p className={styles.movieRating}><FaStar/>{Math.round(rating[count] * 10)} </p>
                                 </div>
-
                                     <Button label={showMore === false ? <h3>Overview</h3> : <h3>Hide Overview</h3>}
                                             size='large' variant='secondaryBtn'
                                             onClick={show}/>

@@ -212,7 +212,7 @@ function Random(){
                             <option value=''>-- Categorie --</option>
                             {movieGenre.map((movieGenre) => (
                                 <option key={movieGenre.id} value={movieGenre.id}>
-                                    {movieGenre.name}
+                                    {movieGenre?.name}
                                 </option>
                             ))}
                         </select>
@@ -246,12 +246,12 @@ function Random(){
                     <h2> Roulette Tv Shows</h2>
                     <label className={styles.gap}>Rating:
                         <input type='range' id='rating' min='1' max='10' step='1' value={form.rating} name='rating'
-                               onChange={handleChange}/><p>{form.rating}+</p>
+                               onChange={handleChange}/><p>{form?.rating}+</p>
                     </label>
 
                     <label htmlFor='releaseYearTv' className={styles.gap}>Release Year:
                         <select name='releaseYearTv'  id='releaseYearTv' onChange={handleChange} className={styles.optionBox}>
-                            <option value={form.releaseYearTv}  >-- Selecteer een jaar --</option>
+                            <option value={form?.releaseYearTv}  >-- Selecteer een jaar --</option>
                             {years.map((year) => (
                                 <option key={year} value={year} >{year}</option>
                             ))}
@@ -284,7 +284,7 @@ function Random(){
                                 <option value=''>-- Categorie --</option>
                                 {genre.map((genre) => (
                                     <option key={genre.id} value={genre.id}>
-                                        {genre.name}
+                                        {genre?.name}
                                     </option>
                                 ))}
                             </select>

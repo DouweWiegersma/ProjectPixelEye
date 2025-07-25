@@ -8,14 +8,15 @@
   padding: 15px;
   background-color: $color-bg;
 }
-.innerContainer{
+
+.innerContainer {
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-size: cover;
   height: 100%;
-  max-height: 100vh;
   background-image:
           linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
           url('../../assets/movie background.jpg');

@@ -6,7 +6,6 @@ import NavBar from "./components/navigation/NavBar.jsx";
 import SignUp from "./pages/signup/SignUp.jsx";
 import SignIn from "./pages/signin/SignIn.jsx";
 import Profile from "./pages/profile/Profile.jsx";
-
 import { Routes, Route} from 'react-router-dom';
 import {useContext} from "react";
 import {AuthContext} from "./context/AuthContext.jsx";
@@ -22,11 +21,11 @@ function App() {
         <Route path="/SignIn" element={<SignIn/>} />
         <Route path="/" element={<Home/>} />
 
-        {isAuth ? (<>
+        {isAuth && <>
         <Route path="/Profile" element={<Profile/>} />
         <Route path="/Discover" element={<Discover/>} />
         <Route path="/Watchlist" element={<Watchlist/>} />
-        </>)   : ( <></>)}
+        </>}
         </Routes>
     </>
   )

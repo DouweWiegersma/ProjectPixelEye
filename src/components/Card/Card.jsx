@@ -136,7 +136,6 @@ function Card({ id, title, overview, media_type, release_date, first_air_date, v
                 <h2> {title} {original_name}</h2>
                 <figure>{poster_path ?  <img src={poster_path} alt='poster' className={styles.posterImg}/> : <p> geen poster beschikbaar</p>} </figure>
                 <p>Release date: {release_date} {first_air_date}</p>
-
                 <div className={styles.buttonContainer}>
                     <Button label={<IoAddCircleSharp style={{width: '50px', height: '50px'}}/>} variant='addBtn'
                             shape='circle' onClick={handleAdd}/>
