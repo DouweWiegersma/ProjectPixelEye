@@ -31,7 +31,7 @@ Of download de ZIP en pak deze uit
 
 Herstart daarna de ontwikkelserver als deze al draaide
 
-## 📦 Gebruikte packages
+##  Gebruikte packages
 
 Deze applicatie gebruikt de volgende belangrijke packages:
 

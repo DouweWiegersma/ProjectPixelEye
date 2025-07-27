@@ -72,6 +72,30 @@
   height: 100%;
 }
 
+// next en prev button layout
+.buttonLayout{
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+
+// Searchbar and SearchButton Container
+.row{
+  display: flex;
+  position: relative;
+}
+
+.searchIcon{
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  color: $color-accent;
+  z-index: 100;
+}
+
 
 @media screen and (max-width: 1550px) {
   .resultLayout {
@@ -85,17 +109,10 @@
   }
   .labelSearchBar {
     margin-top: 0;
+
   }
 }
 
-// next en prev button layout
-.buttonLayout{
-  margin-top: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
-}
 
 
 

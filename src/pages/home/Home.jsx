@@ -140,9 +140,9 @@ function Home() {
 
 
                         <section className={styles.layoutContentDescription}>
-                             <h3> <HiViewfinderCircle style={ { color: 'blue', marginRight: '15'}} /> Ontdek:</h3>
+                             <h3> <HiViewfinderCircle style={ { color: 'blue', marginRight: '15'}} /> Discover:</h3>
                             <p>
-                            Krijg dagelijks aanbevelingen op maat, of laat je verassen door onze random film picker
+                                Zoek een film of serie op titel, of laat je verrassen door de Movie/TV Roulette die speciaal voor jou iets uitkiest op basis van jouw voorkeuren!
                             </p>
 
                              <h3> <MdFormatListBulletedAdd style={{ color: 'blue', marginRight: '15'}}/>Watchlist: </h3>
@@ -152,8 +152,8 @@ function Home() {
 
                             <h3><VscAccount style={ { color: 'blue', marginRight: '15'}} /> Account nodig?</h3>
                             <p>
-                            Ja, je hebt een gratis account nodig om je watchlist op te slaan, je voorkeuren bij te houden
-                            en films te waarderen. Zo zorgen we ervoor dat jouw filmwereld helemaal van jou is
+                                Maak een account aan om je eigen watchlist bij te houden en films of series te ontdekken via de Discover-functie!.
+                                Zo zorgen we ervoor dat jouw filmwereld helemaal van jou is
                             </p>
                         </section>
 

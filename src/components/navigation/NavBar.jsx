@@ -16,14 +16,14 @@ function NavBar(){
             <li><NavLink to="/"
                          className={({isActive}) => isActive === true ? styles.active : styles.default}> Home </NavLink>
             </li>
-            {isAuth &&
+
                 <>
             <li> <NavLink to="/Discover"
                          className={({isActive}) => isActive === true ? styles.active : styles.default}> Discover </NavLink>
             </li>
             <li><NavLink to="/Watchlist"
                          className={({isActive}) => isActive === true ? styles.active : styles.default}> Watchlist </NavLink>
-            </li></>}
+            </li></>
 
             {isAuth ? (
                 <>
@@ -40,8 +40,8 @@ function NavBar(){
                 </>
             ) : (
                 <>
-                    <li><Button label="Login" variant="primaryBtn" size="large" onClick={() => navigate("/SignIn")}/></li>
-                <li> <Button label="SignUp" variant="primaryBtn" size="large" onClick={() => navigate("/SignUp")}/> </li>
+                    <li><Button label="Sign In" variant="primaryBtn" size="large" onClick={() => navigate("/SignIn")}/></li>
+                <li> <Button label="Sign Up" variant="primaryBtn" size="large" onClick={() => navigate("/SignUp")}/> </li>
                 </>
     )
 }

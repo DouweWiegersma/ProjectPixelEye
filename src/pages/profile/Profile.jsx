@@ -5,6 +5,7 @@ import placeholderImage from "../../assets/profile pic.jpg";
 import Button from "../../components/Button/Button";
 import styles from "./Profile.module.scss";
 
+
 const API_KEY = "pixeleye:aO8LUAeun6zuzTqZllxY";
 const BASE_URL = "https://api.datavortex.nl/pixeleye";
 const API_KEY_TMDB = import.meta.env.VITE_TMDB_API_KEY;
@@ -19,11 +20,13 @@ function Profile() {
     const [trending, setTrending] = useState([])
 
 
-    const [username, setUsername] = useState(user.username);
+    const [username, setUsername] = useState("");
     const [usernameConfirm, setUsernameConfirm] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
     const [message, setMessage] = useState("");
+
+
 
 
     useEffect(() => {
@@ -58,7 +61,9 @@ function Profile() {
             console.error("Download mislukt:", e);
 
         }
-    };
+    }
+
+
 
     function handleFileChange(e){
         const file = e.target.files[0];
@@ -67,6 +72,7 @@ function Profile() {
             setImagePreview(URL.createObjectURL(file));
         }
     };
+
     async function handleUpload(){
         if (!selectedFile) {
             alert("Kies eerst een afbeelding.");
@@ -118,7 +124,7 @@ function Profile() {
             );
 
             if (response.status === 200) {
-                updateUsername(username); // update context
+                updateUsername(username);
                 setMessage("Gebruikersnaam bijgewerkt.");
                 setUsernameConfirm("");
             }
@@ -217,7 +223,6 @@ function Profile() {
                 <form onSubmit={handleUsernameChange} className={styles.formContainer}>
 
                     <h3>Gebruikersnaam wijzigen</h3>
-
                     <input
                         className={styles.inputBox}
                         type="text"

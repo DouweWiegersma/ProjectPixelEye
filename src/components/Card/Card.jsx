@@ -6,25 +6,19 @@ import { FaStar } from "react-icons/fa6";
 import {useContext, useState} from "react";
 import axios from "axios";
 import {AuthContext} from "../../context/AuthContext.jsx";
-
-
+import {truncateTitle} from "../../helpers/TruncateTitle.js";
+import {useNavigate} from "react-router-dom";
+import engelsNaarNederlandseDatum from "../../helpers/DutchDate.js";
 
 function Card({ id, title, overview, media_type, release_date, first_air_date, vote_average, backdrop_path, poster_path, original_name}){
     const { user } = useContext(AuthContext)
-    const [showMore, toggleShowMore] = useState(false)
 
 
-    function toggleMore(){
-        if(showMore === false){
-            toggleShowMore(true)
-        }
-        else{
-            toggleShowMore(false)
-        }
-    }
 
     async function handleAdd() {
         const token = localStorage.getItem("token");
+        alert("Toegevoegd aan je watchlist");
+
         try {
             const response = await axios.get(
                 `https://api.datavortex.nl/pixeleye/users/${user.username}`,
@@ -39,7 +33,13 @@ function Card({ id, title, overview, media_type, release_date, first_air_date, v
             let currentInfo = [];
 
             if (response.data.info) {
-                currentInfo = JSON.parse(response.data.info);
+                try {
+                    const parsed = JSON.parse(response.data.info);
+                    currentInfo = Array.isArray(parsed) ? parsed : [];
+                } catch (err) {
+                    console.warn("Fout bij JSON parsen van info:", err);
+                    currentInfo = [];
+                }
             }
 
             const newMovie = {
@@ -54,6 +54,13 @@ function Card({ id, title, overview, media_type, release_date, first_air_date, v
                 original_name,
                 overview,
             };
+
+
+            const bestaatAl = currentInfo.some((item) => item.id === id);
+            if (bestaatAl) {
+                alert("Deze film staat al in je watchlist.");
+                return;
+            }
 
             const updatedInfo = [...currentInfo, newMovie];
 
@@ -71,16 +78,16 @@ function Card({ id, title, overview, media_type, release_date, first_air_date, v
             );
 
             console.log("Film succesvol toegevoegd aan watchlist!");
-
         } catch (e) {
             console.error("Fout bij toevoegen aan watchlist:", e);
         }
     }
 
 
-
     async function handleDelete() {
         const token = localStorage.getItem("token");
+        alert("Het verwijderen is gelukt!");
+
         try {
             const response = await axios.get(
                 `https://api.datavortex.nl/pixeleye/users/${user.username}`,
@@ -93,12 +100,18 @@ function Card({ id, title, overview, media_type, release_date, first_air_date, v
             );
 
             let currentInfo = [];
+
             if (response.data.info) {
-                currentInfo = JSON.parse(response.data.info);
+                try {
+                    const parsed = JSON.parse(response.data.info);
+                    currentInfo = Array.isArray(parsed) ? parsed : [];
+                } catch (e) {
+                    console.warn("Kon info niet parsen:", e);
+                    currentInfo = [];
+                }
             }
 
-            const updatedInfo = currentInfo.filter((movie) => movie.id !== id);
-
+            const updatedInfo = currentInfo.filter((movie) => String(movie.id) !== String(id));
 
             await axios.put(
                 `https://api.datavortex.nl/pixeleye/users/${user.username}`,
@@ -118,6 +131,24 @@ function Card({ id, title, overview, media_type, release_date, first_air_date, v
         }
     }
 
+    const navigate = useNavigate();
+
+    function handleMoreInfo() {
+        navigate(`/details/${id}`, {
+            state: {
+                id,
+                title,
+                overview,
+                media_type,
+                release_date,
+                first_air_date,
+                vote_average,
+                backdrop_path,
+                poster_path,
+                original_name,
+            }
+        });
+    }
 
 
 
@@ -132,29 +163,14 @@ function Card({ id, title, overview, media_type, release_date, first_air_date, v
                     <h1 className={styles.title}>  {media_type} </h1>
                     <p className={styles.rating}><FaStar className={styles.star}/>{Math.round(vote_average * 10)}</p>
                 </header>
-
-                <h2> {title} {original_name}</h2>
+                <h2> {truncateTitle(title || original_name)} </h2>
                 <figure>{poster_path ?  <img src={poster_path} alt='poster' className={styles.posterImg}/> : <p> geen poster beschikbaar</p>} </figure>
-                <p>Release date: {release_date} {first_air_date}</p>
+                <p>Release date: {engelsNaarNederlandseDatum(release_date || first_air_date)}</p>
                 <div className={styles.buttonContainer}>
                     <Button label={<IoAddCircleSharp style={{width: '50px', height: '50px'}}/>} variant='addBtn'
                             shape='circle' onClick={handleAdd}/>
-                    <Button variant='secondaryBtn' size='large' label='More Info' onClick={toggleMore}/>
-                    {showMore ? (
-                        <div className={styles.details}>
-                            <div className={styles.detailsInner}>
-                                <div className={styles.rowLayout}>
-                                <h1> {original_name} {title} </h1>
-                                <Button label='X' onClick={toggleMore} shape='square' variant='primaryBtn' size='medium'/>
-                                </div>
-                                 <p className={styles.overview}> { overview } </p>
-                            </div>
-                            </div>
-                            ) : (<></>
-                            ) }
-
-                            <Button label={<TiDelete style={{width: '50px', height: '50px'}}/>} variant='removeBtn'
-                                    shape='circle' onClick={handleDelete}/>
+                    <Button variant='secondaryBtn' size='large' label='More Info' onClick={handleMoreInfo}/>
+                    <Button label={<TiDelete style={{width: '50px', height: '50px'}}/>} variant='removeBtn' shape='circle' onClick={handleDelete}/>
                         </div>
                         </main>
                         </div>

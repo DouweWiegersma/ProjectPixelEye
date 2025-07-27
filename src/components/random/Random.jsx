@@ -167,14 +167,14 @@ function Random(){
                 <Button label={'Reset'} variant='secondaryBtn' shape='large' onClick={reset}/> )}
 
 
-            { movies ? (
+            { movies &&
 
             <>
             <form className={styles.formContainer} onSubmit={handleSubmit}>
                 <h2> Roulette Movies</h2>
                 <label className={styles.gap}>Rating:
                     <input type='range' id='rating' min='1' max='10' step='1' value={form.rating} name='rating'
-                           onChange={handleChange}/><p>{form.rating}+</p>
+                           onChange={handleChange} /><p>{form.rating}+</p>
                 </label>
 
                 <label htmlFor='releaseYear' className={styles.gap}>Release Year:
@@ -222,10 +222,10 @@ function Random(){
                 </label>
             </form>
             </>
-                ) : (<> </>)}
+            }
 
 
-            {random ? (
+            {random &&
 
                 <Card
                     media_type={form?.mediaType}
@@ -237,10 +237,10 @@ function Random(){
                       poster_path={`https://image.tmdb.org/t/p/original${data?.poster_path}`}
                       original_name={data?.name}
                       overview={data?.overview}/>
-            ) : (<></>)}
+            }
 
 
-            {tvShows ? (
+            {tvShows &&
             <>
                 <form className={styles.formContainer} onSubmit={handleSubmit}>
                     <h2> Roulette Tv Shows</h2>
@@ -293,7 +293,7 @@ function Random(){
                         <Button type='submit' size='large' label={'zoeken'} variant='primaryBtn'/>
                     </label>
                 </form>
-            </>) : (<> </>)}
+            </>}
 
 
         </>

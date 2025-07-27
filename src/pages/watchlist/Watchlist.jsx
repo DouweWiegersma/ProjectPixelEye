@@ -41,7 +41,7 @@ function Watchlist() {
         }
 
         fetchWatchlist();
-    }, [user?.username, token, watchlist]);
+    }, [user?.username, token]);
 
     if (loading) return <p>Laden...</p>;
     if (error) return <p>{error}</p>;
@@ -79,8 +79,8 @@ function Watchlist() {
                     </section>
                 ) : (
                     <>
-                    <p className={styles.empty}>Je watchlist is leeg. </p>
-                    <p> <Link to="/Discover" className={styles.empty}>Ontdek films/series </Link> </p>
+                    <p className={styles.empty}>Er zit nog niks in je Watchlist </p>
+                    <p> <Link to="/Discover" className={styles.empty}>Klik hier... Om films toe te voegen </Link> </p>
                     </>
                 )}
             </main>

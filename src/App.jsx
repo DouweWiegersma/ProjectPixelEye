@@ -9,8 +9,9 @@ import Profile from "./pages/profile/Profile.jsx";
 import { Routes, Route} from 'react-router-dom';
 import {useContext} from "react";
 import {AuthContext} from "./context/AuthContext.jsx";
+import DetailPage from "./components/DetailPage/DetailPage.jsx";
 function App() {
-    const API_KEY = import.meta.env.VITE_TMDB_API_KEY
+    // const API_KEY = import.meta.env.VITE_TMDB_API_KEY
     const { isAuth} = useContext(AuthContext)
     return(
     <>
@@ -20,12 +21,10 @@ function App() {
         <Route path="/SignUp" element={<SignUp/>} />
         <Route path="/SignIn" element={<SignIn/>} />
         <Route path="/" element={<Home/>} />
-
-        {isAuth && <>
-        <Route path="/Profile" element={<Profile/>} />
-        <Route path="/Discover" element={<Discover/>} />
-        <Route path="/Watchlist" element={<Watchlist/>} />
-        </>}
+        <Route path="/Profile" element={isAuth === true ? <Profile/> : <Home/>} />
+        <Route path="/Discover" element={isAuth === true ? <Discover/> : <Home/>} />
+        <Route path="/Watchlist" element={isAuth === true ? <Watchlist/> : <Home/>} />
+            <Route path="/details/:id" element={<DetailPage />} />
         </Routes>
     </>
   )

@@ -5,56 +5,49 @@ import Card from "../../components/Card/Card.jsx";
 import background from "../../assets/movie background.jpg"
 import Random from "../../components/random/Random.jsx";
 import Button from "../../components/Button/Button.jsx";
-
+import { IoSearchSharp } from "react-icons/io5";
 
 
 function Discover(){
+
+    const [searchInput, setSearchInput] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
+
         const [loading, setLoading] = useState(true)
         const [pages, setPages] = useState(0)
-        const [data, setData] = useState({
-            media_type: '',
-            title: '',
-            key: 0,
-            id: 0,
-            backdrop_path: '',
-            vote_average: 0,
-            release_date: '',
-            overview: '',
-            poster_path: '',
-            name: '',
-            first_air_date: ''
-    })
+        const [data, setData] = useState([])
     const [next, setNext] = useState(1)
     const [search, setSearch] = useState('')
     const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
     useEffect(() => {
+        if (!searchQuery) return;
+
         async function keyword() {
+            setLoading(true);
             try {
                 const response = await axios.get('https://api.themoviedb.org/3/search/multi', {
                     params: {
                         page: next,
-                        query: search,
+                        query: searchQuery,
                         api_key: API_KEY
                     },
                     headers: {
                         accept: 'application/json',
-                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjMmM3NThlMjI3MGJhZGRkOTk1ZDI3ZjA5ZTUzN2MxMCIsIm5iZiI6MTc1MDg0NTQxNC4yNDEsInN1YiI6IjY4NWJjN2U2MmFjNDgyNjdhMWVlNjc1YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.k20X1mNoNT_dDnc4dTeZ4lTkg8AzmShbQakV7NdIlr0'
                     }
-                })
-                console.log(response.data)
-                setData(response.data.results)
-                setPages(response.data.total_pages)
-                setLoading(false)
+                });
+                setData(response.data.results);
+                setPages(response.data.total_pages);
+            } catch (e) {
+                console.error('Fout bij zoeken:', e);
+            } finally {
+                setLoading(false);
             }
-            catch(e) {
-                console.error(e, 'cant find data')
-            }
-
         }
-        keyword()
-    }, [search, next])
-    if (loading) return <p>Laden...</p>;
+
+        keyword();
+    }, [searchQuery, next]);
+
 
     const backDrop = data[0]?.backdrop_path ? `https://image.tmdb.org/t/p/original${data[0]?.backdrop_path}` : background
 
@@ -78,19 +71,35 @@ function Discover(){
                     <img src={backDrop} alt='background' className={styles.backgroundPic}/>
                     <div className={styles.searchBarContainer}>
                         <label id='searchBar' className={styles.labelSearchBar}>Movie / Tv-Shows
-                            <input value={search}
-                                   type='text'
-                                   onChange={(e) => {
-                                       setNext(1)
-                                       setSearch(e.target.value)
-                                   }} className={styles.searchBar} placeholder='Search......'/>
+                            <div className={styles.row}>
+                                <input value={searchInput}
+                                       type='text'
+                                       onChange={(e) => {
+                                           setNext(1)
+                                           setSearchInput(e.target.value)
+                                       }} className={styles.searchBar} placeholder='Search......'/>
+                                <Button
+                                    variant='primaryBtn'
+                                    shape='square'
+                                    size='small'
+                                    label={<IoSearchSharp className={styles.searchIcon}/>}
+                                    onClick={() => {
+                                        setNext(1);
+                                        setSearchQuery(searchInput);
+                                    }}/>
+
+                            </div>
+
+
                         </label>
                         <Random/>
                     </div>
 
 
                     <main className={styles.resultLayout}>
-                        {data.length > 0 ? (
+                        {loading ? (
+                            <p>Er zijn geen zoek resultaat</p>
+                        ) : data.length > 0 ? (
                             data.map((data) => (
                                 <Card
                                     overview={data?.overview}
@@ -108,12 +117,14 @@ function Discover(){
                             ))
                         ) : search && <p> Geen resultaten gevonden </p>}
                     </main>
+
+                    {!search &&
                     <div className={styles.buttonLayout}>
-                        {next > 0 &&
+                        {next > 1 &&
                         <Button onClick={prevPage} variant='primaryBtn' size='large' label='prev'/>}
                         {next < pages &&
                         <Button onClick={nextPage} variant='primaryBtn' size='large' label='next'/>}
-                    </div>
+                    </div>}
 
 
                 </div>
