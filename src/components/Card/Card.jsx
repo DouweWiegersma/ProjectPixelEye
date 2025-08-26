@@ -152,29 +152,68 @@ function Card({ id, title, overview, media_type, release_date, first_air_date, v
 
 
 
-    return(
-        <>
-        <div className={styles.outerContainer}>
-            {backdrop_path ? <img src={backdrop_path} alt="backgroundImage" className={styles.backdropImg}/> : <p> geen poster beschikbaar</p>}
+    return (
+        <article className={styles.outerContainer}>
+            {backdrop_path ? (
+                <img
+                    src={backdrop_path}
+                    alt="Achtergrondafbeelding"
+                    className={styles.backdropImg}
+                />
+            ) : (
+                <p>Geen poster beschikbaar</p>
+            )}
 
-            <main className={styles.innerContainer}>
-
+            <div className={styles.innerContainer}>
                 <header className={styles.titleContainer}>
-                    <h1 className={styles.title}>  {media_type} </h1>
-                    <p className={styles.rating}><FaStar className={styles.star}/>{Math.round(vote_average * 10)}</p>
+                    <h2 className={styles.title}>{media_type}</h2>
+                    <p className={styles.rating}>
+                        <FaStar className={styles.star}/>
+                        {Math.round(vote_average * 10)}
+                    </p>
                 </header>
-                <h2> {truncateTitle(title || original_name)} </h2>
-                <figure>{poster_path ?  <img src={poster_path} alt='poster' className={styles.posterImg}/> : <p> geen poster beschikbaar</p>} </figure>
-                <p>Release date: {engelsNaarNederlandseDatum(release_date || first_air_date)}</p>
-                <div className={styles.buttonContainer}>
-                    <Button label={<IoAddCircleSharp style={{width: '50px', height: '50px'}}/>} variant='addBtn'
-                            shape='circle' onClick={handleAdd}/>
-                    <Button variant='secondaryBtn' size='large' label='More Info' onClick={handleMoreInfo}/>
-                    <Button label={<TiDelete style={{width: '50px', height: '50px'}}/>} variant='removeBtn' shape='circle' onClick={handleDelete}/>
-                        </div>
-                        </main>
-                        </div>
-        </>
+
+                <h3>{truncateTitle(title || original_name)}</h3>
+
+                <figure>
+                    {poster_path ? (
+                        <img
+                            src={poster_path}
+                            alt="Poster"
+                            className={styles.posterImg}
+                        />
+                    ) : (
+                        <p>Geen poster beschikbaar</p>
+                    )}
+                </figure>
+
+                <p>
+                    Release datum:{" "}
+                    {engelsNaarNederlandseDatum(release_date || first_air_date)}
+                </p>
+
+                <footer className={styles.buttonContainer}>
+                    <Button
+                        label={<IoAddCircleSharp style={{width: "50px", height: "50px"}}/>}
+                        variant="addBtn"
+                        shape="circle"
+                        onClick={handleAdd}
+                    />
+                    <Button
+                        variant="secondaryBtn"
+                        size="large"
+                        label="More Info"
+                        onClick={handleMoreInfo}
+                    />
+                    <Button
+                        label={<TiDelete style={{width: "50px", height: "50px"}}/>}
+                        variant="removeBtn"
+                        shape="circle"
+                        onClick={handleDelete}
+                    />
+                </footer>
+            </div>
+        </article>
 
 
     )

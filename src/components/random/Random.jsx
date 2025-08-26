@@ -158,23 +158,25 @@ function Random(){
 
     return(
         <>
-
-            {mediaType ? (
-                <>
+            <fieldset className={styles.mediaTypeGroup}>
+                <legend>Zoek iets willekeurigs:</legend>
+                {mediaType ? (
+                <div className={styles.mediaTypeGroup}>
             <Button label={'Tv Show'} variant='secondaryBtn' shape='large' onClick={formTvShow}/>
             <Button label={'Movies'} variant='secondaryBtn' shape='large' onClick={formMovie}/>
-                </>) : (
+                </div>) : (
                 <Button label={'Reset'} variant='secondaryBtn' shape='large' onClick={reset}/> )}
-
+            </fieldset>
 
             { movies &&
 
-            <>
+            <div>
             <form className={styles.formContainer} onSubmit={handleSubmit}>
                 <h2> Roulette Movies</h2>
                 <label className={styles.gap}>Rating:
                     <input type='range' id='rating' min='1' max='10' step='1' value={form.rating} name='rating'
-                           onChange={handleChange} /><p>{form.rating}+</p>
+                           onChange={handleChange} />
+                    <output>{form.rating}+</output>
                 </label>
 
                 <label htmlFor='releaseYear' className={styles.gap}>Release Year:
@@ -221,12 +223,11 @@ function Random(){
                     <Button type='submit' size='large' label={'zoeken'} variant='primaryBtn'/>
                 </label>
             </form>
-            </>
+            </div>
             }
 
 
             {random &&
-
                 <Card
                     media_type={form?.mediaType}
                       title={data?.title}
@@ -238,10 +239,7 @@ function Random(){
                       original_name={data?.name}
                       overview={data?.overview}/>
             }
-
-
             {tvShows &&
-            <>
                 <form className={styles.formContainer} onSubmit={handleSubmit}>
                     <h2> Roulette Tv Shows</h2>
                     <label className={styles.gap}>Rating:
@@ -292,11 +290,8 @@ function Random(){
                     <label>
                         <Button type='submit' size='large' label={'zoeken'} variant='primaryBtn'/>
                     </label>
-                </form>
-            </>}
-
-
-        </>
+                </form>}
+            </>
     )
 }
 

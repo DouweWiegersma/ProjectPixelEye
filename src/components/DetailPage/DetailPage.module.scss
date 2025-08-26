@@ -50,3 +50,9 @@
   max-width: 600px;
   font-size: 1.1rem;
 }
+
+.rowLayout{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
