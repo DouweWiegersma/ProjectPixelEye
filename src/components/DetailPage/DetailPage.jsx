@@ -22,7 +22,7 @@ function DetailPage() {
             {backdrop_path && <img src={backdrop_path} alt="Backdrop" className={styles.backdrop}/>}
             <div className={styles.content}>
                 <h1>{title || original_name}</h1>
-                <p>Type: {media_type}</p>
+                <p>Type: {media_type} </p>
                 <p>Release: {engelsNaarNederlandseDatum(release_date || first_air_date)}</p>
                 <p>Rating: {Math.round(vote_average * 10)} <FaStar style={{color: 'yellow'}}/></p>
 
