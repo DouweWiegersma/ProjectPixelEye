@@ -4,13 +4,16 @@ import {useContext} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import Button from "../Button/Button.jsx";
 import {useNavigate} from "react-router-dom";
+import {ProfilePhotoContext} from "../../context/ProfilePhotoContext.jsx";
 
 
 function NavBar(){
     const navigate = useNavigate()
-    const { isAuth, user, logout, login} = useContext(AuthContext)
+    const { isAuth, user, logout, users} = useContext(AuthContext)
+    const { downloadProfilePhoto, profileImageUrl, loadingPhoto,setProfileImageUrl, setLoadingPhoto, imagePreview} = useContext(ProfilePhotoContext)
     return (
         <nav className={styles.outerContainer}>
+
             <ul className={styles.navigationItems}>
                 <li>
                     <NavLink
@@ -41,16 +44,20 @@ function NavBar(){
                 {isAuth ? (
                     <>
                         <li className={styles.centerPicture}>
-                            <img
-                                src={user?.profileImageUrl}
-                                alt="Profiel"
-                                style={{width: 40, height: 40, borderRadius: "50%"}}
-                            />
+                            {loadingPhoto ? (
+                                <p>Loading...</p>
+                            ) : (
+                                <img
+                                    src={imagePreview || profileImageUrl}
+                                    alt="Profiel"
+                                    style={{ width: 40, height: 40, borderRadius: "50%" }}
+                                />
+                            )}
                             <NavLink
                                 to="/Profile"
-                                className={({isActive}) => (isActive ? styles.active : styles.default)}
+                                className={({ isActive }) => (isActive ? styles.active : styles.default)}
                             >
-                                {user.username}
+                                <span>{user?.username}</span>
                             </NavLink>
                         </li>
                         <li>
