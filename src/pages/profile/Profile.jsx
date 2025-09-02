@@ -85,36 +85,30 @@ function Profile() {
     }
 
     // Username wijzigen
-    async function handleUsernameChange(e) {
+    const handleUsernameChange = async (e) => {
         e.preventDefault();
-        if (username !== usernameConfirm) {
-            setMessage("Gebruikersnamen komen niet overeen.");
-            return;
-        }
+        if (username !== usernameConfirm) return;
 
         try {
-            await axios.put(
-                `${BASE_URL}/users/${user.username}`,
-                { username },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "X-Api-Key": API_KEY,
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            await axios.put(`${BASE_URL}/users/${user.username}`, { username }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "X-Api-Key": API_KEY,
+                    "Content-Type": "application/json",
+                },
+            });
 
-            updateUsername(username);
+            const newUsername = updateUsername(username);
+            await downloadProfilePhoto(newUsername); // gebruik direct nieuwe username
             setUsername("");
             setUsernameConfirm("");
             setMessage("Gebruikersnaam bijgewerkt!");
             setTimeout(() => setMessage(""), 3000);
-        } catch (e) {
-            console.error("Netwerkfout:", e);
+        } catch (err) {
+            console.error(err);
             setMessage("Netwerkfout bij wijzigen gebruikersnaam.");
         }
-    }
+    };
 
     // Wachtwoord wijzigen
     async function handlePasswordChange(e) {
@@ -125,7 +119,7 @@ function Profile() {
         }
 
         try {
-            await axios.post(
+            await axios.put(
                 `${BASE_URL}/users/${user.username}`,
                 { password: newPassword },
                 {
@@ -136,7 +130,8 @@ function Profile() {
                     },
                 }
             );
-
+            // const newPassword = updateUsername(username);
+            // await downloadProfilePhoto(newPassword);
             setNewPassword("");
             setNewPasswordConfirm("");
             setMessage("Wachtwoord succesvol gewijzigd.");

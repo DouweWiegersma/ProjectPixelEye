@@ -6,13 +6,16 @@ import { AuthContext } from "../../context/AuthContext.jsx";
 import {Link} from "react-router-dom";
 
 function Watchlist() {
-    const { user } = useContext(AuthContext);
+    const { user, token, id} = useContext(AuthContext);
     const [watchlist, setWatchlist] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const token = localStorage.getItem("token");
+
 
     useEffect(() => {
+        if (!user?.username || !token) return;
+        setLoading(true)
+        setError(null)
         async function fetchWatchlist() {
             try {
                 const response = await axios.get(
@@ -41,7 +44,9 @@ function Watchlist() {
         }
 
         fetchWatchlist();
-    }, [user?.username, token]);
+    }, [user?.username, user?.id, token]);
+
+
 
     if (loading) return <p>Laden...</p>;
     if (error) return <p>{error}</p>;
@@ -49,14 +54,15 @@ function Watchlist() {
     return (
         <section className={styles.outerContainer}>
             <main className={styles.innerContainer}>
-                <header>
+                    <header>
                     <div className={styles.imageContainer}>
                         <div className={`${styles.image3} ${styles.imageStyle}`}></div>
                         <div className={`${styles.image1} ${styles.imageStyle}`}><h1 className={styles.title}>Mijn
                             Watchlist</h1></div>
                         <div className={`${styles.image2} ${styles.imageStyle}`}></div>
                     </div>
-                </header>
+                    </header>
+
 
 
                 {watchlist.length > 0 ? (

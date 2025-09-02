@@ -3,15 +3,15 @@ import { IoAddCircleSharp } from "react-icons/io5";
 import Button from "../Button/Button.jsx";
 import { TiDelete } from "react-icons/ti";
 import { FaStar } from "react-icons/fa6";
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import axios from "axios";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import {truncateTitle} from "../../helpers/TruncateTitle.js";
 import {useNavigate} from "react-router-dom";
 import engelsNaarNederlandseDatum from "../../helpers/DutchDate.js";
 
-function Card({ id, title, overview, media_type, release_date, first_air_date, vote_average, backdrop_path, poster_path, original_name}){
-    const { user } = useContext(AuthContext)
+function Card({ title, overview, media_type, release_date, first_air_date, vote_average, backdrop_path, poster_path, original_name}){
+    const { user, id } = useContext(AuthContext)
 
 
 
