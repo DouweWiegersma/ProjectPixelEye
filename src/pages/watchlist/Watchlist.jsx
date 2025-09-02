@@ -52,16 +52,17 @@ function Watchlist() {
     if (error) return <p>{error}</p>;
 
     return (
-        <section className={styles.outerContainer}>
-            <main className={styles.innerContainer}>
-                    <header>
-                    <div className={styles.imageContainer}>
+        <main className={styles.outerContainer}>
+
+            <div className={styles.innerContainer}>
+
+                    <header className={styles.imageContainer}>
                         <div className={`${styles.image3} ${styles.imageStyle}`}></div>
                         <div className={`${styles.image1} ${styles.imageStyle}`}><h1 className={styles.title}>Mijn
                             Watchlist</h1></div>
                         <div className={`${styles.image2} ${styles.imageStyle}`}></div>
-                    </div>
                     </header>
+
 
 
 
@@ -89,8 +90,8 @@ function Watchlist() {
                     <p> <Link to="/Discover" className={styles.empty}>Klik hier... Om films toe te voegen </Link> </p>
                     </>
                 )}
-            </main>
-        </section>
+            </div>
+        </main>
     );
 }
 
