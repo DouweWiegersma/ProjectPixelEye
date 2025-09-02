@@ -9,10 +9,10 @@ import Profile from "./pages/profile/Profile.jsx";
 import { Routes, Route} from 'react-router-dom';
 import {useContext} from "react";
 import {AuthContext} from "./context/AuthContext.jsx";
-import { ProfilePhotoContext } from "./context/ProfilePhotoContext.jsx";
 import DetailPage from "./components/DetailPage/DetailPage.jsx";
+import Footer from "./components/footer/Footer.jsx"
 function App() {
-    // const API_KEY = import.meta.env.VITE_TMDB_API_KEY
+
     const { isAuth} = useContext(AuthContext)
     return(
     <>
@@ -27,6 +27,7 @@ function App() {
         <Route path="/Watchlist" element={isAuth === true ? <Watchlist/> : <Home/>} />
             <Route path="/details/:id" element={<DetailPage />} />
         </Routes>
+        <Footer/>
     </>
   )
 }

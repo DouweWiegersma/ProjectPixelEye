@@ -32,7 +32,7 @@ function Profile() {
     const getLocalStorageKey = () =>
         user ? `profileImageUrl_${user.username}` : null;
 
-    // Zorg dat profielfoto altijd correct wordt geladen
+
     useEffect(() => {
         if (!user?.username || !token) return;
         setLoading(false)
@@ -55,7 +55,7 @@ function Profile() {
         }
     }
 
-    // Upload profielfoto
+
     async function handleUpload(e) {
         e.preventDefault();
         if (!selectedFile) return alert("Kies eerst een afbeelding.");
@@ -72,7 +72,7 @@ function Profile() {
                 },
             });
 
-            // Na upload opnieuw downloaden in Base64 en context bijwerken
+
             await downloadProfilePhoto();
             setSelectedFile(null);
             setImagePreview(null);
@@ -84,7 +84,7 @@ function Profile() {
         }
     }
 
-    // Username wijzigen
+
     const handleUsernameChange = async (e) => {
         e.preventDefault();
         if (username !== usernameConfirm) return;
@@ -99,7 +99,7 @@ function Profile() {
             });
 
             const newUsername = updateUsername(username);
-            await downloadProfilePhoto(newUsername); // gebruik direct nieuwe username
+            await downloadProfilePhoto(newUsername);
             setUsername("");
             setUsernameConfirm("");
             setMessage("Gebruikersnaam bijgewerkt!");
@@ -110,7 +110,7 @@ function Profile() {
         }
     };
 
-    // Wachtwoord wijzigen
+
     async function handlePasswordChange(e) {
         e.preventDefault();
         if (newPassword !== newPasswordConfirm) {
@@ -142,7 +142,7 @@ function Profile() {
         }
     }
 
-    // Populaire films ophalen
+
     useEffect(() => {
         async function fetchTrending() {
             setLoading(true);
@@ -184,7 +184,6 @@ function Profile() {
                      className={styles.backgroundImg}/>
                 <h1 className={styles.title}> Welkom op je profiel pagina</h1>
                 <figure className={styles.layoutProfilePic}>
-
                     <img
                         src={imagePreview || profileImageUrl || placeholderImage}
                         alt="Profiel"
