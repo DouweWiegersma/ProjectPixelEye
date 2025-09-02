@@ -85,10 +85,10 @@ function Watchlist() {
                         ))}
                     </section>
                 ) : (
-                    <>
+                    <div>
                     <p className={styles.empty}>Er zit nog niks in je Watchlist </p>
                     <p> <Link to="/Discover" className={styles.empty}>Klik hier... Om films toe te voegen </Link> </p>
-                    </>
+                    </div>
                 )}
             </div>
         </main>
