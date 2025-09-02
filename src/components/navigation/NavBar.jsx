@@ -4,52 +4,93 @@ import {useContext} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import Button from "../Button/Button.jsx";
 import {useNavigate} from "react-router-dom";
+import {ProfilePhotoContext} from "../../context/ProfilePhotoContext.jsx";
 
 
 function NavBar(){
     const navigate = useNavigate()
-    const { isAuth, user, logout, login} = useContext(AuthContext)
+    const { isAuth, user, logout, users} = useContext(AuthContext)
+    const { downloadProfilePhoto, profileImageUrl, loadingPhoto,setProfileImageUrl, setLoadingPhoto, imagePreview} = useContext(ProfilePhotoContext)
     return (
-        <>
-            <div className={styles.outerContainer}>
-        <ul className={styles.navigationItems}>
-            <li><NavLink to="/"
-                         className={({isActive}) => isActive === true ? styles.active : styles.default}> Home </NavLink>
-            </li>
+        <nav className={styles.outerContainer}>
 
-                <>
-            <li> <NavLink to="/Discover"
-                         className={({isActive}) => isActive === true ? styles.active : styles.default}> Discover </NavLink>
-            </li>
-            <li><NavLink to="/Watchlist"
-                         className={({isActive}) => isActive === true ? styles.active : styles.default}> Watchlist </NavLink>
-            </li></>
+            <ul className={styles.navigationItems}>
+                <li>
+                    <NavLink
+                        to="/"
+                        className={({isActive}) => (isActive ? styles.active : styles.default)}
+                    >
+                        Home
+                    </NavLink>
+                </li>
 
-            {isAuth ? (
-                <>
-                    <li className={styles.centerPicture}>
-                        <img
-                            src={user?.profileImageUrl}
-                            alt="Profiel"
-                            style={{width: 40, height: 40, borderRadius: "50%"}}
-                        />
-                        <NavLink to="/Profile"
-                                 className={({isActive}) => isActive === true ? styles.active : styles.default}> {user.username} </NavLink>
-                    </li>
-                    <li><Button label="LogOut" size="large" onClick={logout} variant="primaryBtn"/></li>
-                </>
-            ) : (
-                <>
-                    <li><Button label="Sign In" variant="primaryBtn" size="large" onClick={() => navigate("/SignIn")}/></li>
-                <li> <Button label="Sign Up" variant="primaryBtn" size="large" onClick={() => navigate("/SignUp")}/> </li>
-                </>
-    )
-}
+                <li>
+                    <NavLink
+                        to="/Discover"
+                        className={({isActive}) => (isActive ? styles.active : styles.default)}
+                    >
+                        Discover
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
+                        to="/Watchlist"
+                        className={({isActive}) => (isActive ? styles.active : styles.default)}
+                    >
+                        Watchlist
+                    </NavLink>
+                </li>
 
+                {isAuth ? (
+                    <>
+                        <li className={styles.centerPicture}>
+                            {loadingPhoto ? (
+                                <p>Loading...</p>
+                            ) : (
+                                <img
+                                    src={imagePreview || profileImageUrl}
+                                    alt="Profiel"
+                                    style={{ width: 40, height: 40, borderRadius: "50%" }}
+                                />
+                            )}
+                            <NavLink
+                                to="/Profile"
+                                className={({ isActive }) => (isActive ? styles.active : styles.default)}
+                            >
+                                <span>{user?.username}</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <Button
+                                label="LogOut"
+                                size="large"
+                                onClick={logout}
+                                variant="primaryBtn"
+                            />
+                        </li>
+                    </>
+                ) : (
+                    <>
+                        <li>
+                            <Button
+                                label="Sign In"
+                                variant="primaryBtn"
+                                size="large"
+                                onClick={() => navigate("/SignIn")}
+                            />
+                        </li>
+                        <li>
+                            <Button
+                                label="Sign Up"
+                                variant="primaryBtn"
+                                size="large"
+                                onClick={() => navigate("/SignUp")}
+                            />
+                        </li>
+                    </>
+                )}
             </ul>
-            </div>
-
-        </>
+        </nav>
     )
 }
 

@@ -18,21 +18,37 @@ function DetailPage() {
     } = state || {};
 
     return (
-        <div className={styles.detailContainer}>
-            {backdrop_path && <img src={backdrop_path} alt="Backdrop" className={styles.backdrop}/>}
+        <article className={styles.detailContainer}>
+            {backdrop_path &&
+                <img src={backdrop_path} alt="Backdrop" className={styles.backdrop}/>}
             <div className={styles.content}>
-                <h1>{title || original_name}</h1>
-                <p>Type: {media_type} </p>
-                <p>Release: {engelsNaarNederlandseDatum(release_date || first_air_date)}</p>
-                <p>Rating: {Math.round(vote_average * 10)} <FaStar style={{color: 'yellow'}}/></p>
+                <header>
+                <h2>{title || original_name}</h2>
+                </header>
 
-                <div className={styles.posterAndOverview}>
-                    {poster_path && <img src={poster_path} alt="Poster" className={styles.poster}/>}
+                <dl>
+                    <div className={styles.rowLayout}>
+                    <dt>Type:</dt>
+                    <dd>{media_type} </dd>
+                    </div>
+                    <div className={styles.rowLayout}>
+                    <dt>Release:</dt>
+                    <dd>{engelsNaarNederlandseDatum(release_date || first_air_date)}</dd>
+                    </div>
+                    <div className={styles.rowLayout}>
+                    <dt>Rating: </dt>
+                    <dd>{Math.round(vote_average * 10)} <FaStar style={{color: 'yellow'}}/> </dd>
+                    </div>
+                </dl>
+
+                <section className={styles.posterAndOverview}>
+                    {poster_path && <figure> <img src={poster_path} alt="Poster" className={styles.poster}/>
+                    </figure>}
 
                     <p className={styles.overview}>{overview}</p>
-                </div>
+                </section>
             </div>
-        </div>
+        </article>
     );
 }
 

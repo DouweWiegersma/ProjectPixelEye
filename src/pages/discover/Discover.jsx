@@ -63,13 +63,9 @@ function Discover(){
         <>
 
             <div className={styles.outerContainer}>
-
-
                 <div className={styles.innerContainer}>
-
-
                     <img src={backDrop} alt='background' className={styles.backgroundPic}/>
-                    <div className={styles.searchBarContainer}>
+                    <section className={styles.searchBarContainer}>
                         <label id='searchBar' className={styles.labelSearchBar}>Movie / Tv-Shows
                             <div className={styles.row}>
                                 <input value={searchInput}
@@ -89,11 +85,9 @@ function Discover(){
                                     }}/>
 
                             </div>
-
-
                         </label>
                         <Random/>
-                    </div>
+                    </section>
 
 
                     <main className={styles.resultLayout}>
@@ -119,16 +113,14 @@ function Discover(){
                     </main>
 
                     {!search &&
-                    <div className={styles.buttonLayout}>
+                    <nav className={styles.buttonLayout}>
                         {next > 1 &&
                         <Button onClick={prevPage} variant='primaryBtn' size='large' label='prev'/>}
                         {next < pages &&
                         <Button onClick={nextPage} variant='primaryBtn' size='large' label='next'/>}
-                    </div>}
-
+                    </nav>}
 
                 </div>
-
             </div>
         </>
     )

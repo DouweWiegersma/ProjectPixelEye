@@ -88,25 +88,25 @@ function Home() {
             <div className={styles.outerContainer}>
                 <div className={styles.innerContainer}>
                     <header className={styles.layoutWrapper}>
-                        <div className={styles.backdropContainer}>
+                        <figure className={styles.backdropContainer}>
                             <img src={`https://image.tmdb.org/t/p/original${backdropPaths[count]}`} alt={title[count]}
                                  className={styles.backdropImg}/>
-                        </div>
+                        </figure>
 
 
                         <section className={styles.wrapper}>
                             <article className={styles.posterLayout}>
                                 <div className={styles.layoutTrending}>
                                     <h2 className={`${styles.trending} ${styles.flickerText}`}><AiFillFire/>Trending!!</h2>
-                                <div className={styles.row}>
+                                    <div className={styles.row}>
                                 <button type='button' onClick={back} disabled={count === 0} className={styles.iconBtn}>
                                     <IoIosArrowBack/></button>
                                 <img src={`https://image.tmdb.org/t/p/w200${poster[count]}`} alt={title[count]}
                                      className={styles.poster}/>
                                 <button type='button' onClick={next} disabled={count === 10} className={styles.iconBtn}>
                                     <IoIosArrowForward/></button>
+                                    </div>
                                 </div>
-                            </div>
                             </article>
 
 
@@ -121,18 +121,16 @@ function Home() {
                                     <p className={styles.movieDescription}> {showMore === true ? overview[count] : ''}</p>
 
                             </section>
-
-
                         </section>
                     </header>
 
 
                     <main className={styles.siteDescription}>
                         <section className={styles.layoutContentDescription}>
-                            <div>
+                            <header>
                             <h1 className={styles.pageTitle}> Welkom bij Pixel eye!</h1>
                                 <h2> "klik, filter en laat de filmmagie beginnen!"</h2>
-                            </div>
+                            </header>
                             <p> Zin in een film, maar geen idee wat? Kies je favoriete gerne,
                                 stel je filters in en klik op zoeken. Voilá -- een verrassende selectie films verschijnt
                                 alsof door tovenarij. Jouw volgende movie night start hier!</p>
