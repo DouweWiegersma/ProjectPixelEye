@@ -11,20 +11,22 @@ import {useContext} from "react";
 import {AuthContext} from "./context/AuthContext.jsx";
 import DetailPage from "./components/DetailPage/DetailPage.jsx";
 import Footer from "./components/footer/Footer.jsx"
+import PrivateRoute from "./components/privateRoute/privateRoute.jsx";
 function App() {
 
     const { isAuth} = useContext(AuthContext)
     return(
     <>
 
+
         <NavBar/>
         <Routes>
         <Route path="/SignUp" element={<SignUp/>} />
         <Route path="/SignIn" element={<SignIn/>} />
         <Route path="/" element={<Home/>} />
-        <Route path="/Profile" element={isAuth === true ? <Profile/> : <Home/>} />
-        <Route path="/Discover" element={isAuth === true ? <Discover/> : <Home/>} />
-        <Route path="/Watchlist" element={isAuth === true ? <Watchlist/> : <Home/>} />
+            <Route path="/Profile" element={<PrivateRoute isAuth={isAuth}><Profile /></PrivateRoute>}/>
+            <Route path="/Discover" element={<PrivateRoute isAuth={isAuth}> <Discover /></PrivateRoute>}/>
+            <Route path="/Watchlist" element={<PrivateRoute isAuth={isAuth}><Watchlist /></PrivateRoute>}/>
             <Route path="/details/:id" element={<DetailPage />} />
         </Routes>
         <Footer/>
