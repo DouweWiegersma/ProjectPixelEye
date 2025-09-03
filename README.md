@@ -5,6 +5,11 @@
 De applicatie biedt functies zoals zoeken, filteren, inloggen, en het beheren van favoriete films.  
 Deze app is ontwikkeld als eindopdracht voor een front-end development opleiding en maakt gebruik van moderne tools zoals Axios, React Router, Formik, en SCSS.
 
+## Screenshots
+
+### Home-pagina
+[![Homepage](./screenshots/home-small.png)](./screenshots/home.png)
+
 
 ## Vereisten
 
@@ -21,7 +26,7 @@ cd EindopdrachtPixelEye
 Of download de ZIP en pak deze uit
 
 2. **Installeer de dependencies**
-    Npm install
+    npm install
 
 3. **Start de applicatie in ontwikkelmodus**
     Npm run dev
