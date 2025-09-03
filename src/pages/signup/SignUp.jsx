@@ -110,7 +110,7 @@ function SignUp() {
                         )}
                     </label>
 
-                    <Button type="submit" label="Sign Up" variant="primaryBtn" size="large" />
+                    <Button type="submit" label="Sign Up" variant="primary-btn" size="large" />
                 </form>
 
                 {message && <p>{message}</p>}

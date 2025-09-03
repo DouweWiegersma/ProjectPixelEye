@@ -86,7 +86,7 @@ function SignIn() {
                                 </label>
 
 
-                                <Button label='Log In' variant='primaryBtn' size='large' type='submit'/>
+                                <Button label='Log In' variant='primary-btn' size='large' type='submit'/>
                             </form>
                             {error && <p style={{color: "red"}}>{error}</p>}
                         </section>
