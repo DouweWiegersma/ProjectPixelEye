@@ -152,19 +152,19 @@ function Card({ id, setRefresh, title, overview, media_type, release_date, first
 
 
     return (
-        <article className={styles.outerContainer}>
+        <article className={styles['outer-container']} >
             {backdrop_path ? (
                 <img
                     src={backdrop_path}
                     alt="Achtergrondafbeelding"
-                    className={styles.backdropImg}
+                    className={styles['backdrop-img']}
                 />
             ) : (
                 <p>Geen poster beschikbaar</p>
             )}
 
-            <div className={styles.innerContainer}>
-                <header className={styles.titleContainer}>
+            <div className={styles['inner-container']}>
+                <header className={styles['title-container']}>
                     <h2 className={styles.title}>{media_type}</h2>
                     <p className={styles.rating}>
                         <FaStar className={styles.star}/>
@@ -179,7 +179,7 @@ function Card({ id, setRefresh, title, overview, media_type, release_date, first
                         <img
                             src={poster_path}
                             alt="Poster"
-                            className={styles.posterImg}
+                            className={styles['poster-img']}
                         />
                     ) : (
                         <p>Geen poster beschikbaar</p>
@@ -191,22 +191,22 @@ function Card({ id, setRefresh, title, overview, media_type, release_date, first
                     {engelsNaarNederlandseDatum(release_date || first_air_date)}
                 </p>
 
-                <footer className={styles.buttonContainer}>
+                <footer className={styles['button-container']}>
                     <Button
                         label={<IoAddCircleSharp style={{width: "50px", height: "50px"}}/>}
-                        variant="addBtn"
+                        variant="add-btn"
                         shape="circle"
                         onClick={handleAdd}
                     />
                     <Button
-                        variant="secondaryBtn"
+                        variant="secondary-btn"
                         size="large"
                         label="More Info"
                         onClick={handleMoreInfo}
                     />
                     <Button
                         label={<TiDelete style={{width: "50px", height: "50px"}}/>}
-                        variant="removeBtn"
+                        variant="remove-btn"
                         shape="circle"
                         onClick={handleDelete}
                     />

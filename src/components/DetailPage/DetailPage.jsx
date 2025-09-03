@@ -18,7 +18,7 @@ function DetailPage() {
     } = state || {};
 
     return (
-        <article className={styles.detailContainer}>
+        <article className={styles['detail-container']}>
             {backdrop_path &&
                 <img src={backdrop_path} alt="Backdrop" className={styles.backdrop}/>}
             <div className={styles.content}>
@@ -27,21 +27,21 @@ function DetailPage() {
                 </header>
 
                 <dl>
-                    <div className={styles.rowLayout}>
+                    <div className={styles['row-layout']}>
                     <dt>Type:</dt>
                     <dd>{media_type} </dd>
                     </div>
-                    <div className={styles.rowLayout}>
+                    <div className={styles['row-layout']}>
                     <dt>Release:</dt>
                     <dd>{engelsNaarNederlandseDatum(release_date || first_air_date)}</dd>
                     </div>
-                    <div className={styles.rowLayout}>
+                    <div className={styles['row-layout']}>
                     <dt>Rating: </dt>
                     <dd>{Math.round(vote_average * 10)} <FaStar style={{color: 'yellow'}}/> </dd>
                     </div>
                 </dl>
 
-                <section className={styles.posterAndOverview}>
+                <section className={styles['poster-and-overview']}>
                     {poster_path && <figure> <img src={poster_path} alt="Poster" className={styles.poster}/>
                     </figure>}
 

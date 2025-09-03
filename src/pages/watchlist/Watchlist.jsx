@@ -59,22 +59,22 @@ function Watchlist() {
     if (error) return <p>{error}</p>;
 
     return (
-        <main className={styles.outerContainer}>
+        <main className={styles['outer-container']}>
 
-            <div className={styles.innerContainer}>
+            <div className={styles['inner-container']}>
 
-                    <header className={styles.imageContainer}>
-                        <div className={`${styles.image3} ${styles.imageStyle}`}></div>
-                        <div className={`${styles.image1} ${styles.imageStyle}`}><h1 className={styles.title}>Mijn
+                    <header className={styles['image-container']}>
+                        <div className={`${styles.image3} ${styles['image-style']}`}></div>
+                        <div className={`${styles.image1} ${styles['image-style']}`}><h1 className={styles.title}>Mijn
                             Watchlist</h1></div>
-                        <div className={`${styles.image2} ${styles.imageStyle}`}></div>
+                        <div className={`${styles.image2} ${styles['image-style']}`}></div>
                     </header>
 
 
 
 
                 {watchlist.length > 0 ? (
-                    <section className={styles.layoutCards}>
+                    <section className={styles['layout-cards']}>
                         {watchlist.map((item) => (
                             <Card
                                 setRefresh={setRefresh}

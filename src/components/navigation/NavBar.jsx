@@ -12,9 +12,9 @@ function NavBar(){
     const { isAuth, user, logout, users} = useContext(AuthContext)
     const { downloadProfilePhoto, profileImageUrl, loadingPhoto,setProfileImageUrl, setLoadingPhoto, imagePreview} = useContext(ProfilePhotoContext)
     return (
-        <nav className={styles.outerContainer}>
+        <nav className={styles['outer-container']}>
 
-            <ul className={styles.navigationItems}>
+            <ul className={styles['navigation-items']}>
                 <li>
                     <NavLink
                         to="/"
@@ -43,7 +43,7 @@ function NavBar(){
 
                 {isAuth ? (
                     <>
-                        <li className={styles.centerPicture}>
+                        <li className={styles['center-picture']}>
                             {loadingPhoto ? (
                                 <p>Loading...</p>
                             ) : (
@@ -65,7 +65,7 @@ function NavBar(){
                                 label="LogOut"
                                 size="large"
                                 onClick={logout}
-                                variant="primaryBtn"
+                                variant="primary-btn"
                             />
                         </li>
                     </>
@@ -74,7 +74,7 @@ function NavBar(){
                         <li>
                             <Button
                                 label="Sign In"
-                                variant="primaryBtn"
+                                variant="primary-btn"
                                 size="large"
                                 onClick={() => navigate("/SignIn")}
                             />
@@ -82,7 +82,7 @@ function NavBar(){
                         <li>
                             <Button
                                 label="Sign Up"
-                                variant="primaryBtn"
+                                variant="primary-btn"
                                 size="large"
                                 onClick={() => navigate("/SignUp")}
                             />

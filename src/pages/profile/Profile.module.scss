@@ -1,7 +1,7 @@
 @import "../../styles/Variables";
 
 //Global
-.outerContainer{
+.outer-container{
   width: 100%;
   max-width: 100vw;
   min-height: 100vh;
@@ -25,7 +25,7 @@
   position: relative;
 }
 //Profile picture / title box
-.layoutProfilePic{
+.layout-profile-pic{
   display: flex;
   gap: 30px;
   padding: 30px;
@@ -35,7 +35,7 @@
 }
 
 //Background image
-.backgroundImg{
+.background-img{
   position: absolute;
   width: 100%;
   height: 100%;
@@ -51,7 +51,7 @@
 }
 
 //Profile picture
-.profileImage{
+.profile-image{
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -59,17 +59,17 @@
 
 
 //Changing profile picture
-.labelUpload{
+.label-upload{
   background-color: $color-primary;
   padding: 10px;
   border-radius: 10px;
 }
-.uploadBtn{
+.upload-btn{
   background-color: $color-primary;
 }
 
 //box around changing profile picture
-.changePic{
+.change-pic{
   border: 4px solid $color-secondary;
   padding: 20px;
   display: flex;
@@ -81,7 +81,7 @@
   background-color: $color-primary;
 
 }
-.layoutChangeProfilePic{
+.layout-change-profile-pic{
   display: flex;
   justify-content: center;
 }
@@ -89,7 +89,7 @@
 
 
 // layout form
-.formStyle{
+.form-style{
   display: flex;
   gap: 150px;
   justify-content: center;
@@ -98,7 +98,7 @@
 }
 
 //container changing password and username
-.formContainer{
+.form-container{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -110,7 +110,7 @@
 }
 
 // styling inputboxes
-.inputBox{
+.input-box{
   border: 4px solid $color-primary;
   background-color: $color-accent;
   color: $color-text;

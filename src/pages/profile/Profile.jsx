@@ -179,17 +179,17 @@ function Profile() {
     if (loading) return <p>Loading...</p>;
     if (loadingPhoto) return <p>Foto laden...</p>;
     return (
-        <main className={styles.outerContainer}>
+        <main className={styles['outer-container']}>
             <header className={styles.header}>
 
                 <img src={`https://image.tmdb.org/t/p/original${backdropPaths[5]}`} alt='poster'
-                     className={styles.backgroundImg}/>
+                     className={styles['background-img']}/>
                 <h1 className={styles.title}> Welkom op je profiel pagina</h1>
-                <figure className={styles.layoutProfilePic}>
+                <figure className={styles['layout-profile-pic']}>
                     <img
                         src={imagePreview || profileImageUrl || placeholderImage}
                         alt="Profiel"
-                        className={styles.profileImage}
+                        className={styles['profile-image']}
                     />
                     <figcaption>
                         <h2>{user?.username}</h2>
@@ -198,13 +198,13 @@ function Profile() {
             </header>
 
 
-            <section className={styles.formStyle}>
-                <form onSubmit={handleUsernameChange} className={styles.formContainer}>
+            <section className={styles['form-style']}>
+                <form onSubmit={handleUsernameChange} className={styles['form-container']}>
 
                     <label htmlFor="username"> Gebruikersnaam wijzigen </label>
                     <input
                         id="username"
-                        className={styles.inputBox}
+                        className={styles['input-box']}
                         type="text"
                         placeholder="Nieuwe gebruikersnaam"
                         value={username}
@@ -214,18 +214,18 @@ function Profile() {
                     <label htmlFor="usernameConfirm"> Bevestig gebruikersnaam</label>
                     <input
                         id="usernameConfirm"
-                        className={styles.inputBox}
+                        className={styles['input-box']}
                         type="text"
                         placeholder="Bevestig gebruikersnaam"
                         value={usernameConfirm}
                         onChange={(e) => setUsernameConfirm(e.target.value)}
                     />
-                    <Button label="Wijzig gebruikersnaam" variant="secondaryBtn" type="submit"
+                    <Button label="Wijzig gebruikersnaam" variant="secondary-btn" type="submit"
                             disabled={!username || username !== usernameConfirm}/>
                 </form>
 
-                <form className={styles.layoutChangeProfilePic} onSubmit={handleUpload}>
-                    <div className={styles.changePic}>
+                <form className={styles['layout-change-profile-pic']} onSubmit={handleUpload}>
+                    <div className={styles['change-pic']}>
                         <h3> Verander je profiel foto</h3>
                         <label htmlFor="profilePic"> Upload nieuwe profielfoto</label>
                         <input
@@ -235,12 +235,12 @@ function Profile() {
                             onChange={handleFileChange}
                             className={styles.test}
                         />
-                        <Button variant="secondaryBtn" size="large" label="Upload Picture" type="submit"/>
+                        <Button variant="secondary-btn" size="large" label="Upload Picture" type="submit"/>
                     </div>
                 </form>
 
 
-                <form onSubmit={handlePasswordChange} className={styles.formContainer}>
+                <form onSubmit={handlePasswordChange} className={styles['form-container']}>
                     <h3>Wachtwoord wijzigen</h3>
                     <label htmlFor="newPassword">Nieuw wachtwoord</label>
                     <input
@@ -248,7 +248,7 @@ function Profile() {
                         type="password"
                         placeholder="Nieuw wachtwoord"
                         value={newPassword}
-                        className={styles.inputBox}
+                        className={styles['input-box']}
                         onChange={(e) => setNewPassword(e.target.value)}
                     />
                     <label htmlFor="newPasswordConfirm">Bevestig nieuw wachtwoord</label>
@@ -257,10 +257,10 @@ function Profile() {
                         type="password"
                         placeholder="Bevestig nieuw wachtwoord"
                         value={newPasswordConfirm}
-                        className={styles.inputBox}
+                        className={styles['input-box']}
                         onChange={(e) => setNewPasswordConfirm(e.target.value)}
                     />
-                    <Button label="Wijzig Wachtwoord" variant="secondaryBtn" type="submit"
+                    <Button label="Wijzig Wachtwoord" variant="secondary-btn" type="submit"
                             disabled={!newPassword || newPassword !== newPasswordConfirm}/>
                 </form>
             </section>

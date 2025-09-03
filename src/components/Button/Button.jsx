@@ -19,7 +19,7 @@ function Button({
         <>
             <button type={type}
                     onClick={onClick}
-                    className={`${styles.button} 
+                    className={`${styles['button']} 
                     ${variantClass} ${sizeClass} ${className} ${shapeClass}`}>
                 {label}
             </button>

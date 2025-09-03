@@ -163,20 +163,20 @@ function Random(){
 
     return(
         <>
-            <fieldset className={styles.mediaTypeGroup}>
+            <fieldset className={styles['media-type-group']}>
                 <legend>Zoek iets willekeurigs:</legend>
                 {mediaType ? (
-                <div className={styles.mediaTypeGroup}>
-            <Button label={'Tv Show'} variant='secondaryBtn' shape='large' onClick={formTvShow}/>
-            <Button label={'Movies'} variant='secondaryBtn' shape='large' onClick={formMovie}/>
+                <div className={styles['media-type-group']}>
+            <Button label={'Tv Show'} variant='secondary-btn' shape='large' onClick={formTvShow}/>
+            <Button label={'Movies'} variant='secondary-btn' shape='large' onClick={formMovie}/>
                 </div>) : (
-                <Button label={'Reset'} variant='secondaryBtn' shape='large' onClick={reset}/> )}
+                <Button label={'Reset'} variant='secondary-btn' shape='large' onClick={reset}/> )}
             </fieldset>
 
             { movies &&
 
             <div>
-            <form className={styles.formContainer} onSubmit={handleSubmit}>
+            <form className={styles['form-container']} onSubmit={handleSubmit}>
                 <h2> Roulette Movies</h2>
                 <label className={styles.gap}>Rating:
                     <input type='range' id='rating' min='1' max='10' step='1' value={form.rating} name='rating'
@@ -185,7 +185,7 @@ function Random(){
                 </label>
 
                 <label htmlFor='releaseYear' className={styles.gap}>Release Year:
-                    <select name='releaseYear' id='releaseYear' onChange={handleChange} className={styles.optionBox} >
+                    <select name='releaseYear' id='releaseYear' onChange={handleChange} className={styles['option-box']} >
                         <option value={form.releaseYear} >-- Selecteer een jaar --</option>
                         {years.map((year) => (
                             <option key={year} value={year} >{year}</option>
@@ -194,7 +194,7 @@ function Random(){
                 </label>
 
                 <label htmlFor='language' className={styles.gap}>Language:
-                    <select name='language' value={form.language} onChange={handleChange} className={styles.optionBox} required>
+                    <select name='language' value={form.language} onChange={handleChange} className={styles['option-box']} required>
                         <option value="">-- Selecteer een taal --</option>
                         <option value="en">Engels</option>
                         <option value="nl">Nederlands</option>
@@ -215,7 +215,7 @@ function Random(){
                 </label>
 
                     <label htmlFor='genre' className={styles.gap}>Categorie:
-                        <select name='genre' value={form.genre} onChange={handleChange} className={styles.optionBox} required>
+                        <select name='genre' value={form.genre} onChange={handleChange} className={styles['option-box']} required>
                             <option value=''>-- Categorie --</option>
                             {movieGenre.map((movieGenre) => (
                                 <option key={movieGenre.id} value={movieGenre.id}>
@@ -225,7 +225,7 @@ function Random(){
                         </select>
                     </label>
                 <label>
-                    <Button type='submit' size='large' label={'zoeken'} variant='primaryBtn'/>
+                    <Button type='submit' size='large' label={'zoeken'} variant='primary-btn'/>
                 </label>
             </form>
             </div>
@@ -245,7 +245,7 @@ function Random(){
                       overview={data?.overview}/>
             }
             {tvShows &&
-                <form className={styles.formContainer} onSubmit={handleSubmit}>
+                <form className={styles['form-container']} onSubmit={handleSubmit}>
                     <h2> Roulette Tv Shows</h2>
                     <label className={styles.gap}>Rating:
                         <input type='range' id='rating' min='1' max='10' step='1' value={form.rating} name='rating'
@@ -253,7 +253,7 @@ function Random(){
                     </label>
 
                     <label htmlFor='releaseYearTv' className={styles.gap}>Release Year:
-                        <select name='releaseYearTv'  id='releaseYearTv' onChange={handleChange} className={styles.optionBox}>
+                        <select name='releaseYearTv'  id='releaseYearTv' onChange={handleChange} className={styles['option-box']}>
                             <option value={form?.releaseYearTv}  >-- Selecteer een jaar --</option>
                             {years.map((year) => (
                                 <option key={year} value={year} >{year}</option>
@@ -262,7 +262,7 @@ function Random(){
                     </label>
 
                     <label htmlFor='language' className={styles.gap}>Language:
-                        <select name='language' className={styles.optionBox} value={form.language} onChange={handleChange} required>
+                        <select name='language' className={styles['option-box']} value={form.language} onChange={handleChange} required>
                             <option value="">-- Selecteer een taal --</option>
                             <option value="en">Engels</option>
                             <option value="nl">Nederlands</option>
@@ -283,7 +283,7 @@ function Random(){
                     </label>
 
                         <label htmlFor='genre' className={styles.gap}>Categorie:
-                            <select name='genre' className={styles.optionBox} value={form.genre} onChange={handleChange} required>
+                            <select name='genre' className={styles['option-box']} value={form.genre} onChange={handleChange} required>
                                 <option value=''>-- Categorie --</option>
                                 {genre.map((genre) => (
                                     <option key={genre.id} value={genre.id}>
@@ -293,7 +293,7 @@ function Random(){
                             </select>
                         </label>
                     <label>
-                        <Button type='submit' size='large' label={'zoeken'} variant='primaryBtn'/>
+                        <Button type='submit' size='large' label={'zoeken'} variant='primary-btn'/>
                     </label>
                 </form>}
             </>

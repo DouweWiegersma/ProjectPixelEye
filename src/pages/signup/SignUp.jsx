@@ -58,17 +58,17 @@ function SignUp() {
 
 
     return (
-        <main className={styles.outerContainer}>
-            <section className={styles.innerContainer}>
+        <main className={styles['outer-container']}>
+            <section className={styles['inner-container']}>
                 <header>
                 <h1 className={styles.title}>Registreren</h1>
                 </header>
 
-                <form onSubmit={formik.handleSubmit} className={styles.formContainer}>
+                <form onSubmit={formik.handleSubmit} className={styles['form-container']}>
                     <label>
                         E-mailadres:
                         <input
-                            className={styles.inputStyle}
+                            className={styles['input-style']}
                             type="email"
                             name="email"
                             value={formik.values.email}
@@ -83,7 +83,7 @@ function SignUp() {
                     <label>
                         Gebruikersnaam:
                         <input
-                            className={styles.inputStyle}
+                            className={styles['input-style']}
                             type="text"
                             name="username"
                             value={formik.values.username}
@@ -98,7 +98,7 @@ function SignUp() {
                     <label>
                         Wachtwoord:
                         <input
-                            className={styles.inputStyle}
+                            className={styles['input-style']}
                             type="password"
                             name="password"
                             value={formik.values.password}

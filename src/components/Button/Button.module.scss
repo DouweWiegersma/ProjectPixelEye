@@ -21,17 +21,17 @@
 }
 
 
-.primaryBtn{
+.primary-btn{
   background-color: $color-primary;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.primaryBtn:hover{
+.primary-btn:hover{
   background-color: $color-secondary;
 }
 
-.secondaryBtn{
+.secondary-btn{
    background-color: $color-accent;
   display: flex;
   justify-content: center;
@@ -47,14 +47,14 @@
   border-radius: 0;
 }
 
-.addBtn{
+.add-btn{
   background-color: $color-success;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.removeBtn{
+.remove-btn{
   background-color: $color-error;
   display: flex;
   justify-content: center;
