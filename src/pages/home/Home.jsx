@@ -148,7 +148,7 @@ function Home() {
                                 Sla films op die je later wilt kijken. Geen notities meer op je telefoon - al je favorieten op één plek.
                             </p>
 
-                            <h3><VscAccount style={ { color: 'blue', marginRight: '15'}} /> Account nodig?</h3>
+                            <h3><VscAccount style={ { color: "blue", marginRight: '15'}} /> Account nodig?</h3>
                             <p>
                                 Maak een account aan om je eigen watchlist bij te houden en films of series te ontdekken via de Discover-functie!.
                                 Zo zorgen we ervoor dat jouw filmwereld helemaal van jou is
