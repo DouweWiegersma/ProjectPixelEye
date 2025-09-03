@@ -65,23 +65,23 @@ function Discover(){
     return(
         <>
 
-            <div className={styles.outerContainer}>
-                <div className={styles.innerContainer}>
-                    <img src={backDrop} alt='background' className={styles.backgroundPic}/>
-                    <section className={styles.searchBarContainer}>
-                        <label id='searchBar' className={styles.labelSearchBar}>Movie / Tv-Shows
+            <div className={styles['outer-container']}>
+                <div className={styles['inner-container']}>
+                    <img src={backDrop} alt='background' className={styles['background-pic']}/>
+                    <section className={styles['search-bar-container']}>
+                        <label id='searchBar' className={styles['label-search-bar']}>Movie / Tv-Shows
                             <div className={styles.row}>
                                 <input value={searchInput}
                                        type='text'
                                        onChange={(e) => {
                                            setNext(1)
                                            setSearchInput(e.target.value)
-                                       }} className={styles.searchBar} placeholder='Search......'/>
+                                       }} className={styles['search-bar']} placeholder='Search......'/>
                                 <Button
-                                    variant='primaryBtn'
+                                    variant='primary-btn'
                                     shape='square'
                                     size='small'
-                                    label={<IoSearchSharp className={styles.searchIcon}/>}
+                                    label={<IoSearchSharp className={styles['search-icon']}/>}
                                     onClick={() => {
                                         setNext(1);
                                         setSearchQuery(searchInput);
@@ -93,7 +93,7 @@ function Discover(){
                     </section>
 
 
-                    <main className={styles.resultLayout}>
+                    <main className={styles['result-layout']}>
                         {loading ? (
                             <p>Er zijn geen zoek resultaat</p>
                         ) : data.length > 0 ? (
@@ -116,7 +116,7 @@ function Discover(){
                     </main>
 
                     {!search &&
-                    <nav className={styles.buttonLayout}>
+                    <nav className={styles['button-layout']}>
                         {next > 1 &&
                         <Button onClick={prevPage} variant='primaryBtn' size='large' label='prev'/>}
                         {next < pages &&

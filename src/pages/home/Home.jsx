@@ -91,50 +91,50 @@ function Home() {
     return (
         
         <>
-            <div className={styles.outerContainer}>
-                <div className={styles.innerContainer}>
-                    <header className={styles.layoutWrapper}>
-                        <figure className={styles.backdropContainer}>
+            <div className={styles['outer-container']}>
+                <div className={styles['inner-container']}>
+                    <header className={styles['layout-wrapper']}>
+                        <figure className={styles['backdrop-container']}>
                             <img src={`https://image.tmdb.org/t/p/original${backdropPaths[count]}`} alt={title[count]}
-                                 className={styles.backdropImg}/>
+                                 className={styles['backdrop-img']}/>
                         </figure>
 
 
                         <section className={styles.wrapper}>
-                            <article className={styles.posterLayout}>
-                                <div className={styles.layoutTrending}>
-                                    <h2 className={`${styles.trending} ${styles.flickerText}`}><AiFillFire/>Trending!!</h2>
+                            <article className={styles['poster-layout']}>
+                                <div className={styles['layout-trending']}>
+                                    <h2 className={`${styles.trending} ${styles['flicker-text']}`}><AiFillFire/>Trending!!</h2>
                                     <div className={styles.row}>
-                                <button type='button' onClick={back} disabled={count === 0} className={styles.iconBtn}>
+                                <button type='button' onClick={back} disabled={count === 0} className={styles['icon-btn']}>
                                     <IoIosArrowBack/></button>
                                 <img src={`https://image.tmdb.org/t/p/w200${poster[count]}`} alt={title[count]}
                                      className={styles.poster}/>
-                                <button type='button' onClick={next} disabled={count === 10} className={styles.iconBtn}>
+                                <button type='button' onClick={next} disabled={count === 10} className={styles['icon-btn']}>
                                     <IoIosArrowForward/></button>
                                     </div>
                                 </div>
                             </article>
 
 
-                            <section className={styles.contentWrapper}>
-                                <div className={styles.layoutRow}>
-                                    <h2 className={styles.movieTitle}>{title[count]}</h2>
-                                    <p className={styles.movieRating}><FaStar/>{Math.round(rating[count] * 10)} </p>
+                            <section className={styles['content-wrapper']}>
+                                <div className={styles['layout-row']}>
+                                    <h2 className={styles['movie-title']}>{title[count]}</h2>
+                                    <p className={styles['movie-rating']}><FaStar/>{Math.round(rating[count] * 10)} </p>
                                 </div>
                                     <Button label={showMore === false ? <h3>Overview</h3> : <h3>Hide Overview</h3>}
-                                            size='large' variant='secondaryBtn'
+                                            size='large' variant='secondary-btn'
                                             onClick={show}/>
-                                    <p className={styles.movieDescription}> {showMore === true ? overview[count] : ''}</p>
+                                    <p className={styles['movie-description']}> {showMore === true ? overview[count] : ''}</p>
 
                             </section>
                         </section>
                     </header>
 
 
-                    <main className={styles.siteDescription}>
-                        <section className={styles.layoutContentDescription}>
+                    <main className={styles['site-description']}>
+                        <section className={styles['layout-content-description']}>
                             <header>
-                            <h1 className={styles.pageTitle}> Welkom bij Pixel eye!</h1>
+                            <h1 className={styles['page-title']}> Welkom bij Pixel eye!</h1>
                                 <h2> "klik, filter en laat de filmmagie beginnen!"</h2>
                             </header>
                             <p> Zin in een film, maar geen idee wat? Kies je favoriete gerne,
@@ -143,7 +143,7 @@ function Home() {
                         </section>
 
 
-                        <section className={styles.layoutContentDescription}>
+                        <section className={styles['layout-content-description']}>
                              <h3> <HiViewfinderCircle style={ { color: 'blue', marginRight: '15'}} /> Discover:</h3>
                             <p>
                                 Zoek een film of serie op titel, of laat je verrassen door de Movie/TV Roulette die speciaal voor jou iets uitkiest op basis van jouw voorkeuren!

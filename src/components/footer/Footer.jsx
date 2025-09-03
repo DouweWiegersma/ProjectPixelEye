@@ -8,7 +8,7 @@ function Footer(){
 
     return(
         <>
-            <div className={styles.outerContainer}>
+            <div className={styles['outer-container']}>
             <section>
                 <h2 className={styles.titles}> Credits </h2>
                 <p> Website created by [Douwe Wiegersma] </p>
