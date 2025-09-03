@@ -44,7 +44,7 @@ function SignUp() {
                 await axios.post("https://api.datavortex.nl/pixeleye/users", userPayload, {
                     headers: {
                         "X-API-KEY": "pixeleye:aO8LUAeun6zuzTqZllxY",
-                    },
+                    }
                 });
 
                 setMessage("Registratie succesvol!");

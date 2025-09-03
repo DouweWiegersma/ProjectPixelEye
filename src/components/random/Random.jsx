@@ -15,7 +15,7 @@ function Random(){
     const [trigger, toggleTrigger] = useState(false)
     const [genre, setGenre] = useState([])
     const [movieGenre, setMovieGenre] = useState([])
-
+    const [loading, setLoading] = useState(false)
 
 
     const [data, setData] = useState({
@@ -50,15 +50,19 @@ function Random(){
     const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
     useEffect(() => {
-
+        const controller = new AbortController();
         async function keyword()
         {
+            setLoading(true)
             toggleTvShows(false)
             toggleMovies(false)
             toggleTrigger(false)
+
+
             try {
                 const [allData, tvGenres, movieGenres] = await Promise.all([
                         axios.get(`https://api.themoviedb.org/3/discover/${form.mediaType}`, {
+                            signal: controller.signal,
                     params: {
                         api_key: API_KEY,
                         with_genres: form.genre,
@@ -70,41 +74,40 @@ function Random(){
                     },
                 }),
                 axios.get(`https://api.themoviedb.org/3/genre/tv/list`, {
+                    signal: controller.signal,
                     params: {
                         api_key: API_KEY,
                     },
                 }),
                     axios.get('https://api.themoviedb.org/3/genre/movie/list', {
+                        signal: controller.signal,
                     params: {
                         api_key: API_KEY,
                     },
                 })
-
                 ])
 
                 const response = allData.data.results;
                 const response1 = tvGenres.data.genres;
                 const response2 = movieGenres.data.genres;
 
-                console.log(response1)
-                console.log(response)
-
-
                 const randomIndex = Math.floor(Math.random() * response.length);
                 setData(response[randomIndex]);
                 setGenre(response1);
                 setMovieGenre(response2);
-
-
-
-
-
             }
             catch (e){
                 console.error('Geen data beschikbaar', e)
             }
+            finally {
+                setLoading(false)
+            }
+
         }
         keyword()
+        return () => {
+            controller.abort();
+        }
     }, [trigger])
 
 
@@ -151,6 +154,8 @@ function Random(){
 
     }
     const years = generateReleaseYears();
+
+    if(loading === true) return( <p>Loading....</p>)
 
 
 

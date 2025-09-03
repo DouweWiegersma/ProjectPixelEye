@@ -35,7 +35,7 @@ function Profile() {
 
     useEffect(() => {
         if (!user?.username || !token) return;
-        setLoading(false)
+        setLoading(true)
         const key = getLocalStorageKey();
         const storedImage = key ? localStorage.getItem(key) : null;
 
@@ -69,7 +69,7 @@ function Profile() {
                     "X-API-KEY": API_KEY,
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "multipart/form-data",
-                },
+                }
             });
 
 
@@ -130,8 +130,6 @@ function Profile() {
                     },
                 }
             );
-            // const newPassword = updateUsername(username);
-            // await downloadProfilePhoto(newPassword);
             setNewPassword("");
             setNewPasswordConfirm("");
             setMessage("Wachtwoord succesvol gewijzigd.");
@@ -144,6 +142,7 @@ function Profile() {
 
 
     useEffect(() => {
+        const controller = new AbortController();
         async function fetchTrending() {
             setLoading(true);
             try {
@@ -156,6 +155,7 @@ function Profile() {
                             page: 1,
                             region: "NL",
                         },
+                        signal: controller.signal,
                     }
                 );
                 setTrending(response.data.results);
@@ -165,8 +165,10 @@ function Profile() {
                 setLoading(false);
             }
         }
-
         fetchTrending();
+        return () => {
+            controller.abort();
+        }
     }, []);
 
     const backdropPaths = trending

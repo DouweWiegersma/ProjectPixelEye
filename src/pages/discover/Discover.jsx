@@ -12,15 +12,15 @@ function Discover(){
 
     const [searchInput, setSearchInput] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
-
-        const [loading, setLoading] = useState(true)
-        const [pages, setPages] = useState(0)
-        const [data, setData] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [pages, setPages] = useState(0)
+    const [data, setData] = useState([])
     const [next, setNext] = useState(1)
     const [search, setSearch] = useState('')
     const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
     useEffect(() => {
+        const controller = new AbortController();
         if (!searchQuery) return;
 
         async function keyword() {
@@ -34,7 +34,8 @@ function Discover(){
                     },
                     headers: {
                         accept: 'application/json',
-                    }
+                    },
+                    signal: controller.signal,
                 });
                 setData(response.data.results);
                 setPages(response.data.total_pages);
@@ -44,8 +45,10 @@ function Discover(){
                 setLoading(false);
             }
         }
-
         keyword();
+        return () => {
+            controller.abort();
+        }
     }, [searchQuery, next]);
 
 
