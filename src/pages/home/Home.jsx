@@ -19,11 +19,13 @@ function Home() {
     const [trending, setTrending] = useState([])
     const [count, setCount] = useState(0)
     const [showMore, toggleShowMore] = useState(false)
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
 
 
     useEffect(() => {
+        const controller = new AbortController();
         async function Popular() {
+            setLoading(true)
             try {
                 const response = await axios.get('https://api.themoviedb.org/3/trending/movie/day', {
                     params: {
@@ -31,10 +33,10 @@ function Home() {
                         language: 'nl-NL',
                         page: 1,
                         region: 'NL'
-                    }
+                    },
+                    signal: controller.signal
 
                 })
-                console.log(response.data.results)
                 setTrending(response.data.results)
 
 
@@ -42,10 +44,14 @@ function Home() {
                 console.error('Geen data beschikbaar!', e)
 
             }
-            setLoading(false)
+            finally {
+                setLoading(false)
+            }
         }
-
         Popular()
+        return () => {
+            controller.abort();
+        }
     }, [API_KEY])
 
 

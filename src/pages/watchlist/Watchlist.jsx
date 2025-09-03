@@ -10,45 +10,52 @@ function Watchlist() {
     const [watchlist, setWatchlist] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [refresh, setRefresh] = useState(true)
+
 
 
     useEffect(() => {
+        const controller = new AbortController();
         if (!user?.username || !token) return;
         setLoading(true)
         setError(null)
         async function fetchWatchlist() {
             try {
                 const response = await axios.get(
-                    `https://api.datavortex.nl/pixeleye/users/${user.username}`,
+                    `https://api.datavortex.nl/pixeleye/users/${user?.username}`,
                     {
                         headers: {
                             "X-API-KEY": "pixeleye:aO8LUAeun6zuzTqZllxY",
                             "Authorization": `Bearer ${token}`,
                         },
+                        signal: controller.signal,
                     }
                 );
                 if (response.data.info) {
-                    const parsed = JSON.parse(response.data.info);
+                    const parsed = response.data.info ? JSON.parse(response.data.info) : [];
                     setWatchlist(parsed);
                 } else {
                     console.log("geen info gevonden")
                     setWatchlist([]);
                 }
             } catch (e) {
+                if (axios.isCancel(e)) return;
                 console.error("Fout bij ophalen van de watchlist:", e);
                 setError("Fout bij ophalen van je watchlist.");
             }
-            setLoading(false);
-
-
+            finally {
+                setLoading(false);
+            }
         }
-
         fetchWatchlist();
-    }, [user?.username, user?.id, token]);
+        return () => {
+            controller.abort()
+        }
+    }, [user?.username, user?.id, token, refresh]);
 
 
 
-    if (loading) return <p>Laden...</p>;
+    if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
 
     return (
@@ -70,6 +77,7 @@ function Watchlist() {
                     <section className={styles.layoutCards}>
                         {watchlist.map((item) => (
                             <Card
+                                setRefresh={setRefresh}
                                 key={item.id}
                                 id={item.id}
                                 title={item.title}

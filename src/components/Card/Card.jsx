@@ -10,14 +10,13 @@ import {truncateTitle} from "../../helpers/TruncateTitle.js";
 import {useNavigate} from "react-router-dom";
 import engelsNaarNederlandseDatum from "../../helpers/DutchDate.js";
 
-function Card({ title, overview, media_type, release_date, first_air_date, vote_average, backdrop_path, poster_path, original_name}){
-    const { user, id } = useContext(AuthContext)
+function Card({ id, setRefresh, title, overview, media_type, release_date, first_air_date, vote_average, backdrop_path, poster_path, original_name}){
+    const { user} = useContext(AuthContext)
 
 
 
     async function handleAdd() {
         const token = localStorage.getItem("token");
-        alert("Toegevoegd aan je watchlist");
 
         try {
             const response = await axios.get(
@@ -42,6 +41,13 @@ function Card({ title, overview, media_type, release_date, first_air_date, vote_
                 }
             }
 
+
+
+            const bestaatAl = currentInfo.some((item) => String(item.id) === String(id));
+            if (bestaatAl) {
+                alert("Deze film staat al in je watchlist.");
+                return;
+            }
             const newMovie = {
                 id,
                 title,
@@ -54,13 +60,6 @@ function Card({ title, overview, media_type, release_date, first_air_date, vote_
                 original_name,
                 overview,
             };
-
-
-            const bestaatAl = currentInfo.some((item) => item.id === id);
-            if (bestaatAl) {
-                alert("Deze film staat al in je watchlist.");
-                return;
-            }
 
             const updatedInfo = [...currentInfo, newMovie];
 
@@ -76,8 +75,8 @@ function Card({ title, overview, media_type, release_date, first_air_date, vote_
                     },
                 }
             );
-
-            console.log("Film succesvol toegevoegd aan watchlist!");
+            alert("Film succesvol toegevoegd aan watchlist!");
+            setRefresh(prev => !prev);
         } catch (e) {
             console.error("Fout bij toevoegen aan watchlist:", e);
         }
@@ -124,7 +123,7 @@ function Card({ title, overview, media_type, release_date, first_air_date, vote_
                 }
             );
 
-            console.log("Film verwijderd uit watchlist");
+            setRefresh(prev => !prev);
 
         } catch (e) {
             console.error("Fout bij verwijderen uit watchlist:", e);

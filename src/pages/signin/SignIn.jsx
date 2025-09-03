@@ -25,6 +25,7 @@ function SignIn() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        const controller = new AbortController();
         try {
             const response = await axios.post(
                 "https://api.datavortex.nl/pixeleye/users/authenticate",
@@ -37,20 +38,17 @@ function SignIn() {
                         "X-API-KEY": "pixeleye:aO8LUAeun6zuzTqZllxY",
                         'Content-Type': 'application/json',
                     },
+                    signal: controller.signal,
                 }
-
             );
-            console.log("Inloggen gelukt:", response);
             login(response.data.jwt);
             navigate('/');
-
-
-
 
         } catch (e) {
             console.error("Fout bij inloggen:", e.response?.data || e.message);
             setError("Inloggen mislukt. Controleer je gegevens.");
         }
+        return () => controller.abort();
     }
 
 
