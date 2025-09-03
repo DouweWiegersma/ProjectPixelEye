@@ -5,11 +5,19 @@
 De applicatie biedt functies zoals zoeken, filteren, inloggen, en het beheren van favoriete films.  
 Deze app is ontwikkeld als eindopdracht voor een front-end development opleiding en maakt gebruik van moderne tools zoals Axios, React Router, Formik, en SCSS.
 
+# Home Pagina (Screenshot)
+![Home](./screenshots/home.png)
+
 ## Screenshots
 
-### Home-pagina
-[![Homepage](./screenshots/home-small.png)](./screenshots/home.png)
-
+### Links naar de screenshots
+[Home --> ](./screenshots/home.png)  
+[Watchlist --> ](./screenshots/watchlist.png)  
+[Discover --> ](./screenshots/discover.png)  
+[Detailpage --> ](./screenshots/detailpage.png)  
+[Sign in --> ](./screenshots/signin.png)  
+[Profile --> ](./screenshots/profile.png)  
+[Sign up --> ](./screenshots/signup.png)  
 
 ## Vereisten
 
