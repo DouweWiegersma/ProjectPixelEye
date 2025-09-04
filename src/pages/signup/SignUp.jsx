@@ -6,11 +6,13 @@ import { AuthContext } from "../../context/AuthContext.jsx";
 import styles from "./SignUp.module.scss";
 import Button from "../../components/Button/Button.jsx";
 import Spinner from "../../components/spinner/Spinner.jsx";
+import Message from "../../components/message/Message.jsx"
 
 function SignUp() {
     const { login } = useContext(AuthContext);
-    const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false)
+    const [message, setMessage] = useState({ text: '', status: '' });
+    const clearMessage = () => setMessage({ text: '', status: '' });
 
     const formik = useFormik({
         initialValues: {
@@ -50,10 +52,10 @@ function SignUp() {
                     }
                 });
 
-                setMessage("Registratie succesvol!");
+                setMessage({ text: "Registreren succesvol!", status: 'success' });
                 login({ username: values.username });
             } catch (error) {
-                setMessage("Fout bij registreren: " + (error.response?.data || error.message));
+                setMessage({ text: "Registreren mislukt", status: 'error' });
             }
             finally {
                 setLoading(false)
@@ -118,7 +120,7 @@ function SignUp() {
 
                     <Button type="submit" label="Sign Up" variant="primary-btn" size="large" />
                 </form>
-                {message && <p>{message}</p>}
+                <Message text={message.text} status={message.status} clearMessage={clearMessage}/>
             </section>
         </main>
     );
