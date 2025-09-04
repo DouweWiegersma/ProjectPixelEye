@@ -1,9 +1,10 @@
 import styles from './Random.module.scss'
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Button from "../Button/Button.jsx";
 import axios from "axios";
 import Card from "../Card/Card.jsx";
 import {generateReleaseYears} from "../../helpers/GetYears.js";
+import Spinner from "../spinner/Spinner.jsx";
 
 
 function Random(){
@@ -155,7 +156,7 @@ function Random(){
     }
     const years = generateReleaseYears();
 
-    if(loading === true) return( <p>Loading....</p>)
+    if (loading) return(<Spinner spinner='spinner' size='medium' border='non' container='container'/>)
 
 
 

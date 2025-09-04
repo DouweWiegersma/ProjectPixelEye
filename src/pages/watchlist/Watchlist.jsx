@@ -4,11 +4,12 @@ import axios from "axios";
 import Card from "../../components/Card/Card.jsx";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import {Link} from "react-router-dom";
+import Spinner from "../../components/spinner/Spinner.jsx";
 
 function Watchlist() {
-    const { user, token, id} = useContext(AuthContext);
+    const { user, token} = useContext(AuthContext);
     const [watchlist, setWatchlist] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [refresh, setRefresh] = useState(true)
 
@@ -17,9 +18,9 @@ function Watchlist() {
     useEffect(() => {
         const controller = new AbortController();
         if (!user?.username || !token) return;
-        setLoading(true)
         setError(null)
         async function fetchWatchlist() {
+            setLoading(true)
             try {
                 const response = await axios.get(
                     `https://api.datavortex.nl/pixeleye/users/${user?.username}`,
@@ -55,7 +56,7 @@ function Watchlist() {
 
 
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <Spinner spinner='spinner' size='medium' border='border-dotted' container='container'/>;
     if (error) return <p>{error}</p>;
 
     return (
@@ -77,6 +78,7 @@ function Watchlist() {
                     <section className={styles['layout-cards']}>
                         {watchlist.map((item) => (
                             <Card
+                                disableAdd={true}
                                 setRefresh={setRefresh}
                                 key={item.id}
                                 id={item.id}
@@ -93,9 +95,10 @@ function Watchlist() {
                         ))}
                     </section>
                 ) : (
-                    <div>
+                    <div className={styles.watchlist}>
                     <p className={styles.empty}>Er zit nog niks in je Watchlist </p>
                     <p> <Link to="/Discover" className={styles.empty}>Klik hier... Om films toe te voegen </Link> </p>
+                        <Spinner spinner='spinner' size='large' border='none' container='container'/>
                     </div>
                 )}
             </div>

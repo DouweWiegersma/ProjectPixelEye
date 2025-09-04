@@ -6,13 +6,14 @@ import background from "../../assets/movie background.jpg"
 import Random from "../../components/random/Random.jsx";
 import Button from "../../components/Button/Button.jsx";
 import { IoSearchSharp } from "react-icons/io5";
+import Spinner from "../../components/spinner/Spinner.jsx";
 
 
 function Discover(){
 
     const [searchInput, setSearchInput] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [pages, setPages] = useState(0)
     const [data, setData] = useState([])
     const [next, setNext] = useState(1)
@@ -22,7 +23,6 @@ function Discover(){
     useEffect(() => {
         const controller = new AbortController();
         if (!searchQuery) return;
-
         async function keyword() {
             setLoading(true);
             try {
@@ -61,6 +61,8 @@ function Discover(){
     function prevPage(){
         setNext(next - 1)
     }
+    if (loading) return (<Spinner spinner='spinner' size='medium' border='dotted' container='container'/>);
+
 
     return(
         <>
@@ -92,13 +94,14 @@ function Discover(){
                         <Random/>
                     </section>
 
-
+                    {!search && (
                     <main className={styles['result-layout']}>
                         {loading ? (
-                            <p>Er zijn geen zoek resultaat</p>
+                            <p></p>
                         ) : data.length > 0 ? (
                             data.map((data) => (
                                 <Card
+                                    disableDelete={true}
                                     overview={data?.overview}
                                     key={data?.id}
                                     id={data?.id}
@@ -112,16 +115,17 @@ function Discover(){
                                     original_name={data?.name}
                                 />
                             ))
-                        ) : search && <p> Geen resultaten gevonden </p>}
+                        ) : search && <p> </p>}
                     </main>
+                    )}
 
-                    {!search &&
                     <nav className={styles['button-layout']}>
                         {next > 1 &&
                         <Button onClick={prevPage} variant='primaryBtn' size='large' label='prev'/>}
                         {next < pages &&
                         <Button onClick={nextPage} variant='primaryBtn' size='large' label='next'/>}
-                    </nav>}
+                    </nav>
+
 
                 </div>
             </div>

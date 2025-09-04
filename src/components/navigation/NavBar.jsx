@@ -1,15 +1,16 @@
 import styles from "./NavBar.module.scss"
 import { NavLink } from "react-router-dom";
-import {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import Button from "../Button/Button.jsx";
 import {useNavigate} from "react-router-dom";
 import {ProfilePhotoContext} from "../../context/ProfilePhotoContext.jsx";
-
+import {useState} from "react";
+import Spinner from "../spinner/Spinner.jsx";
 
 function NavBar(){
     const navigate = useNavigate()
-    const { isAuth, user, logout, users} = useContext(AuthContext)
+    const { isAuth, user, logout} = useContext(AuthContext)
     const { downloadProfilePhoto, profileImageUrl, loadingPhoto,setProfileImageUrl, setLoadingPhoto, imagePreview} = useContext(ProfilePhotoContext)
     return (
         <nav className={styles['outer-container']}>
@@ -45,7 +46,7 @@ function NavBar(){
                     <>
                         <li className={styles['center-picture']}>
                             {loadingPhoto ? (
-                                <p>Loading...</p>
+                                <Spinner spinner='spinner' size='medium' border='non' />
                             ) : (
                                 <img
                                     src={imagePreview || profileImageUrl}

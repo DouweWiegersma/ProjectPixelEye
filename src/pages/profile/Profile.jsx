@@ -5,6 +5,7 @@ import { ProfilePhotoContext } from "../../context/ProfilePhotoContext.jsx";
 import placeholderImage from "../../assets/profile pic.jpg";
 import Button from "../../components/Button/Button";
 import styles from "./Profile.module.scss";
+import Spinner from "../../components/spinner/Spinner.jsx";
 
 const API_KEY = "pixeleye:aO8LUAeun6zuzTqZllxY";
 const BASE_URL = "https://api.datavortex.nl/pixeleye";
@@ -29,22 +30,28 @@ function Profile() {
     const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
     const [message, setMessage] = useState("");
 
-    const getLocalStorageKey = () =>
-        user ? `profileImageUrl_${user.username}` : null;
-
-
     useEffect(() => {
         if (!user?.username || !token) return;
-        setLoading(true)
-        const key = getLocalStorageKey();
-        const storedImage = key ? localStorage.getItem(key) : null;
 
-        if (storedImage) {
-            setProfileImageUrl(storedImage);
-        } else {
-            downloadProfilePhoto();
-        }
-        setLoading(false)
+        const fetchProfileImage = async () => {
+            setLoading(true);
+            try {
+                const key = getLocalStorageKey();
+                const storedImage = key ? localStorage.getItem(key) : null;
+
+                if (storedImage) {
+                    setProfileImageUrl(storedImage);
+                } else {
+                    await downloadProfilePhoto(); // wachten tot dit klaar is
+                }
+            } catch (e) {
+                console.error("Fout bij ophalen profielfoto:", e);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProfileImage();
     }, [user, token, downloadProfilePhoto, setProfileImageUrl]);
 
     function handleFileChange(e) {
@@ -176,8 +183,8 @@ function Profile() {
         .map((movie) => movie.backdrop_path);
 
     if (!isAuth || !user) return <p>Je bent niet ingelogd.</p>;
-    if (loading) return <p>Loading...</p>;
-    if (loadingPhoto) return <p>Foto laden...</p>;
+    if (loading) return <Spinner spinner='spinner' size='medium' border='border-dotted' container='container'/>;
+    if (loadingPhoto) return <Spinner spinner='spinner' size='small' border='border-dotted'/>;
     return (
         <main className={styles['outer-container']}>
             <header className={styles.header}>

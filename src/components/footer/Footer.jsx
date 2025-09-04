@@ -9,14 +9,14 @@ function Footer(){
     return(
         <>
             <div className={styles['outer-container']}>
-            <section>
+            <section className={styles['small-screen']}>
                 <h2 className={styles.titles}> Credits </h2>
                 <p> Website created by [Douwe Wiegersma] </p>
                 <p> Movie information and images provided by The Movie Database <a href="https://www.themoviedb.org" target="_blank"  rel="noopener noreferrer">(TMDB)</a>
                 </p>
             </section>
 
-            <nav>
+            <nav className={styles['small-screen']}>
             <h2 className={styles.titles}> Useful Links</h2>
             <ul className={styles.list}>
             <li><Link to="/"> Home </Link></li>
@@ -25,7 +25,7 @@ function Footer(){
                 </ul>
             </nav>
 
-            <p> <FaRegCopyright /> 2025 PixelEye. all rights reserved.</p>
+                <p className={styles['small-screen']}> <FaRegCopyright /> 2025 PixelEye. all rights reserved.</p>
             </div>
 
         </>

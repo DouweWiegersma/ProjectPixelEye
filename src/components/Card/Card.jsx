@@ -3,21 +3,23 @@ import { IoAddCircleSharp } from "react-icons/io5";
 import Button from "../Button/Button.jsx";
 import { TiDelete } from "react-icons/ti";
 import { FaStar } from "react-icons/fa6";
-import {useContext} from "react";
+import React, {useContext} from "react";
 import axios from "axios";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import {truncateTitle} from "../../helpers/TruncateTitle.js";
 import {useNavigate} from "react-router-dom";
 import engelsNaarNederlandseDatum from "../../helpers/DutchDate.js";
-
-function Card({ id, setRefresh, title, overview, media_type, release_date, first_air_date, vote_average, backdrop_path, poster_path, original_name}){
+import {useState} from "react";
+import Spinner from "../spinner/Spinner.jsx";
+function Card({disableAdd, disableDelete, id, setRefresh, title, overview, media_type, release_date, first_air_date, vote_average, backdrop_path, poster_path, original_name}){
     const { user} = useContext(AuthContext)
+    const [loading, setLoading] = useState(false)
 
 
 
     async function handleAdd() {
         const token = localStorage.getItem("token");
-
+            setLoading(true)
         try {
             const response = await axios.get(
                 `https://api.datavortex.nl/pixeleye/users/${user.username}`,
@@ -59,6 +61,7 @@ function Card({ id, setRefresh, title, overview, media_type, release_date, first
                 first_air_date,
                 original_name,
                 overview,
+
             };
 
             const updatedInfo = [...currentInfo, newMovie];
@@ -80,13 +83,15 @@ function Card({ id, setRefresh, title, overview, media_type, release_date, first
         } catch (e) {
             console.error("Fout bij toevoegen aan watchlist:", e);
         }
+        finally {
+            setLoading(false)
+        }
     }
 
 
     async function handleDelete() {
         const token = localStorage.getItem("token");
-        alert("Het verwijderen is gelukt!");
-
+        setLoading(true)
         try {
             const response = await axios.get(
                 `https://api.datavortex.nl/pixeleye/users/${user.username}`,
@@ -108,6 +113,7 @@ function Card({ id, setRefresh, title, overview, media_type, release_date, first
                     console.warn("Kon info niet parsen:", e);
                     currentInfo = [];
                 }
+
             }
 
             const updatedInfo = currentInfo.filter((movie) => String(movie.id) !== String(id));
@@ -128,11 +134,15 @@ function Card({ id, setRefresh, title, overview, media_type, release_date, first
         } catch (e) {
             console.error("Fout bij verwijderen uit watchlist:", e);
         }
+        finally {
+            setLoading(false)
+        }
     }
 
     const navigate = useNavigate();
 
     function handleMoreInfo() {
+        setLoading(true)
         navigate(`/details/${id}`, {
             state: {
                 id,
@@ -147,10 +157,11 @@ function Card({ id, setRefresh, title, overview, media_type, release_date, first
                 original_name,
             }
         });
+        setLoading(false)
     }
 
 
-
+    if (loading) return (<Spinner spinner='spinner' size='large' border='non' container='container'/>)
     return (
         <article className={styles['outer-container']} >
             {backdrop_path ? (
@@ -197,6 +208,7 @@ function Card({ id, setRefresh, title, overview, media_type, release_date, first
                         variant="add-btn"
                         shape="circle"
                         onClick={handleAdd}
+                        disabled={disableAdd}
                     />
                     <Button
                         variant="secondary-btn"
@@ -209,6 +221,8 @@ function Card({ id, setRefresh, title, overview, media_type, release_date, first
                         variant="remove-btn"
                         shape="circle"
                         onClick={handleDelete}
+                        disabled={disableDelete}
+
                     />
                 </footer>
             </div>

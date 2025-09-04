@@ -2,8 +2,10 @@ import { useLocation } from 'react-router-dom';
 import styles from './DetailPage.module.scss';
 import { FaStar } from 'react-icons/fa6';
 import engelsNaarNederlandseDatum from "../../helpers/DutchDate.js";
-
+import {useNavigate} from "react-router-dom";
+import Button from "../Button/Button.jsx";
 function DetailPage() {
+    const navigate = useNavigate();
     const { state } = useLocation();
     const {
         title,
@@ -19,6 +21,7 @@ function DetailPage() {
 
     return (
         <article className={styles['detail-container']}>
+
             {backdrop_path &&
                 <img src={backdrop_path} alt="Backdrop" className={styles.backdrop}/>}
             <div className={styles.content}>
@@ -48,6 +51,7 @@ function DetailPage() {
                     <p className={styles.overview}>{overview}</p>
                 </section>
             </div>
+            <Button label='Vorige' size='large'  variant='primary-btn' onClick={() => navigate(-1)}/>
         </article>
     );
 }

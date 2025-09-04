@@ -9,6 +9,7 @@ import { MdFormatListBulletedAdd } from "react-icons/md";
 import { HiViewfinderCircle } from "react-icons/hi2";
 import Button from "../../components/Button/Button.jsx";
 import { FaStar } from "react-icons/fa6";
+import Spinner from "../../components/spinner/Spinner.jsx";
 
 
 
@@ -82,7 +83,8 @@ function Home() {
             toggleShowMore(false)
         }
     }
-    if(loading) return( <p>Laden...</p>)
+
+    if (loading) return( <Spinner spinner='spinner' size='large' border='non' container='container'/>)
 
 
 
