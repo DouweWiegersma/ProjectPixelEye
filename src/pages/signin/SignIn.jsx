@@ -4,6 +4,7 @@ import { AuthContext } from "../../context/AuthContext.jsx";
 import styles from "./SignIn.module.scss"
 import Button from "../../components/Button/Button.jsx";
 import {useNavigate} from "react-router-dom";
+import Spinner from "../../components/spinner/Spinner.jsx";
 
 
 function SignIn() {
@@ -15,7 +16,7 @@ function SignIn() {
     });
 
     const [error, setError] = useState("");
-
+    const [loading, setLoading] = useState(false);
     function handleChange(e) {
         setFormData((prev) => ({
             ...prev,
@@ -24,6 +25,7 @@ function SignIn() {
     }
 
     async function handleSubmit(e) {
+        setLoading(true)
         e.preventDefault();
         const controller = new AbortController();
         try {
@@ -48,9 +50,13 @@ function SignIn() {
             console.error("Fout bij inloggen:", e.response?.data || e.message);
             setError("Inloggen mislukt. Controleer je gegevens.");
         }
+        finally {
+            setLoading(false)
+        }
         return () => controller.abort();
     }
 
+    if(loading) return (<Spinner spinner='spinner' size='medium' border='non' container='container'/>)
 
     return (
         <>

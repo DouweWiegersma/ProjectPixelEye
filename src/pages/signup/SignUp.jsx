@@ -5,10 +5,12 @@ import axios from "axios";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import styles from "./SignUp.module.scss";
 import Button from "../../components/Button/Button.jsx";
+import Spinner from "../../components/spinner/Spinner.jsx";
 
 function SignUp() {
     const { login } = useContext(AuthContext);
     const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false)
 
     const formik = useFormik({
         initialValues: {
@@ -32,6 +34,7 @@ function SignUp() {
         }),
 
         onSubmit: async (values) => {
+
             const userPayload = {
                 username: values.username,
                 email: values.email,
@@ -39,7 +42,7 @@ function SignUp() {
                 info: "{}",
                 authorities: [{ authority: "USER" }],
             };
-
+                setLoading(true)
             try {
                 await axios.post("https://api.datavortex.nl/pixeleye/users", userPayload, {
                     headers: {
@@ -52,11 +55,14 @@ function SignUp() {
             } catch (error) {
                 setMessage("Fout bij registreren: " + (error.response?.data || error.message));
             }
+            finally {
+                setLoading(false)
+            }
 
         },
     });
 
-
+        if(loading) return(<Spinner spinner='spinner' size='medium' border='non' container='container'/>)
     return (
         <main className={styles['outer-container']}>
             <section className={styles['inner-container']}>
@@ -112,7 +118,6 @@ function SignUp() {
 
                     <Button type="submit" label="Sign Up" variant="primary-btn" size="large" />
                 </form>
-
                 {message && <p>{message}</p>}
             </section>
         </main>

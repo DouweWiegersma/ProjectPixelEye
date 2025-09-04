@@ -7,7 +7,8 @@ function Button({
                     className= '',
                     variant='',
                     size='',
-                    shape =''
+                    shape ='',
+                    disabled = false,
 })
 {
     const variantClass = styles[variant] || '';
@@ -20,8 +21,10 @@ function Button({
             <button type={type}
                     onClick={onClick}
                     className={`${styles['button']} 
-                    ${variantClass} ${sizeClass} ${className} ${shapeClass}`}>
+                    ${variantClass} ${sizeClass} ${className} ${shapeClass}`}
+                    disabled={disabled}>
                 {label}
+
             </button>
         </>
     )

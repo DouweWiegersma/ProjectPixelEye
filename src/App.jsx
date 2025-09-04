@@ -18,7 +18,6 @@ function App() {
     return(
     <>
 
-
         <NavBar/>
         <Routes>
         <Route path="/SignUp" element={<SignUp/>} />
@@ -30,6 +29,7 @@ function App() {
             <Route path="/details/:id" element={<DetailPage />} />
         </Routes>
         <Footer/>
+
     </>
   )
 }
