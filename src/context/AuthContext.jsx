@@ -115,6 +115,7 @@ function AuthContextProvider({ children }) {
         }
     }
 
+
     const contextData = {
         ...auth,
         login,

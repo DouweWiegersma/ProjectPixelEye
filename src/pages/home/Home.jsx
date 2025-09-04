@@ -10,7 +10,7 @@ import { HiViewfinderCircle } from "react-icons/hi2";
 import Button from "../../components/Button/Button.jsx";
 import { FaStar } from "react-icons/fa6";
 import Spinner from "../../components/spinner/Spinner.jsx";
-
+import Message from "../../components/message/Message.jsx"
 
 
 function Home() {
@@ -21,7 +21,8 @@ function Home() {
     const [count, setCount] = useState(0)
     const [showMore, toggleShowMore] = useState(false)
     const [loading, setLoading] = useState(false)
-
+    const [message, setMessage] = useState({ text: '', status: '' });
+    const clearMessage = () => setMessage({ text: '', status: '' });
 
     useEffect(() => {
         const controller = new AbortController();
@@ -53,7 +54,7 @@ function Home() {
         return () => {
             controller.abort();
         }
-    }, [API_KEY])
+    }, [])
 
 
     const backdropPaths = trending.filter(movie => movie.backdrop_path).map(movie => movie.backdrop_path)
@@ -131,7 +132,9 @@ function Home() {
                             </section>
                         </section>
                     </header>
-
+                    <div style={{display: "flex", justifyContent: "center",alignItems: "center", margin: 20}}>
+                    <Message text={message.text} status={message.status} clearMessage={clearMessage}  />
+                    </div>
 
                     <main className={styles['site-description']}>
                         <section className={styles['layout-content-description']}>

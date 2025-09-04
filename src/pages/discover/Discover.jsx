@@ -7,6 +7,7 @@ import Random from "../../components/random/Random.jsx";
 import Button from "../../components/Button/Button.jsx";
 import { IoSearchSharp } from "react-icons/io5";
 import Spinner from "../../components/spinner/Spinner.jsx";
+import Message from "../../components/message/Message.jsx"
 
 
 function Discover(){
@@ -19,6 +20,8 @@ function Discover(){
     const [next, setNext] = useState(1)
     const [search, setSearch] = useState('')
     const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+    const [message, setMessage] = useState({ text: '', status: '' });
+    const clearMessage = () => setMessage({ text: '', status: '' });
 
     useEffect(() => {
         const controller = new AbortController();
@@ -41,6 +44,7 @@ function Discover(){
                 setPages(response.data.total_pages);
             } catch (e) {
                 console.error('Fout bij zoeken:', e);
+                setMessage({ text: "Fout bij zoeken", status: 'error' });
             } finally {
                 setLoading(false);
             }
@@ -94,37 +98,43 @@ function Discover(){
                         <Random/>
                     </section>
 
+                    <Message text={message.text} clearMessage={clearMessage} status={message.status}/>
+
+
                     {!search && (
-                    <main className={styles['result-layout']}>
-                        {loading ? (
-                            <p></p>
-                        ) : data.length > 0 ? (
-                            data.map((data) => (
-                                <Card
-                                    disableDelete={true}
-                                    overview={data?.overview}
-                                    key={data?.id}
-                                    id={data?.id}
-                                    media_type={data?.media_type}
-                                    title={data?.title}
-                                    release_date={data?.release_date}
-                                    first_air_date={data?.first_air_date}
-                                    vote_average={data?.vote_average}
-                                    backdrop_path={`https://image.tmdb.org/t/p/original${data?.backdrop_path}`}
-                                    poster_path={`https://image.tmdb.org/t/p/original${data?.poster_path}`}
-                                    original_name={data?.name}
-                                />
-                            ))
-                        ) : search && <p> </p>}
-                    </main>
+                        <main className={styles['result-layout']}>
+                            {loading ? (
+                                <p></p>
+                            ) : data.length > 0 ? (
+                                data.map((data) => (
+                                    <Card
+                                        disableDelete={true}
+                                        overview={data?.overview}
+                                        key={data?.id}
+                                        id={data?.id}
+                                        media_type={data?.media_type}
+                                        title={data?.title}
+                                        release_date={data?.release_date}
+                                        first_air_date={data?.first_air_date}
+                                        vote_average={data?.vote_average}
+                                        backdrop_path={`https://image.tmdb.org/t/p/original${data?.backdrop_path}`}
+                                        poster_path={`https://image.tmdb.org/t/p/original${data?.poster_path}`}
+                                        original_name={data?.name}
+                                    />
+                                ))
+                            ) : search && <p></p>}
+                        </main>
                     )}
 
                     <nav className={styles['button-layout']}>
                         {next > 1 &&
-                        <Button onClick={prevPage} variant='primaryBtn' size='large' label='prev'/>}
+                            <Button onClick={prevPage} variant='primaryBtn' size='large' label='prev'/>}
                         {next < pages &&
-                        <Button onClick={nextPage} variant='primaryBtn' size='large' label='next'/>}
+                            <Button onClick={nextPage} variant='primaryBtn' size='large' label='next'/>}
                     </nav>
+
+
+
 
 
                 </div>

@@ -5,7 +5,7 @@ import styles from "./SignIn.module.scss"
 import Button from "../../components/Button/Button.jsx";
 import {useNavigate} from "react-router-dom";
 import Spinner from "../../components/spinner/Spinner.jsx";
-
+import Message from "../../components/message/Message.jsx"
 
 function SignIn() {
     const { login} = useContext(AuthContext);
@@ -15,7 +15,8 @@ function SignIn() {
         password: ""
     });
 
-    const [error, setError] = useState("");
+    const [message, setMessage] = useState({ text: '', status: '' });
+    const clearMessage = () => setMessage({ text: '', status: '' });
     const [loading, setLoading] = useState(false);
     function handleChange(e) {
         setFormData((prev) => ({
@@ -27,7 +28,6 @@ function SignIn() {
     async function handleSubmit(e) {
         setLoading(true)
         e.preventDefault();
-        const controller = new AbortController();
         try {
             const response = await axios.post(
                 "https://api.datavortex.nl/pixeleye/users/authenticate",
@@ -40,20 +40,19 @@ function SignIn() {
                         "X-API-KEY": "pixeleye:aO8LUAeun6zuzTqZllxY",
                         'Content-Type': 'application/json',
                     },
-                    signal: controller.signal,
                 }
             );
+            setMessage({ text: "inloggen succesvol!", status: 'success' });
             login(response.data.jwt);
             navigate('/');
 
         } catch (e) {
             console.error("Fout bij inloggen:", e.response?.data || e.message);
-            setError("Inloggen mislukt. Controleer je gegevens.");
+            setMessage({ text: "Fout bij inloggen", status: 'error' });
         }
         finally {
             setLoading(false)
         }
-        return () => controller.abort();
     }
 
     if(loading) return (<Spinner spinner='spinner' size='medium' border='non' container='container'/>)
@@ -93,8 +92,10 @@ function SignIn() {
 
 
                                 <Button label='Log In' variant='primary-btn' size='large' type='submit'/>
+
                             </form>
-                            {error && <p style={{color: "red"}}>{error}</p>}
+                            <Message text={message.text} status={message.status} clearMessage={clearMessage}  />
+
                         </section>
                 </main>
         </>

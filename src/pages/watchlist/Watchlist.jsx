@@ -5,12 +5,13 @@ import Card from "../../components/Card/Card.jsx";
 import { AuthContext } from "../../context/AuthContext.jsx";
 import {Link} from "react-router-dom";
 import Spinner from "../../components/spinner/Spinner.jsx";
-
+import Message from "../../components/message/Message.jsx"
 function Watchlist() {
     const { user, token} = useContext(AuthContext);
     const [watchlist, setWatchlist] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [message, setMessage] = useState({ text: '', status: '' });
+    const clearMessage = () => setMessage({ text: '', status: '' });
     const [refresh, setRefresh] = useState(true)
 
 
@@ -18,7 +19,6 @@ function Watchlist() {
     useEffect(() => {
         const controller = new AbortController();
         if (!user?.username || !token) return;
-        setError(null)
         async function fetchWatchlist() {
             setLoading(true)
             try {
@@ -42,7 +42,7 @@ function Watchlist() {
             } catch (e) {
                 if (axios.isCancel(e)) return;
                 console.error("Fout bij ophalen van de watchlist:", e);
-                setError("Fout bij ophalen van je watchlist.");
+                setMessage({ text: "Fout bij ophalen watchlist", status: 'error' });
             }
             finally {
                 setLoading(false);
@@ -57,7 +57,7 @@ function Watchlist() {
 
 
     if (loading) return <Spinner spinner='spinner' size='medium' border='border-dotted' container='container'/>;
-    if (error) return <p>{error}</p>;
+
 
     return (
         <main className={styles['outer-container']}>
@@ -70,6 +70,7 @@ function Watchlist() {
                             Watchlist</h1></div>
                         <div className={`${styles.image2} ${styles['image-style']}`}></div>
                     </header>
+                <Message text={message.text} status={message.status} clearMessage={clearMessage}/>
 
 
 

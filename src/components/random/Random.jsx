@@ -5,7 +5,7 @@ import axios from "axios";
 import Card from "../Card/Card.jsx";
 import {generateReleaseYears} from "../../helpers/GetYears.js";
 import Spinner from "../spinner/Spinner.jsx";
-
+import Message from "../../components/message/Message.jsx"
 
 function Random(){
 
@@ -17,6 +17,8 @@ function Random(){
     const [genre, setGenre] = useState([])
     const [movieGenre, setMovieGenre] = useState([])
     const [loading, setLoading] = useState(false)
+    const [message, setMessage] = useState({ text: '', status: '' });
+    const clearMessage = () => setMessage({ text: '', status: '' });
 
 
     const [data, setData] = useState({
@@ -99,6 +101,7 @@ function Random(){
             }
             catch (e){
                 console.error('Geen data beschikbaar', e)
+
             }
             finally {
                 setLoading(false)
@@ -126,8 +129,6 @@ function Random(){
         toggleMovies(false)
         toggleTvShows(false)
         toggleTrigger(true)
-
-        console.log('formulier is ingediend met data:', form)
     }
     function formTvShow() {
         toggleTvShows(true);
@@ -231,6 +232,7 @@ function Random(){
             </form>
             </div>
             }
+            <Message text={message.text} clearMessage={clearMessage} status={message.status}/>
 
 
             {random &&

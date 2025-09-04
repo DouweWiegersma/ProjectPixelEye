@@ -6,6 +6,7 @@ import placeholderImage from "../../assets/profile pic.jpg";
 import Button from "../../components/Button/Button";
 import styles from "./Profile.module.scss";
 import Spinner from "../../components/spinner/Spinner.jsx";
+import Message from "../../components/message/Message.jsx"
 
 const API_KEY = "pixeleye:aO8LUAeun6zuzTqZllxY";
 const BASE_URL = "https://api.datavortex.nl/pixeleye";
@@ -28,7 +29,8 @@ function Profile() {
     const [usernameConfirm, setUsernameConfirm] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState({ text: '', status: '' });
+    const clearMessage = () => setMessage({ text: '', status: '' });
 
     useEffect(() => {
         if (!user?.username || !token) return;
@@ -42,7 +44,7 @@ function Profile() {
                 if (storedImage) {
                     setProfileImageUrl(storedImage);
                 } else {
-                    await downloadProfilePhoto(); // wachten tot dit klaar is
+                    await downloadProfilePhoto();
                 }
             } catch (e) {
                 console.error("Fout bij ophalen profielfoto:", e);
@@ -83,11 +85,11 @@ function Profile() {
             await downloadProfilePhoto();
             setSelectedFile(null);
             setImagePreview(null);
-            setMessage("Profielfoto succesvol geüpload!");
+            setMessage({ text: "Profielfoto succevol geupload!", status: 'success' });
             setTimeout(() => setMessage(""), 3000);
         } catch (e) {
             console.error("Upload mislukt:", e);
-            alert("Upload mislukt. Check console voor details.");
+            setMessage({ text: "uploaden profiel foto mislukt!", status: 'error' });
         }
     }
 
@@ -109,11 +111,12 @@ function Profile() {
             await downloadProfilePhoto(newUsername);
             setUsername("");
             setUsernameConfirm("");
-            setMessage("Gebruikersnaam bijgewerkt!");
+
+            setMessage({ text: "Gebruikersnaam bijgewerkt!", status: 'success' });
             setTimeout(() => setMessage(""), 3000);
         } catch (err) {
             console.error(err);
-            setMessage("Netwerkfout bij wijzigen gebruikersnaam.");
+            setMessage({ text: "fout bij wijzigen gebruikersnaam", status: 'error' });
         }
     };
 
@@ -121,7 +124,7 @@ function Profile() {
     async function handlePasswordChange(e) {
         e.preventDefault();
         if (newPassword !== newPasswordConfirm) {
-            setMessage("Wachtwoorden komen niet overeen.");
+            setMessage({ text: "wachtwoorden komen niet overeen", status: 'error' });
             return;
         }
 
@@ -139,11 +142,11 @@ function Profile() {
             );
             setNewPassword("");
             setNewPasswordConfirm("");
-            setMessage("Wachtwoord succesvol gewijzigd.");
+            setMessage({ text: "Wachtwoord succevol gewijziged!", status: 'success' });
             setTimeout(() => setMessage(""), 3000);
         } catch (e) {
             console.error("Fout bij het wijzigen van je wachtwoord", e);
-            setMessage("wijzigen wachtwoord is mislukt.");
+            setMessage({ text: "wijzigen wachtwoord is mislukt", status: 'error' });
         }
     }
 
@@ -271,8 +274,9 @@ function Profile() {
                             disabled={!newPassword || newPassword !== newPasswordConfirm}/>
                 </form>
             </section>
-            <p style={{display: "flex", justifyContent: "center"}}>{message}</p>
-
+            <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+            <Message text={message.text} status={message.status} clearMessage={clearMessage} />
+            </div>
 
         </main>
 
