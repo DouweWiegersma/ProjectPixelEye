@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/AuthContext.jsx";
 import {Link} from "react-router-dom";
 import Spinner from "../../components/spinner/Spinner.jsx";
 import Message from "../../components/message/Message.jsx"
+import Poster from "../../assets/poster-placeholder.png";
 function Watchlist() {
     const { user, token} = useContext(AuthContext);
     const [watchlist, setWatchlist] = useState([]);
@@ -79,12 +80,14 @@ function Watchlist() {
                     <section className={styles['layout-cards']}>
                         {watchlist.map((item) => (
                             <Card
+                                know_for={item.know_for}
                                 disableAdd={true}
                                 setRefresh={setRefresh}
                                 key={item.id}
                                 id={item.id}
                                 title={item.title}
-                                poster_path={`https://image.tmdb.org/t/p/original${item.poster_path}`}
+                                popularity={item.popularity}
+                                poster_path={item.poster_path || Poster}
                                 media_type={item.media_type}
                                 vote_average={item.vote_average}
                                 backdrop_path={item.backdrop_path}

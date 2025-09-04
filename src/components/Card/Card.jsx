@@ -12,7 +12,9 @@ import engelsNaarNederlandseDatum from "../../helpers/DutchDate.js";
 import {useState} from "react";
 import Spinner from "../spinner/Spinner.jsx";
 import Rating from "../ratingStars/Rating.jsx";
-function Card({disableAdd, disableDelete, id, setRefresh, title, overview, media_type, release_date, first_air_date, vote_average, backdrop_path, poster_path, original_name}){
+import poster from "../../assets/poster-placeholder.png"
+
+function Card({profile_path, know_for, popularity, disableAdd, disableDelete, id, setRefresh, title, overview, media_type, release_date, first_air_date, vote_average, backdrop_path, poster_path, original_name}){
     const { user} = useContext(AuthContext)
     const [loading, setLoading] = useState(false)
 
@@ -62,6 +64,9 @@ function Card({disableAdd, disableDelete, id, setRefresh, title, overview, media
                 first_air_date,
                 original_name,
                 overview,
+                popularity,
+                know_for,
+                profile_path,
 
             };
 
@@ -156,6 +161,9 @@ function Card({disableAdd, disableDelete, id, setRefresh, title, overview, media
                 backdrop_path,
                 poster_path,
                 original_name,
+                popularity,
+                know_for,
+                profile_path
             }
         });
         setLoading(false)
@@ -171,9 +179,11 @@ function Card({disableAdd, disableDelete, id, setRefresh, title, overview, media
                     alt="Achtergrondafbeelding"
                     className={styles['backdrop-img']}
                 />
+            ) : profile_path ? (
+                    <img src={profile_path} alt='profile' />
+
             ) : (
-                <p>Geen poster beschikbaar</p>
-            )}
+                poster)}
 
             <div className={styles['inner-container']}>
                 <header className={styles['title-container']}>
@@ -181,7 +191,7 @@ function Card({disableAdd, disableDelete, id, setRefresh, title, overview, media
                     <p className={styles.stars}><Rating rating={vote_average} id={id}/></p>
                     <p className={styles.rating}>
                         <FaStar className={styles.star}/>
-                        {Math.round(vote_average * 10)}
+                        {Math.round(vote_average ? vote_average : popularity * 10)}
                     </p>
 
                 </header>
@@ -192,18 +202,19 @@ function Card({disableAdd, disableDelete, id, setRefresh, title, overview, media
                     {poster_path ? (
                         <img
                             src={poster_path}
-                            alt="Poster"
+                            alt="poster"
                             className={styles['poster-img']}
                         />
                     ) : (
-                        <p>Geen poster beschikbaar</p>
+                        <p></p>
                     )}
                 </figure>
-
+                {release_date || first_air_date ? (
                 <p>
-                    Release datum:{" "}
+                    Release datum:{ ' '}
                     {engelsNaarNederlandseDatum(release_date || first_air_date)}
-                </p>
+                </p>) : (
+                    <p>Know for: {know_for}</p>)}
 
                 <footer className={styles['button-container']}>
                     <Button

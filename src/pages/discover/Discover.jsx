@@ -8,6 +8,7 @@ import Button from "../../components/Button/Button.jsx";
 import { IoSearchSharp } from "react-icons/io5";
 import Spinner from "../../components/spinner/Spinner.jsx";
 import Message from "../../components/message/Message.jsx"
+import poster from "../../assets/poster-placeholder.png"
 
 
 function Discover(){
@@ -41,6 +42,7 @@ function Discover(){
                     signal: controller.signal,
                 });
                 setData(response.data.results);
+
                 setPages(response.data.total_pages);
             } catch (e) {
                 console.error('Fout bij zoeken:', e);
@@ -56,7 +58,7 @@ function Discover(){
     }, [searchQuery, next]);
 
 
-    const backDrop = data[0]?.backdrop_path ? `https://image.tmdb.org/t/p/original${data[0]?.backdrop_path}` : background
+    const backDrop = data[0]?.backdrop_path && `https://image.tmdb.org/t/p/original${data[0]?.backdrop_path}` || background
 
     function nextPage(){
         setNext(next + 1)
@@ -114,11 +116,17 @@ function Discover(){
                                         id={data?.id}
                                         media_type={data?.media_type}
                                         title={data?.title}
+                                        popularity={data?.popularity}
+                                        know_for={data?.known_for_department}
+                                        profile_path={`https://image.tmdb.org/t/p/original${data?.profile_path}`}
                                         release_date={data?.release_date}
                                         first_air_date={data?.first_air_date}
                                         vote_average={data?.vote_average}
-                                        backdrop_path={`https://image.tmdb.org/t/p/original${data?.backdrop_path}`}
-                                        poster_path={`https://image.tmdb.org/t/p/original${data?.poster_path}`}
+                                        backdrop_path={data?.backdrop_path
+                                            ? `https://image.tmdb.org/t/p/original${data.backdrop_path}` :
+                                            poster }
+                                        poster_path={data?.poster_path
+                                            ? `https://image.tmdb.org/t/p/original${data.poster_path}` : poster}
                                         original_name={data?.name}
                                     />
                                 ))
