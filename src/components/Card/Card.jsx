@@ -11,6 +11,7 @@ import {useNavigate} from "react-router-dom";
 import engelsNaarNederlandseDatum from "../../helpers/DutchDate.js";
 import {useState} from "react";
 import Spinner from "../spinner/Spinner.jsx";
+import Rating from "../ratingStars/Rating.jsx";
 function Card({disableAdd, disableDelete, id, setRefresh, title, overview, media_type, release_date, first_air_date, vote_average, backdrop_path, poster_path, original_name}){
     const { user} = useContext(AuthContext)
     const [loading, setLoading] = useState(false)
@@ -177,10 +178,12 @@ function Card({disableAdd, disableDelete, id, setRefresh, title, overview, media
             <div className={styles['inner-container']}>
                 <header className={styles['title-container']}>
                     <h2 className={styles.title}>{media_type}</h2>
+                    <p className={styles.stars}><Rating rating={vote_average} id={id}/></p>
                     <p className={styles.rating}>
                         <FaStar className={styles.star}/>
                         {Math.round(vote_average * 10)}
                     </p>
+
                 </header>
 
                 <h3>{truncateTitle(title || original_name)}</h3>

@@ -11,7 +11,7 @@ import Button from "../../components/Button/Button.jsx";
 import { FaStar } from "react-icons/fa6";
 import Spinner from "../../components/spinner/Spinner.jsx";
 import Message from "../../components/message/Message.jsx"
-
+import Rating from "../../components/ratingStars/Rating.jsx";
 
 function Home() {
 
@@ -97,6 +97,7 @@ function Home() {
             <div className={styles['outer-container']}>
                 <div className={styles['inner-container']}>
                     <header className={styles['layout-wrapper']}>
+
                         <figure className={styles['backdrop-container']}>
                             <img src={`https://image.tmdb.org/t/p/original${backdropPaths[count]}`} alt={title[count]}
                                  className={styles['backdrop-img']}/>
@@ -110,8 +111,12 @@ function Home() {
                                     <div className={styles.row}>
                                 <button type='button' onClick={back} disabled={count === 0} className={styles['icon-btn']}>
                                     <IoIosArrowBack/></button>
+                                        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                                            <Rating rating={trending[count]?.vote_average} />
                                 <img src={`https://image.tmdb.org/t/p/w200${poster[count]}`} alt={title[count]}
                                      className={styles.poster}/>
+                                        </div>
+
                                 <button type='button' onClick={next} disabled={count === 10} className={styles['icon-btn']}>
                                     <IoIosArrowForward/></button>
                                     </div>

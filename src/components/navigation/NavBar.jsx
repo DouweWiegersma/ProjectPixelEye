@@ -1,11 +1,10 @@
 import styles from "./NavBar.module.scss"
 import { NavLink } from "react-router-dom";
-import React, {useContext, useEffect} from "react";
+import React, {useContext} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import Button from "../Button/Button.jsx";
 import {useNavigate} from "react-router-dom";
 import {ProfilePhotoContext} from "../../context/ProfilePhotoContext.jsx";
-import {useState} from "react";
 import Spinner from "../spinner/Spinner.jsx";
 
 function NavBar(){
