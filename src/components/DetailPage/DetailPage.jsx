@@ -4,9 +4,12 @@ import { FaStar } from 'react-icons/fa6';
 import engelsNaarNederlandseDatum from "../../helpers/DutchDate.js";
 import {useNavigate} from "react-router-dom";
 import Button from "../Button/Button.jsx";
-function DetailPage() {
+import Rating from "../ratingStars/Rating.jsx";
+
+function DetailPage(props) {
     const navigate = useNavigate();
     const { state } = useLocation();
+
     const {
         title,
         original_name,
@@ -17,7 +20,7 @@ function DetailPage() {
         vote_average,
         backdrop_path,
         poster_path,
-    } = state || {};
+    } = props.title ? props : state || {};
 
     return (
         <article className={styles['detail-container']}>
@@ -27,6 +30,7 @@ function DetailPage() {
             <div className={styles.content}>
                 <header>
                 <h2>{title || original_name}</h2>
+                    <p> <Rating rating={vote_average}/></p>
                 </header>
 
                 <dl>
