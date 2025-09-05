@@ -52,7 +52,7 @@ function Card({genre_ids = [],
 
             const bestaatAl = currentInfo.some((item) => String(item.id) === String(id));
             if (bestaatAl) {
-                alert("Deze film staat al in je watchlist.");
+                alert("This movie is already in your watchlist.");
                 return;
             }
             const newMovie = {
@@ -87,10 +87,10 @@ function Card({genre_ids = [],
                     },
                 }
             );
-            alert("Film succesvol toegevoegd aan watchlist!");
+            alert("Movie successfully added to your watchlist!");
             setRefresh(prev => !prev);
         } catch (e) {
-            console.error("Fout bij toevoegen aan watchlist:", e);
+            console.error("Error adding to watchlist:", e);
         }
         finally {
             setLoading(false)
@@ -119,7 +119,7 @@ function Card({genre_ids = [],
                     const parsed = JSON.parse(response.data.info);
                     currentInfo = Array.isArray(parsed) ? parsed : [];
                 } catch (e) {
-                    console.warn("Kon info niet parsen:", e);
+                    console.warn("Could not parse info:", e);
                     currentInfo = [];
                 }
 
@@ -226,7 +226,7 @@ function Card({genre_ids = [],
                 </figure>
                 {release_date || first_air_date ? (
                     <p>
-                        Release datum:{' '}
+                        Release date:{' '}
                         {engelsNaarNederlandseDatum(release_date || first_air_date)}
                     </p>) : (
                     <p>Know for: {know_for}</p>)}

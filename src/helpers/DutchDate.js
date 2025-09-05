@@ -1,17 +1,17 @@
 function engelsNaarNederlandseDatum(engelseDatumString) {
-    const maanden = [
-        "januari", "februari", "maart", "april", "mei", "juni",
-        "juli", "augustus", "september", "oktober", "november", "december"
+    const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
     ];
 
-    const datum = new Date(engelseDatumString);
+    const date = new Date(engelseDatumString);
 
 
-    const dag = datum.getDate();
-    const maand = maanden[datum.getMonth()];
-    const jaar = datum.getFullYear();
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
 
-    return `${dag} ${maand} ${jaar}`;
+    return `${day} ${month} ${year}`;
 }
 
 export default engelsNaarNederlandseDatum;

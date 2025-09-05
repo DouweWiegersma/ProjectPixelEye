@@ -19,73 +19,6 @@ function Watchlist() {
     const [refresh, setRefresh] = useState(true)
     const { movieGenre, tvGenre } = useContext(GenresContext);
 
-
-
-    // useEffect(() => {
-    //     const controller = new AbortController();
-    //     async function Moviegerne() {
-    //         try {
-    //             setLoading(true);
-    //
-    //             const response = await axios.get(
-    //                 "https://api.themoviedb.org/3/genre/movie/list",{
-    //                     params: {
-    //                         api_key: API_KEY,
-    //                     },
-    //                     headers: {
-    //                         accept: "application/json",
-    //                     },
-    //                     signal: controller.signal,
-    //                 }
-    //             );
-    //             setMovieGenre(response.data.genres);
-    //         } catch (e) {
-    //             console.error("Fout bij zoeken:", e);
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     }
-    //
-    //     Moviegerne();
-    //
-    //     return () => {
-    //         controller.abort();
-    //     };
-    // }, []);
-    //
-    // useEffect(() => {
-    //     const controller = new AbortController();
-    //
-    //     async function Tvgerne() {
-    //         try {
-    //             setLoading(true);
-    //
-    //             const response = await axios.get(
-    //                 "https://api.themoviedb.org/3/genre/tv/list",{
-    //                     params: {
-    //                         api_key: API_KEY,
-    //                     },
-    //                     headers: {
-    //                         accept: "application/json",
-    //                     },
-    //                     signal: controller.signal,
-    //                 }
-    //             );
-    //             setTvGenre(response.data.genres);
-    //         } catch (e) {
-    //             console.error("Fout bij zoeken:", e);
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     }
-    //
-    //     Tvgerne();
-    //
-    //     return () => {
-    //         controller.abort();
-    //     };
-    // }, []);
-
     useEffect(() => {
         const controller = new AbortController();
         if (!user?.username || !token) return;
@@ -106,13 +39,13 @@ function Watchlist() {
                     const parsed = response.data.info ? JSON.parse(response.data.info) : [];
                     setWatchlist(parsed);
                 } else {
-                    console.log("geen info gevonden")
+                    console.log("No data available")
                     setWatchlist([]);
                 }
             } catch (e) {
                 if (axios.isCancel(e)) return;
-                console.error("Fout bij ophalen van de watchlist:", e);
-                setMessage({ text: "Fout bij ophalen watchlist", status: 'error' });
+                console.error("Error fetching the watchlist:", e);
+                setMessage({ text: "Error fetching the watchlist", status: 'error' });
             }
             finally {
                 setLoading(false);
@@ -136,7 +69,7 @@ function Watchlist() {
 
                     <header className={styles['image-container']}>
                         <div className={`${styles.image3} ${styles['image-style']}`}></div>
-                        <div className={`${styles.image1} ${styles['image-style']}`}><h1 className={styles.title}>Mijn
+                        <div className={`${styles.image1} ${styles['image-style']}`}><h1 className={styles.title}>Your
                             Watchlist</h1></div>
                         <div className={`${styles.image2} ${styles['image-style']}`}></div>
                     </header>
@@ -172,8 +105,8 @@ function Watchlist() {
                     </section>
                 ) : (
                     <div className={styles.watchlist}>
-                    <p className={styles.empty}>Er zit nog niks in je Watchlist </p>
-                    <p> <Link to="/Discover" className={styles.empty}>Klik hier... Om films toe te voegen </Link> </p>
+                    <p className={styles.empty}>There is nothing in your watchlist! </p>
+                    <p> <Link to="/Discover" className={styles.empty}>Click here... To add movies / Tv shows </Link> </p>
                         <Spinner spinner='spinner' size='large' border='none' container='container'/>
                     </div>
                 )}

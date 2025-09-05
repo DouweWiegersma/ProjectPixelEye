@@ -110,7 +110,7 @@ function AuthContextProvider({ children }) {
             );
             return true;
         } catch (err) {
-            console.error("Wachtwoord updaten mislukt", err);
+            console.error("Failed to update password", err);
             return false;
         }
     }

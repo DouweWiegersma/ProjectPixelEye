@@ -26,7 +26,7 @@ export function GenresProvider({ children }) {
                 );
                 setMovieGenre(response.data.genres);
             } catch (e) {
-                console.error("Fout bij zoeken:", e);
+                console.error("Error during search:", e);
             }
         }
 
@@ -56,7 +56,7 @@ export function GenresProvider({ children }) {
                 );
                 setTvGenre(response.data.genres);
             } catch (e) {
-                console.error("Fout bij zoeken:", e);
+                console.error("Error during search:", e);
             }
         }
 

@@ -10,7 +10,7 @@ import Spinner from "../spinner/Spinner.jsx";
 function NavBar(){
     const navigate = useNavigate()
     const { isAuth, user, logout} = useContext(AuthContext)
-    const { downloadProfilePhoto, profileImageUrl, loadingPhoto,setProfileImageUrl, setLoadingPhoto, imagePreview} = useContext(ProfilePhotoContext)
+    const {profileImageUrl, loadingPhoto, imagePreview} = useContext(ProfilePhotoContext)
     return (
         <nav className={styles['outer-container']}>
 
@@ -62,7 +62,7 @@ function NavBar(){
                         </li>
                         <li>
                             <Button
-                                label="LogOut"
+                                label="Log Out"
                                 size="large"
                                 onClick={logout}
                                 variant="primary-btn"
