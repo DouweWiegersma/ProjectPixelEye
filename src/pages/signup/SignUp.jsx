@@ -23,16 +23,16 @@ function SignUp() {
 
         validationSchema: Yup.object({
             username: Yup.string()
-                .min(3, "Minimaal 3 tekens")
-                .required("Gebruikersnaam is verplicht"),
+                .min(3, "At least 3 characters")
+                .required("Username is required"),
             email: Yup.string()
-                .email("Ongeldig e-mailadres")
-                .required("E-mail is verplicht"),
+                .email("Invalid email address")
+                .required("Email is required"),
             password: Yup.string()
-                .min(8, "Minimaal 8 tekens")
-                .matches(/[A-Z]/, "Minstens 1 hoofdletter")
-                .matches(/\d/, "Minstens 1 cijfer")
-                .required("Wachtwoord is verplicht")
+                .min(8, "Minimum 8 characters")
+                .matches(/[A-Z]/, "At least 1 uppercase letter")
+                .matches(/\d/, "At least 1 number")
+                .required("Password is required")
         }),
 
         onSubmit: async (values) => {
@@ -52,10 +52,10 @@ function SignUp() {
                     }
                 });
 
-                setMessage({ text: "Registreren succesvol!", status: 'success' });
+                setMessage({ text: "Registration successful!", status: 'success' });
                 login({ username: values.username });
             } catch (error) {
-                setMessage({ text: "Registreren mislukt", status: 'error' });
+                setMessage({ text: "Registration failed", status: 'error' });
             }
             finally {
                 setLoading(false)
@@ -69,12 +69,12 @@ function SignUp() {
         <main className={styles['outer-container']}>
             <section className={styles['inner-container']}>
                 <header>
-                <h1 className={styles.title}>Registreren</h1>
+                <h1 className={styles.title}>Sign Up</h1>
                 </header>
 
                 <form onSubmit={formik.handleSubmit} className={styles['form-container']}>
                     <label>
-                        E-mailadres:
+                        Email address:
                         <input
                             className={styles['input-style']}
                             type="email"
@@ -89,7 +89,7 @@ function SignUp() {
                     </label>
 
                     <label>
-                        Gebruikersnaam:
+                        Username:
                         <input
                             className={styles['input-style']}
                             type="text"
@@ -104,7 +104,7 @@ function SignUp() {
                     </label>
 
                     <label>
-                        Wachtwoord:
+                        Password:
                         <input
                             className={styles['input-style']}
                             type="password"

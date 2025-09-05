@@ -17,7 +17,6 @@ function Random(){
     const [random, toggleRandom] = useState(false)
     const [trigger, toggleTrigger] = useState(false)
     const [genre, setGenre] = useState([])
-    // const [movieGenre, setMovieGenre] = useState([])
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState({ text: '', status: '' });
     const clearMessage = () => setMessage({ text: '', status: '' });
@@ -102,7 +101,7 @@ function Random(){
                 setMovieGenre(response2);
             }
             catch (e){
-                console.error('Geen data beschikbaar', e)
+                console.error('No data available', e)
 
             }
             finally {
@@ -168,7 +167,7 @@ function Random(){
     return(
         <>
             <fieldset className={styles['media-type-group']}>
-                <legend>Zoek iets willekeurigs:</legend>
+                <legend>Search something random:</legend>
                 {mediaType ? (
                 <div className={styles['media-type-group']}>
             <Button label={'Tv Show'} variant='secondary-btn' shape='large' onClick={formTvShow}/>
@@ -190,7 +189,7 @@ function Random(){
 
                 <label htmlFor='releaseYear' className={styles.gap}>Release Year:
                     <select name='releaseYear' id='releaseYear' onChange={handleChange} className={styles['option-box']} >
-                        <option value={form.releaseYear} >-- Selecteer een jaar --</option>
+                        <option value={form.releaseYear} >-- Year --</option>
                         {years.map((year) => (
                             <option key={year} value={year} >{year}</option>
                         ))}
@@ -198,38 +197,40 @@ function Random(){
                 </label>
 
                 <label htmlFor='language' className={styles.gap}>Language:
-                    <select name='language' value={form.language} onChange={handleChange} className={styles['option-box']} required>
-                        <option value="">-- Selecteer een taal --</option>
-                        <option value="en">Engels</option>
-                        <option value="nl">Nederlands</option>
-                        <option value="fr">Frans</option>
-                        <option value="de">Duits</option>
-                        <option value="es">Spaans</option>
-                        <option value="it">Italiaans</option>
-                        <option value="ja">Japans</option>
-                        <option value="ko">Koreaans</option>
-                        <option value="zh">Chinees</option>
+                    <select name='language' value={form.language} onChange={handleChange}
+                            className={styles['option-box']} required>
+                        <option value="">-- Language --</option>
+                        <option value="en">English</option>
+                        <option value="nl">Dutch</option>
+                        <option value="fr">French</option>
+                        <option value="de">German</option>
+                        <option value="es">Spanish</option>
+                        <option value="it">Italian</option>
+                        <option value="ja">Japanese</option>
+                        <option value="ko">Korean</option>
+                        <option value="zh">Chinese</option>
                         <option value="hi">Hindi</option>
-                        <option value="ar">Arabisch</option>
-                        <option value="ru">Russisch</option>
-                        <option value="pt">Portugees</option>
-                        <option value="tr">Turks</option>
-                        <option value="sv">Zweeds</option>
+                        <option value="ar">Arabic</option>
+                        <option value="ru">Russian</option>
+                        <option value="pt">Portuguese</option>
+                        <option value="tr">Turkish</option>
+                        <option value="sv">Swedish</option>
                     </select>
                 </label>
 
-                    <label htmlFor='genre' className={styles.gap}>Categorie:
-                        <select name='genre' value={form.genre} onChange={handleChange} className={styles['option-box']} required>
-                            <option value=''>-- Categorie --</option>
-                            {movieGenre.map((movieGenre) => (
-                                <option key={movieGenre.id} value={movieGenre.id}>
-                                    {movieGenre?.name}
-                                </option>
+                <label htmlFor='genre' className={styles.gap}>Category:
+                    <select name='genre' value={form.genre} onChange={handleChange} className={styles['option-box']}
+                            required>
+                        <option value=''>-- Category --</option>
+                        {movieGenre.map((movieGenre) => (
+                            <option key={movieGenre.id} value={movieGenre.id}>
+                                {movieGenre?.name}
+                            </option>
                             ))}
                         </select>
                     </label>
                 <label>
-                    <Button type='submit' size='large' label={'zoeken'} variant='primary-btn'/>
+                    <Button type='submit' size='large' label={'Search'} variant='primary-btn'/>
                 </label>
             </form>
             </div>
@@ -262,7 +263,7 @@ function Random(){
 
                     <label htmlFor='releaseYearTv' className={styles.gap}>Release Year:
                         <select name='releaseYearTv'  id='releaseYearTv' onChange={handleChange} className={styles['option-box']}>
-                            <option value={form?.releaseYearTv}  >-- Selecteer een jaar --</option>
+                            <option value={form?.releaseYearTv}  >-- Year --</option>
                             {years.map((year) => (
                                 <option key={year} value={year} >{year}</option>
                             ))}
@@ -270,41 +271,43 @@ function Random(){
                     </label>
 
                     <label htmlFor='language' className={styles.gap}>Language:
-                        <select name='language' className={styles['option-box']} value={form.language} onChange={handleChange} required>
-                            <option value="">-- Selecteer een taal --</option>
-                            <option value="en">Engels</option>
-                            <option value="nl">Nederlands</option>
-                            <option value="fr">Frans</option>
-                            <option value="de">Duits</option>
-                            <option value="es">Spaans</option>
-                            <option value="it">Italiaans</option>
-                            <option value="ja">Japans</option>
-                            <option value="ko">Koreaans</option>
-                            <option value="zh">Chinees</option>
+                        <select name='language' className={styles['option-box']} value={form.language}
+                                onChange={handleChange} required>
+                            <option value="">-- Language --</option>
+                            <option value="en">English</option>
+                            <option value="nl">Dutch</option>
+                            <option value="fr">French</option>
+                            <option value="de">German</option>
+                            <option value="es">Spanish</option>
+                            <option value="it">Italian</option>
+                            <option value="ja">Japanese</option>
+                            <option value="ko">Korean</option>
+                            <option value="zh">Chinese</option>
                             <option value="hi">Hindi</option>
-                            <option value="ar">Arabisch</option>
-                            <option value="ru">Russisch</option>
-                            <option value="pt">Portugees</option>
-                            <option value="tr">Turks</option>
-                            <option value="sv">Zweeds</option>
+                            <option value="ar">Arabic</option>
+                            <option value="ru">Russian</option>
+                            <option value="pt">Portuguese</option>
+                            <option value="tr">Turkish</option>
+                            <option value="sv">Swedish</option>
                         </select>
                     </label>
 
-                        <label htmlFor='genre' className={styles.gap}>Categorie:
-                            <select name='genre' className={styles['option-box']} value={form.genre} onChange={handleChange} required>
-                                <option value=''>-- Categorie --</option>
-                                {genre.map((genre) => (
-                                    <option key={genre.id} value={genre.id}>
-                                        {genre?.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </label>
+                    <label htmlFor='genre' className={styles.gap}>Category:
+                        <select name='genre' className={styles['option-box']} value={form.genre} onChange={handleChange}
+                                required>
+                            <option value=''>-- Category --</option>
+                            {genre.map((genre) => (
+                                <option key={genre.id} value={genre.id}>
+                                    {genre?.name}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
                     <label>
                         <Button type='submit' size='large' label={'zoeken'} variant='primary-btn'/>
                     </label>
                 </form>}
-            </>
+        </>
     )
 }
 

@@ -53,7 +53,7 @@ function ProfilePhotoContextProvider({ children }) {
                     localStorage.removeItem(localKey);
                 }
             } catch (e) {
-                console.error("Download mislukt:", e);
+                console.error("Download failed:", e);
                 setProfileImageUrl(null);
                 localStorage.removeItem(localKey);
             } finally {

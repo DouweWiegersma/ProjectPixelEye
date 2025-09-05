@@ -32,7 +32,7 @@ function Home() {
                 const response = await axios.get('https://api.themoviedb.org/3/trending/movie/day', {
                     params: {
                         api_key: API_KEY,
-                        language: 'nl-NL',
+                        language: 'en-EN',
                         page: 1,
                         region: 'NL'
                     },
@@ -43,7 +43,7 @@ function Home() {
 
 
             } catch (e) {
-                console.error('Geen data beschikbaar!', e)
+                console.error('No data available!', e)
 
             }
             finally {
@@ -144,30 +144,27 @@ function Home() {
                     <main className={styles['site-description']}>
                         <section className={styles['layout-content-description']}>
                             <header>
-                            <h1 className={styles['page-title']}> Welkom bij Pixel eye!</h1>
-                                <h2> "klik, filter en laat de filmmagie beginnen!"</h2>
+                            <h1 className={styles['page-title']}> Welcome to Pixel Eye!</h1>
+                                <h2> "Click. Filter. Let the movie magic begin!"</h2>
                             </header>
-                            <p> Zin in een film, maar geen idee wat? Kies je favoriete gerne,
-                                stel je filters in en klik op zoeken. Voilá -- een verrassende selectie films verschijnt
-                                alsof door tovenarij. Jouw volgende movie night start hier!</p>
+                            <p> Not sure what to watch? Choose your favorite genres, set your filters, and hit search. A curated selection appears instantly — your next movie night starts now!</p>
                         </section>
 
 
                         <section className={styles['layout-content-description']}>
                              <h3> <HiViewfinderCircle style={ { color: 'blue', marginRight: '15'}} /> Discover:</h3>
                             <p>
-                                Zoek een film of serie op titel, of laat je verrassen door de Movie/TV Roulette die speciaal voor jou iets uitkiest op basis van jouw voorkeuren!
+                                Search movies or series by title, or spin the Movie/TV Roulette for personalized suggestions!
                             </p>
 
                              <h3> <MdFormatListBulletedAdd style={{ color: 'blue', marginRight: '15'}}/>Watchlist: </h3>
                             <p>
-                                Sla films op die je later wilt kijken. Geen notities meer op je telefoon - al je favorieten op één plek.
+                                Save your favorites to watch later. Keep all your movies and shows in one place — no scattered notes.
                             </p>
 
-                            <h3><VscAccount style={ { color: "blue", marginRight: '15'}} /> Account nodig?</h3>
+                            <h3><VscAccount style={ { color: "blue", marginRight: '15'}} /> Account?</h3>
                             <p>
-                                Maak een account aan om je eigen watchlist bij te houden en films of series te ontdekken via de Discover-functie!.
-                                Zo zorgen we ervoor dat jouw filmwereld helemaal van jou is
+                                Create an account to manage your watchlist and discover movies tailored to you. Your personalized movie world awaits!
                             </p>
                         </section>
 

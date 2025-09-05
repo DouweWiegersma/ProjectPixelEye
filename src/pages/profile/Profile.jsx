@@ -47,7 +47,7 @@ function Profile() {
                     await downloadProfilePhoto();
                 }
             } catch (e) {
-                console.error("Fout bij ophalen profielfoto:", e);
+                console.error("Error fetching profile picture:", e);
             } finally {
                 setLoading(false);
             }
@@ -67,7 +67,7 @@ function Profile() {
 
     async function handleUpload(e) {
         e.preventDefault();
-        if (!selectedFile) return alert("Kies eerst een afbeelding.");
+        if (!selectedFile) return alert("Please select an image first");
 
         const formData = new FormData();
         formData.append("file", selectedFile);
@@ -85,11 +85,11 @@ function Profile() {
             await downloadProfilePhoto();
             setSelectedFile(null);
             setImagePreview(null);
-            setMessage({ text: "Profielfoto succevol geupload!", status: 'success' });
+            setMessage({ text: "Profile picture uploaded successfully!", status: 'success' });
             setTimeout(() => setMessage(""), 3000);
         } catch (e) {
-            console.error("Upload mislukt:", e);
-            setMessage({ text: "uploaden profiel foto mislukt!", status: 'error' });
+            console.error("Upload failed:", e);
+            setMessage({ text: "Profile picture upload failed!", status: 'error' });
         }
     }
 
@@ -112,11 +112,11 @@ function Profile() {
             setUsername("");
             setUsernameConfirm("");
 
-            setMessage({ text: "Gebruikersnaam bijgewerkt!", status: 'success' });
+            setMessage({ text: "Username updated!", status: 'success' });
             setTimeout(() => setMessage(""), 3000);
         } catch (err) {
             console.error(err);
-            setMessage({ text: "fout bij wijzigen gebruikersnaam", status: 'error' });
+            setMessage({ text: "Error updating username", status: 'error' });
         }
     };
 
@@ -124,7 +124,7 @@ function Profile() {
     async function handlePasswordChange(e) {
         e.preventDefault();
         if (newPassword !== newPasswordConfirm) {
-            setMessage({ text: "wachtwoorden komen niet overeen", status: 'error' });
+            setMessage({ text: "Passwords do not match", status: 'error' });
             return;
         }
 
@@ -142,10 +142,10 @@ function Profile() {
             );
             setNewPassword("");
             setNewPasswordConfirm("");
-            setMessage({ text: "Wachtwoord succevol gewijziged!", status: 'success' });
+            setMessage({ text: "Password successfully changed!", status: 'success' });
             setTimeout(() => setMessage(""), 3000);
         } catch (e) {
-            console.error("Fout bij het wijzigen van je wachtwoord", e);
+            console.error("Error changing your password.", e);
             setMessage({ text: "wijzigen wachtwoord is mislukt", status: 'error' });
         }
     }
@@ -161,7 +161,7 @@ function Profile() {
                     {
                         params: {
                             api_key: API_KEY_TMDB,
-                            language: "nl-NL",
+                            language: "en-En",
                             page: 1,
                             region: "NL",
                         },
@@ -170,7 +170,7 @@ function Profile() {
                 );
                 setTrending(response.data.results);
             } catch (e) {
-                console.error("Geen data beschikbaar!", e);
+                console.error("No data available!", e);
             } finally {
                 setLoading(false);
             }
@@ -194,7 +194,7 @@ function Profile() {
 
                 <img src={`https://image.tmdb.org/t/p/original${backdropPaths[5]}`} alt='poster'
                      className={styles['background-img']}/>
-                <h1 className={styles.title}> Welkom op je profiel pagina</h1>
+                <h1 className={styles.title}> Welcome to your profile page!</h1>
                 <figure className={styles['layout-profile-pic']}>
                     <img
                         src={imagePreview || profileImageUrl || placeholderImage}
@@ -211,39 +211,39 @@ function Profile() {
             <section className={styles['form-style']}>
                 <form onSubmit={handleUsernameChange} className={styles['form-container']}>
 
-                    <label htmlFor="username"> Gebruikersnaam wijzigen </label>
+                    <label htmlFor="username"> Change username </label>
                     <input
                         id="username"
                         className={styles['input-box']}
                         type="text"
-                        placeholder="Nieuwe gebruikersnaam"
+                        placeholder="username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                     />
 
-                    <label htmlFor="usernameConfirm"> Bevestig gebruikersnaam</label>
+                    <label htmlFor="usernameConfirm"> Confirm username</label>
                     <input
                         id="usernameConfirm"
                         className={styles['input-box']}
                         type="text"
-                        placeholder="Bevestig gebruikersnaam"
+                        placeholder="username"
                         value={usernameConfirm}
                         onChange={(e) => setUsernameConfirm(e.target.value)}
                     />
-                    <Button label="Wijzig gebruikersnaam" variant="secondary-btn" type="submit"
+                    <Button label="Change username" variant="secondary-btn" type="submit"
                             disabled={!username || username !== usernameConfirm}/>
                 </form>
 
                 <form className={styles['layout-change-profile-pic']} onSubmit={handleUpload}>
                     <div className={styles['change-pic']}>
-                        <h3> Verander je profiel foto</h3>
-                        <label htmlFor="profilePic"> Upload nieuwe profielfoto</label>
+                        <h3> Change your profile picture</h3>
+                        <label htmlFor="profilePic"> Upload new profile picture</label>
                         <input
                             id="profilePic"
                             type="file"
                             accept="image/*"
                             onChange={handleFileChange}
-                            className={styles.test}
+
                         />
                         <Button variant="secondary-btn" size="large" label="Upload Picture" type="submit"/>
                     </div>
@@ -251,26 +251,26 @@ function Profile() {
 
 
                 <form onSubmit={handlePasswordChange} className={styles['form-container']}>
-                    <h3>Wachtwoord wijzigen</h3>
-                    <label htmlFor="newPassword">Nieuw wachtwoord</label>
+                    <h3>Change password</h3>
+                    <label htmlFor="newPassword">New password</label>
                     <input
                         id="newPassword"
                         type="password"
-                        placeholder="Nieuw wachtwoord"
+                        placeholder="password"
                         value={newPassword}
                         className={styles['input-box']}
                         onChange={(e) => setNewPassword(e.target.value)}
                     />
-                    <label htmlFor="newPasswordConfirm">Bevestig nieuw wachtwoord</label>
+                    <label htmlFor="newPasswordConfirm">Confirm password</label>
                     <input
                         id="newPasswordConfirm"
                         type="password"
-                        placeholder="Bevestig nieuw wachtwoord"
+                        placeholder="password"
                         value={newPasswordConfirm}
                         className={styles['input-box']}
                         onChange={(e) => setNewPasswordConfirm(e.target.value)}
                     />
-                    <Button label="Wijzig Wachtwoord" variant="secondary-btn" type="submit"
+                    <Button label="Change password" variant="secondary-btn" type="submit"
                             disabled={!newPassword || newPassword !== newPasswordConfirm}/>
                 </form>
             </section>

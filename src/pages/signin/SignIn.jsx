@@ -42,13 +42,13 @@ function SignIn() {
                     },
                 }
             );
-            setMessage({ text: "inloggen succesvol!", status: 'success' });
+            setMessage({ text: "Login successful!", status: 'success' });
             login(response.data.jwt);
             navigate('/');
 
         } catch (e) {
-            console.error("Fout bij inloggen:", e.response?.data || e.message);
-            setMessage({ text: "Fout bij inloggen", status: 'error' });
+            console.error("Login failed:", e.response?.data || e.message);
+            setMessage({ text: "Login failed", status: 'error' });
         }
         finally {
             setLoading(false)
@@ -63,11 +63,11 @@ function SignIn() {
                     <section className={styles['inner-container']}>
 
                         <header>
-                            <h1 className={styles.title}>Inloggen</h1>
+                            <h1 className={styles.title}>Sign In</h1>
                         </header>
                             <form onSubmit={handleSubmit} className={styles['form-container']}>
                                 <label>
-                                    Gebruikersnaam:
+                                    Username:
                                     <input
                                         className={styles['input-style']}
                                         type="text"
@@ -79,7 +79,7 @@ function SignIn() {
 
 
                                 <label>
-                                    Wachtwoord:
+                                    Password:
                                     <input
                                         className={styles['input-style']}
                                         type="password"
@@ -91,7 +91,7 @@ function SignIn() {
                                 </label>
 
 
-                                <Button label='Log In' variant='primary-btn' size='large' type='submit'/>
+                                <Button label='Sign In' variant='primary-btn' size='large' type='submit'/>
 
                             </form>
                             <Message text={message.text} status={message.status} clearMessage={clearMessage}  />

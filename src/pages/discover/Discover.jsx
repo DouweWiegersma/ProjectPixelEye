@@ -50,8 +50,8 @@ function Discover(){
 
                 setPages(response.data.total_pages);
             } catch (e) {
-                console.error('Fout bij zoeken:', e);
-                setMessage({ text: "Fout bij zoeken", status: 'error' });
+                console.error('Error while searching:', e);
+                setMessage({ text: "Error while searching", status: 'error' });
             } finally {
                 setLoading(false);
             }
