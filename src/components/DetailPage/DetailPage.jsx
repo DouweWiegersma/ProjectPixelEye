@@ -6,9 +6,11 @@ import {useNavigate} from "react-router-dom";
 import Button from "../Button/Button.jsx";
 import Rating from "../ratingStars/Rating.jsx";
 
+
 function DetailPage(props) {
     const navigate = useNavigate();
     const { state } = useLocation();
+
 
     const {
         title,
@@ -32,7 +34,6 @@ function DetailPage(props) {
                 <h2>{title || original_name}</h2>
                     <p> <Rating rating={vote_average}/></p>
                 </header>
-
                 <dl>
                     <div className={styles['row-layout']}>
                     <dt>Type:</dt>

@@ -12,6 +12,8 @@ import {AuthContext} from "./context/AuthContext.jsx";
 import DetailPage from "./components/DetailPage/DetailPage.jsx";
 import Footer from "./components/footer/Footer.jsx"
 import PrivateRoute from "./components/privateRoute/privateRoute.jsx";
+
+
 function App() {
 
     const { isAuth} = useContext(AuthContext)

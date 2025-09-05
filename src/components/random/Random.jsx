@@ -6,6 +6,8 @@ import Card from "../Card/Card.jsx";
 import {generateReleaseYears} from "../../helpers/GetYears.js";
 import Spinner from "../spinner/Spinner.jsx";
 import Message from "../../components/message/Message.jsx"
+import {useContext} from "react";
+import { GenresContext } from "../../context/GenreContext.jsx";
 
 function Random(){
 
@@ -15,11 +17,11 @@ function Random(){
     const [random, toggleRandom] = useState(false)
     const [trigger, toggleTrigger] = useState(false)
     const [genre, setGenre] = useState([])
-    const [movieGenre, setMovieGenre] = useState([])
+    // const [movieGenre, setMovieGenre] = useState([])
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState({ text: '', status: '' });
     const clearMessage = () => setMessage({ text: '', status: '' });
-
+    const { movieGenre, tvGenre } = useContext(GenresContext);
 
     const [data, setData] = useState({
         genre: '',
@@ -237,7 +239,10 @@ function Random(){
 
             {random &&
                 <Card
-                    media_type={form?.mediaType}
+                      genre_ids={data?.genre_ids}
+                      movieGenres={movieGenre}
+                      tvGenres={tvGenre}
+                      media_type={form?.mediaType}
                       title={data?.title}
                       release_date={data?.release_date}
                       first_air_date={data?.first_air_date}
