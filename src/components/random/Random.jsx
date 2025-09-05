@@ -16,7 +16,6 @@ function Random(){
     const [tvShows, toggleTvShows] = useState(false)
     const [random, toggleRandom] = useState(false)
     const [trigger, toggleTrigger] = useState(false)
-    const [genre, setGenre] = useState([])
     const [loading, setLoading] = useState(false)
     const [message, setMessage] = useState({ text: '', status: '' });
     const clearMessage = () => setMessage({ text: '', status: '' });
@@ -77,28 +76,15 @@ function Random(){
                         overview: form.overview,
                     },
                 }),
-                axios.get(`https://api.themoviedb.org/3/genre/tv/list`, {
-                    signal: controller.signal,
-                    params: {
-                        api_key: API_KEY,
-                    },
-                }),
-                    axios.get('https://api.themoviedb.org/3/genre/movie/list', {
-                        signal: controller.signal,
-                    params: {
-                        api_key: API_KEY,
-                    },
-                })
+
                 ])
 
                 const response = allData.data.results;
-                const response1 = tvGenres.data.genres;
-                const response2 = movieGenres.data.genres;
+
 
                 const randomIndex = Math.floor(Math.random() * response.length);
                 setData(response[randomIndex]);
-                setGenre(response1);
-                setMovieGenre(response2);
+
             }
             catch (e){
                 console.error('No data available', e)
@@ -223,7 +209,7 @@ function Random(){
                             required>
                         <option value=''>-- Category --</option>
                         {movieGenre.map((movieGenre) => (
-                            <option key={movieGenre.id} value={movieGenre.id}>
+                            <option key={movieGenre?.id} value={movieGenre?.id}>
                                 {movieGenre?.name}
                             </option>
                             ))}
@@ -296,9 +282,9 @@ function Random(){
                         <select name='genre' className={styles['option-box']} value={form.genre} onChange={handleChange}
                                 required>
                             <option value=''>-- Category --</option>
-                            {genre.map((genre) => (
-                                <option key={genre.id} value={genre.id}>
-                                    {genre?.name}
+                            {tvGenre.map((tvGenre) => (
+                                <option key={tvGenre?.id} value={tvGenre?.id}>
+                                    {tvGenre?.name}
                                 </option>
                             ))}
                         </select>
