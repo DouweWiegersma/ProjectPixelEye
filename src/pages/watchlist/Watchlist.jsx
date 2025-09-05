@@ -7,15 +7,84 @@ import {Link} from "react-router-dom";
 import Spinner from "../../components/spinner/Spinner.jsx";
 import Message from "../../components/message/Message.jsx"
 import Poster from "../../assets/poster-placeholder.png";
+import { GenresContext } from "../../context/GenreContext.jsx";
+
 function Watchlist() {
+
     const { user, token} = useContext(AuthContext);
     const [watchlist, setWatchlist] = useState([]);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState({ text: '', status: '' });
     const clearMessage = () => setMessage({ text: '', status: '' });
     const [refresh, setRefresh] = useState(true)
+    const { movieGenre, tvGenre } = useContext(GenresContext);
 
 
+
+    // useEffect(() => {
+    //     const controller = new AbortController();
+    //     async function Moviegerne() {
+    //         try {
+    //             setLoading(true);
+    //
+    //             const response = await axios.get(
+    //                 "https://api.themoviedb.org/3/genre/movie/list",{
+    //                     params: {
+    //                         api_key: API_KEY,
+    //                     },
+    //                     headers: {
+    //                         accept: "application/json",
+    //                     },
+    //                     signal: controller.signal,
+    //                 }
+    //             );
+    //             setMovieGenre(response.data.genres);
+    //         } catch (e) {
+    //             console.error("Fout bij zoeken:", e);
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     }
+    //
+    //     Moviegerne();
+    //
+    //     return () => {
+    //         controller.abort();
+    //     };
+    // }, []);
+    //
+    // useEffect(() => {
+    //     const controller = new AbortController();
+    //
+    //     async function Tvgerne() {
+    //         try {
+    //             setLoading(true);
+    //
+    //             const response = await axios.get(
+    //                 "https://api.themoviedb.org/3/genre/tv/list",{
+    //                     params: {
+    //                         api_key: API_KEY,
+    //                     },
+    //                     headers: {
+    //                         accept: "application/json",
+    //                     },
+    //                     signal: controller.signal,
+    //                 }
+    //             );
+    //             setTvGenre(response.data.genres);
+    //         } catch (e) {
+    //             console.error("Fout bij zoeken:", e);
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     }
+    //
+    //     Tvgerne();
+    //
+    //     return () => {
+    //         controller.abort();
+    //     };
+    // }, []);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -80,6 +149,9 @@ function Watchlist() {
                     <section className={styles['layout-cards']}>
                         {watchlist.map((item) => (
                             <Card
+                                tvGenres={tvGenre || []}
+                                movieGenres={movieGenre || []}
+                                genre_ids={item.genre_ids}
                                 know_for={item.know_for}
                                 disableAdd={true}
                                 setRefresh={setRefresh}

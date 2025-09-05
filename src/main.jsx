@@ -5,14 +5,16 @@ import App from './App.jsx'
 import { BrowserRouter as Router} from "react-router-dom";
 import AuthContextProvider from "./context/AuthContext.jsx";
 import ProfilePhotoContextProvider from "./context/ProfilePhotoContext.jsx";
-
+import { GenresProvider } from "./context/GenreContext.jsx";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
       <Router>
       <AuthContextProvider>
           <ProfilePhotoContextProvider>
+              <GenresProvider>
     <App />
+              </GenresProvider>
           </ProfilePhotoContextProvider>
       </AuthContextProvider>
 

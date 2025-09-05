@@ -9,7 +9,8 @@ import { IoSearchSharp } from "react-icons/io5";
 import Spinner from "../../components/spinner/Spinner.jsx";
 import Message from "../../components/message/Message.jsx"
 import poster from "../../assets/poster-placeholder.png"
-
+import {useContext} from "react";
+import { GenresContext } from "../../context/GenreContext.jsx";
 
 function Discover(){
 
@@ -23,6 +24,9 @@ function Discover(){
     const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
     const [message, setMessage] = useState({ text: '', status: '' });
     const clearMessage = () => setMessage({ text: '', status: '' });
+    const { movieGenre, tvGenre } = useContext(GenresContext);
+
+
 
     useEffect(() => {
         const controller = new AbortController();
@@ -41,6 +45,7 @@ function Discover(){
                     },
                     signal: controller.signal,
                 });
+                console.log(response.data.results)
                 setData(response.data.results);
 
                 setPages(response.data.total_pages);
@@ -105,11 +110,15 @@ function Discover(){
 
                     {!search && (
                         <main className={styles['result-layout']}>
+
                             {loading ? (
                                 <p></p>
                             ) : data.length > 0 ? (
                                 data.map((data) => (
                                     <Card
+                                        tvGenres={tvGenre}
+                                        movieGenres={movieGenre}
+                                        genre_ids={data.genre_ids}
                                         disableDelete={true}
                                         overview={data?.overview}
                                         key={data?.id}

@@ -13,8 +13,10 @@ import {useState} from "react";
 import Spinner from "../spinner/Spinner.jsx";
 import Rating from "../ratingStars/Rating.jsx";
 import poster from "../../assets/poster-placeholder.png"
-
-function Card({profile_path, know_for, popularity, disableAdd, disableDelete, id, setRefresh, title, overview, media_type, release_date, first_air_date, vote_average, backdrop_path, poster_path, original_name}){
+import GenreBadge from "../genre/GenreBadge.jsx";
+function Card({genre_ids = [],
+                  movieGenres = [],
+                  tvGenres = [], profile_path, know_for, popularity, disableAdd, disableDelete, id, setRefresh, title, overview, media_type, release_date, first_air_date, vote_average, backdrop_path, poster_path, original_name}){
     const { user} = useContext(AuthContext)
     const [loading, setLoading] = useState(false)
 
@@ -67,6 +69,7 @@ function Card({profile_path, know_for, popularity, disableAdd, disableDelete, id
                 popularity,
                 know_for,
                 profile_path,
+                genre_ids: genre_ids || [],
 
             };
 
@@ -163,7 +166,8 @@ function Card({profile_path, know_for, popularity, disableAdd, disableDelete, id
                 original_name,
                 popularity,
                 know_for,
-                profile_path
+                profile_path,
+                genre_ids,
             }
         });
         setLoading(false)
@@ -197,6 +201,17 @@ function Card({profile_path, know_for, popularity, disableAdd, disableDelete, id
                 </header>
 
                 <h3>{truncateTitle(title || original_name)}</h3>
+                <div className={styles.badge}>
+                    {genre_ids?.map((id) => (
+                        <GenreBadge
+                            key={id}
+                            id={id}
+                            type={media_type || (title ? "movie" : "tv")}
+                            movieGenres={movieGenres}
+                            tvGenres={tvGenres}
+                        />
+                    ))}
+                </div>
 
                 <figure>
                     {poster_path ? (
@@ -210,10 +225,10 @@ function Card({profile_path, know_for, popularity, disableAdd, disableDelete, id
                     )}
                 </figure>
                 {release_date || first_air_date ? (
-                <p>
-                    Release datum:{ ' '}
-                    {engelsNaarNederlandseDatum(release_date || first_air_date)}
-                </p>) : (
+                    <p>
+                        Release datum:{' '}
+                        {engelsNaarNederlandseDatum(release_date || first_air_date)}
+                    </p>) : (
                     <p>Know for: {know_for}</p>)}
 
                 <footer className={styles['button-container']}>
