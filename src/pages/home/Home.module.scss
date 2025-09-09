@@ -14,7 +14,6 @@
   overflow: hidden;
   flex-direction: column;
   margin: 15px;
-
 }
 
 // Background Image
@@ -61,6 +60,7 @@
   gap: 30px;
   flex-wrap: wrap;
   align-items: center;
+
 }
 .poster-layout{
   display: flex;
@@ -164,5 +164,38 @@
   display: flex;
 }
 
+@media screen and (max-width: 700px) {
+  .backdrop-container {
+    min-width: 100%;
+    height: 1200px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 15px;
+  }
 
+  .wrapper{
+    position: absolute;
+    display: flex;
+    flex-direction: column-reverse;
+    height: 900px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 200px;
+  }
+  .content-wrapper{
+    flex-basis: 950px;
+    height: 800px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    margin: 25px;
+    gap: 30px;
+
+  }
+  .inner-container{
+    text-align: center;
+    margin: 25px;
+  }
+
+}
 

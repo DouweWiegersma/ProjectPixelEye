@@ -73,6 +73,7 @@ function Watchlist() {
                             Watchlist</h1></div>
                         <div className={`${styles.image2} ${styles['image-style']}`}></div>
                     </header>
+
                 <Message text={message.text} status={message.status} clearMessage={clearMessage}/>
 
 

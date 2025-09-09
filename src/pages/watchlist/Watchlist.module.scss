@@ -92,3 +92,31 @@
   height: 70vh;
   width: 100%;
 }
+
+
+@media screen and (max-width: 700px) {
+.image-container{
+  width: 100%;
+  height: 500px;
+  text-align: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-left: 0;
+  padding-right: 0;
+
+
+}
+  .image-style{
+    transform: skew(0deg, 0deg);
+    flex-shrink: 1;
+  }
+  .image2{
+    border: 0 solid $color-primary;
+  }
+  .image3{
+    border: 0 solid $color-primary;
+  }
+  .image1{
+    border: 0 solid $color-primary;
+  }
+}
