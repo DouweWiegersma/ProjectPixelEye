@@ -24,6 +24,7 @@ function Home() {
     const clearMessage = () => setMessage({ text: '', status: '' });
 
     useEffect(() => {
+        const controller = new AbortController();
         async function Popular() {
             setLoading(true)
             try {
@@ -34,7 +35,7 @@ function Home() {
                         page: 1,
                         region: 'US'
                     },
-
+                    signal: controller.signal
 
                 })
                 setTrending(response.data.results)
@@ -50,6 +51,9 @@ function Home() {
             }
         }
         Popular()
+        return () => {
+            controller.abort();
+        }
     }, [])
 
 
