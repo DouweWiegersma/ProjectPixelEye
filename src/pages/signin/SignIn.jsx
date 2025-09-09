@@ -27,7 +27,7 @@ function SignIn() {
                 .min(3, "At least 3 characters")
                 .required("Username is required"),
             password: Yup.string()
-                .min(6, "At least 6 characters")
+                .min(8, "At least 8 characters")
                 .required("Password is required"),
         }),
 

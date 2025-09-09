@@ -16,7 +16,6 @@ import Rating from "../../components/ratingStars/Rating.jsx";
 function Home() {
 
     const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-
     const [trending, setTrending] = useState([])
     const [count, setCount] = useState(0)
     const [showMore, toggleShowMore] = useState(false)
@@ -34,7 +33,7 @@ function Home() {
                         api_key: API_KEY,
                         language: 'en-EN',
                         page: 1,
-                        region: 'NL'
+                        region: 'EN'
                     },
                     signal: controller.signal
 
