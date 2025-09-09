@@ -31,9 +31,9 @@ function Home() {
                 const response = await axios.get('https://api.themoviedb.org/3/trending/movie/day', {
                     params: {
                         api_key: API_KEY,
-                        language: 'en-EN',
+                        language: 'en-US',
                         page: 1,
-                        region: 'EN'
+                        region: 'US'
                     },
                     signal: controller.signal
 
