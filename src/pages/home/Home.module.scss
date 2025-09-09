@@ -84,6 +84,10 @@
 .poster{
   flex-basis: 250px;
   border-radius: 10px;
+  transition: transform 2.6s ease;
+}
+.poster:hover {
+  transform: rotateY(360deg);
 }
 
 // Title movie

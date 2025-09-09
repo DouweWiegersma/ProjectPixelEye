@@ -210,8 +210,8 @@ function Profile() {
 
             <section className={styles['form-style']}>
                 <form onSubmit={handleUsernameChange} className={styles['form-container']}>
-
-                    <label htmlFor="username"> Change username </label>
+                    <h3> Change username</h3>
+                    <label htmlFor="username"> New username </label>
                     <input
                         id="username"
                         className={styles['input-box']}

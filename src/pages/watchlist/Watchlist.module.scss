@@ -64,7 +64,6 @@
   background-image: url("../../assets/the day of the jackal.jpg");
   flex-basis: 600px;
   border: 5px solid $color-secondary;
-
 }
 
 .image2{
@@ -77,8 +76,8 @@
   background-image: url("../../assets/longest ride1.jpg");
   border: 5px solid $color-primary;
   flex-basis: 450px;
-
 }
+
 .image-style{
   flex-grow: 1;
   transform: skew(-10deg, 0deg);
