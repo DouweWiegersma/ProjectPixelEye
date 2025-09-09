@@ -196,6 +196,14 @@
     text-align: center;
     margin: 25px;
   }
+  .movie-description{
+    flex-basis: 200px;
+    width: 70vw;
+    text-align: center;
+    overflow: auto;
+    margin: 20px;
+    scrollbar-width: none;
+  }
 
 }
 
