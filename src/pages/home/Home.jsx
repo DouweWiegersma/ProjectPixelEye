@@ -167,8 +167,6 @@ function Home() {
                                 Create an account to manage your watchlist and discover movies tailored to you. Your personalized movie world awaits!
                             </p>
                         </section>
-
-
                     </main>
 
 

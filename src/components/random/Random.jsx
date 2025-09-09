@@ -237,7 +237,9 @@ function Random(){
                       backdrop_path={`https://image.tmdb.org/t/p/original${data?.backdrop_path}`}
                       poster_path={`https://image.tmdb.org/t/p/original${data?.poster_path}`}
                       original_name={data?.name}
-                      overview={data?.overview}/>
+                      overview={data?.overview}
+
+                />
             }
             {tvShows &&
                 <form className={styles['form-container']} onSubmit={handleSubmit}>
@@ -290,7 +292,7 @@ function Random(){
                         </select>
                     </label>
                     <label>
-                        <Button type='submit' size='large' label={'zoeken'} variant='primary-btn'/>
+                        <Button type='submit' size='large' label={'Search'} variant='primary-btn'/>
                     </label>
                 </form>}
         </>

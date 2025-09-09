@@ -45,7 +45,6 @@ function Discover(){
                     },
                     signal: controller.signal,
                 });
-                console.log(response.data.results)
                 setData(response.data.results);
 
                 setPages(response.data.total_pages);
@@ -74,90 +73,95 @@ function Discover(){
     }
     if (loading) return (<Spinner spinner='spinner' size='medium' border='dotted' container='container'/>);
 
+    function handleKeyDown(e) {
+        if (e.key === "Enter") {
+            setNext(1);
+            setSearchQuery(searchInput);
+    }}
 
-    return(
-        <>
+            return (
+                <>
 
-            <div className={styles['outer-container']}>
-                <div className={styles['inner-container']}>
-                    <img src={backDrop} alt='background' className={styles['background-pic']}/>
-                    <section className={styles['search-bar-container']}>
-                        <label id='searchBar' className={styles['label-search-bar']}>Movie / Tv-Shows
-                            <div className={styles.row}>
-                                <input value={searchInput}
-                                       type='text'
-                                       onChange={(e) => {
-                                           setNext(1)
-                                           setSearchInput(e.target.value)
-                                       }} className={styles['search-bar']} placeholder='Search......'/>
-                                <Button
-                                    variant='primary-btn'
-                                    shape='square'
-                                    size='small'
-                                    label={<IoSearchSharp className={styles['search-icon']}/>}
-                                    onClick={() => {
-                                        setNext(1);
-                                        setSearchQuery(searchInput);
-                                    }}/>
+                    <div className={styles['outer-container']}>
+                        <div className={styles['inner-container']}>
+                            <img src={backDrop} alt='background' className={styles['background-pic']}/>
+                            <section className={styles['search-bar-container']}>
+                                <label id='searchBar' className={styles['label-search-bar']}>Movie / Tv-Shows
+                                    <div className={styles.row}>
+                                        <input value={searchInput}
+                                               type='text'
+                                               onChange={(e) => {
+                                                   setNext(1)
+                                                   setSearchInput(e.target.value)
+                                               }} className={styles['search-bar']}
+                                               onKeyDown={handleKeyDown}
+                                               placeholder='Search......'/>
+                                        <Button
+                                            variant='primary-btn'
+                                            shape='square'
+                                            size='small'
+                                            label={<IoSearchSharp className={styles['search-icon']}/>}
+                                            onClick={() => {
+                                                setNext(1);
+                                                setSearchQuery(searchInput);
+                                            }}
+                                            />
 
-                            </div>
-                        </label>
-                        <Random/>
-                    </section>
+                                    </div>
+                                </label>
+                                <Random/>
+                            </section>
 
-                    <Message text={message.text} clearMessage={clearMessage} status={message.status}/>
-
-
-                    {!search && (
-                        <main className={styles['result-layout']}>
-
-                            {loading ? (
-                                <p></p>
-                            ) : data.length > 0 ? (
-                                data.map((data) => (
-                                    <Card
-                                        tvGenres={tvGenre}
-                                        movieGenres={movieGenre}
-                                        genre_ids={data.genre_ids}
-                                        disableDelete={true}
-                                        overview={data?.overview}
-                                        key={data?.id}
-                                        id={data?.id}
-                                        media_type={data?.media_type}
-                                        title={data?.title}
-                                        popularity={data?.popularity}
-                                        know_for={data?.known_for_department}
-                                        profile_path={`https://image.tmdb.org/t/p/original${data?.profile_path}`}
-                                        release_date={data?.release_date}
-                                        first_air_date={data?.first_air_date}
-                                        vote_average={data?.vote_average}
-                                        backdrop_path={data?.backdrop_path
-                                            ? `https://image.tmdb.org/t/p/original${data.backdrop_path}` :
-                                            poster }
-                                        poster_path={data?.poster_path
-                                            ? `https://image.tmdb.org/t/p/original${data.poster_path}` : poster}
-                                        original_name={data?.name}
-                                    />
-                                ))
-                            ) : search && <p></p>}
-                        </main>
-                    )}
-
-                    <nav className={styles['button-layout']}>
-                        {next > 1 &&
-                            <Button onClick={prevPage} variant='primaryBtn' size='large' label='prev'/>}
-                        {next < pages &&
-                            <Button onClick={nextPage} variant='primaryBtn' size='large' label='next'/>}
-                    </nav>
+                            <Message text={message.text} clearMessage={clearMessage} status={message.status}/>
 
 
+                            {!search && (
+                                <main className={styles['result-layout']}>
+
+                                    {loading ? (
+                                        <p></p>
+                                    ) : data.length > 0 ? (
+                                        data.map((data) => (
+                                            <Card
+                                                tvGenres={tvGenre}
+                                                movieGenres={movieGenre}
+                                                genre_ids={data.genre_ids}
+                                                disableDelete={true}
+                                                overview={data?.overview}
+                                                key={data?.id}
+                                                id={data?.id}
+                                                media_type={data?.media_type}
+                                                title={data?.title}
+                                                popularity={data?.popularity}
+                                                know_for={data?.known_for_department}
+                                                profile_path={`https://image.tmdb.org/t/p/original${data?.profile_path}`}
+                                                release_date={data?.release_date}
+                                                first_air_date={data?.first_air_date}
+                                                vote_average={data?.vote_average}
+                                                backdrop_path={data?.backdrop_path
+                                                    ? `https://image.tmdb.org/t/p/original${data.backdrop_path}` :
+                                                    poster}
+                                                poster_path={data?.poster_path
+                                                    ? `https://image.tmdb.org/t/p/original${data.poster_path}` : poster}
+                                                original_name={data?.name}
+                                            />
+                                        ))
+                                    ) : search && <p></p>}
+                                </main>
+                            )}
+
+                            <nav className={styles['button-layout']}>
+                                {next > 1 &&
+                                    <Button onClick={prevPage} variant='primaryBtn' size='large' label='prev'/>}
+                                {next < pages &&
+                                    <Button onClick={nextPage} variant='primaryBtn' size='large' label='next'/>}
+                            </nav>
 
 
-
-                </div>
-            </div>
-        </>
-    )
-}
+                        </div>
+                    </div>
+                </>
+            )
+        }
 
 export default Discover;
