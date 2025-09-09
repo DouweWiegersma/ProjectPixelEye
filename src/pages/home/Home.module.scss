@@ -93,6 +93,7 @@
 // Title movie
 .movie-title{
   font-size: 2.5rem;
+
 }
 
 // Rating movie
@@ -203,6 +204,14 @@
     overflow: auto;
     margin: 20px;
     scrollbar-width: none;
+  }
+  .movie-title{
+    font-size: 1.5rem;
+  }
+
+  // Rating movie
+  .movie-rating{
+    font-size: 1rem;
   }
 
 }
