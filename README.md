@@ -5,6 +5,7 @@
 De applicatie biedt functies zoals zoeken, filteren, inloggen, en het beheren van favoriete films.  
 Deze app is ontwikkeld als eindopdracht voor een front-end development opleiding en maakt gebruik van moderne tools zoals Axios, React Router, Formik, en SCSS.
 
+**Website url: www.pixel-eye.nl**
 # Home Pagina (Screenshot)
 ![Home](./screenshots/home.png)
 
@@ -28,18 +29,25 @@ Deze app is ontwikkeld als eindopdracht voor een front-end development opleiding
 # Installatie
 
 1. **Clone de repository**
-git clone https://github.com/DouweWiegersma/EindopdrachtPixelEye.git
+git clone https://github.com/DouweWiegersma/ProjectPixelEye
 cd EindopdrachtPixelEye
 
 Of download de ZIP en pak deze uit
 
 2. **Installeer de dependencies**
+
     npm install
-
 3. **Start de applicatie in ontwikkelmodus**
-    Npm run dev
 
-4. **Maak een .env bestand in de hoofdmap**
+    npm run dev
+4. **Productieversie maken**
+
+    npm run build
+5. **Productieversie testen**
+
+    npm run preview
+6. **Maak een .env bestand in de hoofdmap**
+
     Voeg de volgende api toe in dit bestand:    VITE_TMDB_API_KEY=c2c758e2270baddd995d27f09e537c10
 
 Herstart daarna de ontwikkelserver als deze al draaide
